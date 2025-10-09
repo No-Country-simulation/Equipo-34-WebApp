@@ -1,9 +1,12 @@
-FROM bun:1.2.23
+FROM oven/bun:1.2.23
 
-RUN mkdir -p /home/app
+COPY package.json ./
+COPY bun.lockb ./   
+COPY tsconfig.json ./
+COPY src ./src/
 
-COPY . /home/app
+RUN bun install
 
-EXPOSE 3001 
+EXPOSE 3001
 
-CMD["BUN", "/home/app/server.ts"]
+CMD ["bun", "--watch", "src/server.ts"]
