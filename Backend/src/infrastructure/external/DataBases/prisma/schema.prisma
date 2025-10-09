@@ -15,29 +15,43 @@ datasource db {
 }
 
 model user{
-    id                  String @id
+    id                  String @id @default(uuid())
     correo              String
     name                String
     last_name           String
     password            String
     phone               String
     emergency_contact   String?
+    two_factor_auth     DateTime?
     role_id             Int
     role                Role @relation(fields:[role_id], references:[id])
+    created_at          DateTime
+    updatep_at          DateTime
 }
 
 model Role{
-    id                  Int @id @default(autoincrement())
-    role_name           Role_name @default(client)
-    users               user[]
+  id                  Int @id @default(autoincrement())
+  role_name           String 
+  users               user[]
+  description         String
+  permissions_id      Int 
+  permission          Permission @relation(fields: [permissions_id], references: [id])
+  created_at          DateTime
 }
 
-enum Role_name {
-    admin
-    client
-    patient
-    doctor
-    nurse
-    manager
-    receptionist
+model Permission{
+  id                  Int @id @default(autoincrement())
+  name                String
+  roles               Role[]
+  description         String
 }
+
+// enum Role_name {
+//     admin
+//     client
+//     patient
+//     doctor
+//     nurse
+//     manager
+//     receptionist
+// }
