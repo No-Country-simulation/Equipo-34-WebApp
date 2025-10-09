@@ -38,4 +38,4 @@ bun.lock
 package-lock.json
 
 #Prisma
-/generated/prisma
+src/infrastructure/external/DataBases/generated/prisma
