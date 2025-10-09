@@ -13,3 +13,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model user{
+    id                  String @id
+    correo              String
+    name                String
+    last_name           String
+    password            String
+    phone               String
+    emergency_contact   String?
+    role_id             Int
+    role                Role @relation(fields:[role_id], references:[id])
+}
+
+model Role{
+    id                  Int @id @default(autoincrement())
+    role_name           Role_name @default(client)
+    users               user[]
+}
+
+enum Role_name {
+    admin
+    client
+    patient
+    doctor
+    nurse
+    manager
+    receptionist
+}
