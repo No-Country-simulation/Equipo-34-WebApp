@@ -26,7 +26,7 @@ model user{
     role_id             Int
     role                Role @relation(fields:[role_id], references:[id])
     created_at          DateTime
-    updatep_at          DateTime
+    updated_at          DateTime
 }
 
 model Role{
