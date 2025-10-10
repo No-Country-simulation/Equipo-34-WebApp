@@ -12,7 +12,7 @@ export class get_users_use_case {
   async run(): Promise<User[] | null> {
     const users = await this.repository.get_users();
 
-    if (!users) {
+    if (users.length == 0) {
       throw new no_users_registered();
     }
 

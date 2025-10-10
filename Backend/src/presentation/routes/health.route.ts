@@ -1,5 +1,5 @@
 import express, { type Request, type Response } from "express";
-import { server_health } from "../controllers/health.controller.ts";
+import { server_health } from "../controllers/health/health.controller.ts";
 
 const health_router = express.Router();
 
