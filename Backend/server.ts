@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { cors_options } from "./src/infrastructure/config/cors.config";
 import index_router from "./src/presentation/routes/index.route";
 import not_found_handler from "./src/presentation/middleware/server/404-handler.middleware";
+import error_handler from "./src/presentation/middleware/server/error-handler.middleware";
 
 const server = express();
 
@@ -22,3 +23,4 @@ server.listen(PORT, () => {
 });
 
 server.use(not_found_handler);
+server.use(error_handler);
