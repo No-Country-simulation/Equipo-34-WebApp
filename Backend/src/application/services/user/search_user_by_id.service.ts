@@ -1,5 +1,4 @@
-import type { User } from "../../../domain/entities/user.entity";
-import type { user_repository } from "../../../domain/repositories/user";
+import type { user_repository } from "../../../domain/repositories/user/user.repository";
 
 export class search_user_by_id_service {
   private readonly repository: user_repository;
@@ -8,9 +7,13 @@ export class search_user_by_id_service {
     this.repository = repository_injection;
   }
 
-  async run(id: string): Promise<User | null> {
+  async run(id: string): Promise<boolean> {
     const user = await this.repository.search_user_by_ID(id);
 
-    return user;
+    if (!user) {
+      return false;
+    }
+
+    return true;
   }
 }

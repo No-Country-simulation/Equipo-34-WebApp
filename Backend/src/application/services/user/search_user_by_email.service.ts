@@ -1,5 +1,4 @@
-import type { User } from "../../../domain/entities/user.entity";
-import type { user_repository } from "../../../domain/repositories/user";
+import type { user_repository } from "../../../domain/repositories/user/user.repository";
 
 export class search_user {
   private readonly repository: user_repository;
@@ -9,7 +8,12 @@ export class search_user {
   }
 
   async run(email: string) {
-    const user: User = await this.repository.search_user_by_email(email);
-    return user;
+    const user = await this.repository.search_user_by_email(email);
+
+    if (!user) {
+      return false;
+    }
+
+    return true;
   }
 }
