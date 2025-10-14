@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { auth_repository_implemented } from "../../../infrastructure/repositories/user/auth.repository";
+import { auth_repository_implemented } from "../../../infrastructure/repositories/auth/auth.repository";
 import { user_repository_implemented } from "../../../infrastructure/repositories/user/user.repository";
 import { register_user_use_case } from "../../../application/use-cases/auth/register_user.use-case";
 import type { register_user_dto } from "../../../application/dto/auth.dto";
@@ -22,16 +22,16 @@ const register_user_controller = async (
     const user_created = await register_user.run(new_user);
     res.status(200).json({
       status: 200,
-      data: user_created,
       message: "User created succesfully",
+      data: user_created,
     });
     return;
   } catch (error) {
     if (error instanceof user_already_exist_exception) {
-      res.status(404).json({
-        status: 404,
+      res.status(400).json({
+        status: 400,
         message: "User Already Exist",
-        error: "Trying to create an user which already exist",
+        error: "Bad Request",
       });
       return;
     }

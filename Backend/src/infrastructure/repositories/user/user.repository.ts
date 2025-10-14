@@ -1,5 +1,5 @@
 import type { User } from "../../../domain/entities/user.entity";
-import type { user_repository } from "../../../domain/repositories/user";
+import type { user_repository } from "../../../domain/repositories/user/user.repository";
 import Prisma from "../../config/DataBases/prisma.config";
 
 export class user_repository_implemented implements user_repository {
@@ -13,7 +13,7 @@ export class user_repository_implemented implements user_repository {
   }
 
   async search_user_by_ID(id: string): Promise<User | null> {
-    const user = await Prisma.user.findFirst({
+    const user: User | null = await Prisma.user.findFirst({
       where: {
         id: id,
       },
@@ -31,13 +31,5 @@ export class user_repository_implemented implements user_repository {
       include: { role: true },
     });
     return user;
-  }
-
-  async delete_user(id: string): Promise<null> {
-    await Prisma.user.delete({
-      where: { id: id },
-    });
-
-    return null;
   }
 }

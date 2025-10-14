@@ -38,4 +38,12 @@ export class auth_repository_implemented implements auth_repository {
     });
     return user;
   }
+
+  async delete_user(email: string): Promise<null> {
+    await Prisma.user.delete({
+      where: { email: email },
+    });
+
+    return null;
+  }
 }

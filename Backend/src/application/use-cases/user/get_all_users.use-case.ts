@@ -1,6 +1,6 @@
 import type { User } from "../../../domain/entities/user.entity";
 import { no_users_registered } from "../../../domain/exceptions/user/no_users_registered.exception";
-import type { user_repository } from "../../../domain/repositories/user";
+import type { user_repository } from "../../../domain/repositories/user/user.repository";
 
 export class get_users_use_case {
   private readonly repository: user_repository;
