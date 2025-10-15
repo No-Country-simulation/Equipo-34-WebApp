@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch server.ts"
+    "dev": "bun --watch server.ts",
+    "docs": "bun tsoa spec-and-routes"
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
@@ -36,6 +37,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "prisma": "^6.17.0",
+    "tsoa": "^6.6.0",
     "uuid": "^13.0.0"
   },
   "prisma": {

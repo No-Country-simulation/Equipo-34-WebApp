@@ -1,0 +1,22 @@
+{
+  "entryFile": "server.ts",
+  "controllerPathGlobs": ["src/presentation/controllers/**/*.controller.ts"],
+  "spec": {
+    "outputDirectory": "src/infrastructure/external/Docs",
+    "specVersion": 3,
+    "spec": {
+      "info": {
+        "title": "Healthtech App",
+        "description": "Healthtech App's Documentation",
+        "version": "1.0.0",
+        "contact": {
+          "name": "Moises Armando Heredia",
+          "email": "moisarm03@gmail.com"
+        }
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "src/presentation/routes"
+  }
+}

@@ -1,8 +1,13 @@
-import { scalar_specs } from "./scalar-specs.config";
+import path from "path";
+import fs from "fs";
+
+const swaggerPath = path.join(__dirname, "../../external/Docs/swagger.json");
+const swaggerContent = JSON.parse(fs.readFileSync(swaggerPath, "utf-8"));
 
 export const scalar_config = {
   spec: {
-    content: scalar_specs,
+    url: "/swagger.json",
+    content: swaggerContent,
   },
   theme: "purple" as const,
   layout: "modern" as const,

@@ -15,7 +15,7 @@ export const scalar_specs = {
   },
   servers: [
     {
-      url: `http://localhost:${process.env.PORT}`,
+      url: `http://localhost:${process.env.PORT || 3001}`,
       description: "Local Server",
     },
   ],
