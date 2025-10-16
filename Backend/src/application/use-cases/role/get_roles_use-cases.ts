@@ -1,4 +1,3 @@
-import type { Role } from "../../../domain/entities/role.entity";
 import { no_roles_registered_exception } from "../../../domain/exceptions/role/no_roles_registered.exception";
 import type { role_repository } from "../../../domain/repositories/role/role.repository";
 
@@ -9,10 +8,10 @@ export class get_roles_use_case {
     this.repository = repository_injection;
   }
 
-  async run(): Promise<Role[] | null> {
-    const users = await this.repository.get_roles();
+  async run(page: number, limit: number) {
+    const users = await this.repository.get_roles(page, limit);
 
-    if (users.length == 0) {
+    if (users.data.length == 0) {
       throw new no_roles_registered_exception();
     }
 

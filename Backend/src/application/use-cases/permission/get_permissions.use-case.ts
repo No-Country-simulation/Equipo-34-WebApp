@@ -7,10 +7,10 @@ export class get_permissions_use_case {
     this.repository = repository_injection;
   }
 
-  async run() {
-    const permissions = await this.repository.get_permissions();
+  async run(page: number, limit: number) {
+    const permissions = await this.repository.get_permissions(page, limit);
 
-    if (permissions.length == 0) {
+    if (permissions.data.length == 0) {
       throw new no_permissions_registered_exception();
     }
 

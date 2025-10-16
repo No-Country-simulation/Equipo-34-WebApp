@@ -1,3 +1,4 @@
+import type { Pagination } from "../../../application/dto/pagination.dto";
 import type { create_permission_dto } from "../../../application/dto/permissions.dto";
 import type { permission_repository } from "../../../domain/repositories/permission/permission.repository";
 import Prisma from "../../config/DataBases/prisma.config";
@@ -6,11 +7,31 @@ import type { Permission } from "../../external/DataBases/generated/prisma";
 export class permission_repository_implemented
   implements permission_repository
 {
-  async get_permissions(): Promise<Permission[]> {
+  async get_permissions(
+    page: number,
+    limit: number
+  ): Promise<{ data: Permission[]; pagination: Pagination }> {
+    const skip = (page - 1) * limit;
+    const total = await Prisma.permission.count();
+
     const permissions = await Prisma.permission.findMany({
+      skip,
+      take: limit,
       include: { roles: true },
     });
-    return permissions;
+
+    const total_pages = Math.ceil(total / limit);
+    return {
+      data: permissions,
+      pagination: {
+        total,
+        page,
+        limit,
+        total_pages,
+        hasNextPage: page < total_pages,
+        hasPrevPage: page > 1,
+      },
+    };
   }
 
   async create_permission(

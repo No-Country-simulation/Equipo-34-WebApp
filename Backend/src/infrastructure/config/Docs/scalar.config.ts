@@ -9,7 +9,7 @@ export const scalar_config = {
     url: "/swagger.json",
     content: swaggerContent,
   },
-  theme: "purple" as const,
+  theme: "deepSpace" as const,
   layout: "modern" as const,
   metadata: {
     title: "Api documentation",

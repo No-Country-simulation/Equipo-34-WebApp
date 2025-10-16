@@ -15,7 +15,7 @@ export class update_permission_use_case {
   async run(permission_id: number, permission_data: create_permission_dto) {
     const existing_permission = await this.exist_permission.run(permission_id);
 
-    if (existing_permission) {
+    if (!existing_permission) {
       throw new permission_not_found_exception();
     }
 

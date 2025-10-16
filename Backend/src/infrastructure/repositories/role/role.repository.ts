@@ -1,3 +1,4 @@
+import type { Pagination } from "../../../application/dto/pagination.dto";
 import type {
   create_role_dto,
   update_role_dto,
@@ -7,11 +8,31 @@ import type { role_repository } from "../../../domain/repositories/role/role.rep
 import Prisma from "../../config/DataBases/prisma.config";
 
 export class role_repository_implemented implements role_repository {
-  async get_roles(): Promise<Role[]> {
+  async get_roles(
+    page: number,
+    limit: number
+  ): Promise<{ data: Role[]; pagination: Pagination }> {
+    const skip = (page - 1) * limit;
+    const total = await Prisma.role.count();
+    const total_pages = Math.ceil(total / limit);
+
     const roles = await Prisma.role.findMany({
+      skip,
+      take: limit,
       include: { users: true },
     });
-    return roles;
+
+    return {
+      data: roles,
+      pagination: {
+        total,
+        page,
+        limit,
+        total_pages,
+        hasNextPage: page < total_pages,
+        hasPrevPage: page > 1,
+      },
+    };
   }
 
   async create_role(role_data: create_role_dto): Promise<Role> {
