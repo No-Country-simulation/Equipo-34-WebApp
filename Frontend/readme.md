@@ -1,1 +1,0 @@
-Frontend para Healthtech simulation
