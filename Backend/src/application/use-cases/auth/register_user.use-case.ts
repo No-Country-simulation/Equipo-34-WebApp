@@ -3,6 +3,7 @@ import type { auth_repository } from "../../../domain/repositories/auth/auth.rep
 import type { user_repository } from "../../../domain/repositories/user/user.repository";
 import type { register_user_dto } from "../../dto/auth.dto";
 import { hash_password_service } from "../../services/auth/hash_password.service";
+import { confirm_register } from "../../services/email/confirm-register.service";
 import { search_user } from "../../services/user/search_user_by_email.service";
 
 export class register_user_use_case {
@@ -21,6 +22,7 @@ export class register_user_use_case {
 
   async run(user_data: register_user_dto) {
     const exist_user = await this.exist_user.run(user_data.email);
+    const email = new confirm_register(user_data.email);
 
     if (exist_user) {
       throw new user_already_exist_exception();
@@ -29,11 +31,12 @@ export class register_user_use_case {
     const hasher = new hash_password_service(user_data.password);
     const hashed_password = await hasher.run();
 
+    const response = await email.run();
     const new_user = await this.repository.register({
       ...user_data,
       password: hashed_password,
     });
 
-    return new_user;
+    return { new_user, response };
   }
 }
