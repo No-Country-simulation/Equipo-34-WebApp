@@ -9,6 +9,7 @@ import {
   SuccessResponse,
 } from "tsoa";
 import type {
+  log_user_dto,
   register_user_dto,
   update_user_dto,
 } from "../../../application/dto/auth.dto";
@@ -19,6 +20,10 @@ import { user_already_exist_exception } from "../../../domain/exceptions/auth/us
 import { update_user_use_case } from "../../../application/use-cases/auth/update_user.use-case";
 import { user_not_found } from "../../../domain/exceptions/user/not-found.exception";
 import { delete_user_use_case } from "../../../application/use-cases/auth/delete_user.use-case";
+import { login_use_case } from "../../../application/use-cases/auth/login.use-case";
+import type { User } from "../../../domain/entities/user.entity";
+import { Token } from "../../../infrastructure/external/Utils/jwt.util";
+import { wrong_password_exception } from "../../../domain/exceptions/auth/wrong_password.exception";
 
 @Route("auth")
 export class auth_controller extends Controller {
@@ -48,6 +53,55 @@ export class auth_controller extends Controller {
         };
       }
 
+      throw error;
+    }
+  }
+
+  @Post("/login")
+  @SuccessResponse("200", `welcome user`)
+  async login(@Body() login_data: log_user_dto) {
+    const use_case = new login_use_case(this.user_repository);
+
+    try {
+      const user = await use_case.login(login_data);
+
+      const token = Token({
+        name: user.name,
+        email: user.email,
+        role_id: user.role.id,
+      });
+
+      const public_user: Partial<User> = {
+        name: user.name,
+        last_name: user.last_name,
+        email: user.email,
+        role_id: user.role.id,
+      };
+
+      return {
+        status: 200,
+        message: `welcome ${user.email}`,
+        data: {
+          user: public_user,
+          token,
+        },
+      };
+    } catch (error) {
+      if (error instanceof user_not_found) {
+        return {
+          status: 404,
+          message: "User",
+          error: "Not Found",
+        };
+      }
+
+      if (error instanceof wrong_password_exception) {
+        return {
+          status: 400,
+          message: "Wrong Password",
+          error: "Bad Request",
+        };
+      }
       throw error;
     }
   }
@@ -104,5 +158,14 @@ export class auth_controller extends Controller {
 
       throw error;
     }
+  }
+
+  @Post("logout")
+  @SuccessResponse("200", "Session Closed")
+  logout() {
+    return {
+      status: 200,
+      message: "Session closed",
+    };
   }
 }

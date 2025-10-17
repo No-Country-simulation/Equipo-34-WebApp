@@ -5,7 +5,7 @@ const SECRET = process.env.SECRET || "ljhlfjdghjdfgdjgfhfdjkn13213213";
 interface Payload {
   name: string;
   email: string;
-  role: string;
+  role_id: number;
 }
 
 export const Token = (payload: Payload): string => {

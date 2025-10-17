@@ -11,9 +11,9 @@ import { scalar_middleware } from "./src/presentation/middleware/Docs/scalar.mid
 const server = express();
 
 server.use(express.json());
+server.use(cookieParser());
 server.use(cors(cors_options));
 server.use(morgan("tiny"));
-server.use(cookieParser());
 
 const PORT = process.env.PORT || 3001;
 

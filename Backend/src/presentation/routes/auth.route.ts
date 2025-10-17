@@ -5,6 +5,7 @@ import express, {
 } from "express";
 import { auth_controller } from "../controllers/auth/auth.controller";
 import type {
+  log_user_dto,
   register_user_dto,
   update_user_dto,
 } from "../../application/dto/auth.dto";
@@ -20,6 +21,26 @@ auth_router.post(
     try {
       const response = await controller.register(user_data);
       res.status(response.status).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+auth_router.post(
+  "/login",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const login_data: log_user_dto = req.body;
+
+    try {
+      const response = await controller.login(login_data);
+
+      //Generate cookie
+      if (response.data?.token) {
+        res.cookie("Access-Token", response.data.token, {
+          httpOnly: true,
+        });
+        res.status(response.status).json(response);
+      }
     } catch (error) {
       next(error);
     }
@@ -52,5 +73,13 @@ auth_router.delete(
     }
   }
 );
+auth_router.post("/logout", async (req: Request, res: Response) => {
+  res.clearCookie("Access-Token", {
+    httpOnly: true,
+  });
+
+  const response = controller.logout();
+  res.status(response.status).json(response);
+});
 
 export default auth_router;
