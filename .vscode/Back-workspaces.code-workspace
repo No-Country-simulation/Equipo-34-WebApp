@@ -1,0 +1,12 @@
+{
+  "folders": [
+		{
+		  "name": "🎨 Design",
+		  "path": "../Design"
+		},
+		{
+		  "name": "🎚️ Backend",
+		  "path": "../Backend"
+		}
+  ]
+}

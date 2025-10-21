@@ -1,0 +1,43 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v11/terminal-keeper.json",
+  "theme": "chaos",
+  "active": "DcDevTerm",
+  "noClear": true,
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      {
+        "name": "projecs",
+        "autoExecuteCommands": true,
+        "icon": "project",
+        "color": "terminal.ansiBlue",
+        "commands": [
+          "clear"
+        ]
+      }
+    ],
+    "DcDevTerm": [
+      [
+        {
+          "name": "Client",
+          "autoExecuteCommands": true,
+          "icon": "preview",
+          "color": "terminal.ansiYellow",
+          "commands": [
+            "cd frontend && npm run dev"
+          ]
+        },
+        {
+          "name": "Library",
+          "autoExecuteCommands": true,
+          "icon": "library",
+          "color": "terminal.ansiMagenta",
+          "commands": [
+            "cd frontend && npm list"
+          ]
+        }
+      ]
+    ]
+  }
+}
