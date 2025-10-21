@@ -1,0 +1,280 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   🧪 CÓMO PROBAR LOS MOCKS - GUÍA RÁPIDA                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════
+ ⚡ PASO 1: PREPARACIÓN
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  Instala MSW (si no lo tienes):
+    npm install msw
+
+2️⃣  Actualiza app/layout.tsx con MSWProvider:
+
+    import MSWProvider from '@/mocks/providers/MSWProvider';
+
+    export default function RootLayout({ children }) {
+      return (
+        <html>
+          <body>
+            <MSWProvider>
+              {children}
+            </MSWProvider>
+          </body>
+        </html>
+      );
+    }
+
+3️⃣  Inicia el servidor:
+    npm run dev
+
+4️⃣  Verifica en console (F12):
+    ✅ MSW iniciado correctamente
+
+═══════════════════════════════════════════════════════════════════════════
+ 🌐 MÉTODO 1: DESDE EL NAVEGADOR (DevTools Console)
+═══════════════════════════════════════════════════════════════════════════
+
+PASO 1: Abre http://localhost:3000
+PASO 2: Presiona F12 → Console
+PASO 3: Copia y pega este código:
+
+fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    email: 'paciente@clinic.com',
+    password: 'password123'
+  })
+})
+.then(r => r.json())
+.then(data => {
+  console.log('✅ Éxito:', data);
+  localStorage.setItem('token', data.token);
+})
+.catch(e => console.error('❌ Error:', e));
+
+ESPERA: Verás la respuesta en console con el token y usuario
+
+RESULTADO ESPERADO:
+{
+  "token": "eyJhbGc...",
+  "user": {
+    "id": "user-paciente-001",
+    "email": "paciente@clinic.com",
+    "name": "Juan",
+    "role": "paciente",
+    ...
+  }
+}
+
+═══════════════════════════════════════════════════════════════════════════
+ 🖥️  MÉTODO 2: CON POWERSHELL (curl)
+═══════════════════════════════════════════════════════════════════════════
+
+ABRE POWERSHELL Y EJECUTA:
+
+curl -X POST "http://localhost:3000/api/auth/login" `
+  -H "Content-Type: application/json" `
+  -d '{
+    "email": "paciente@clinic.com",
+    "password": "password123"
+  }'
+
+RESULTADO ESPERADO (status 200):
+{
+  "token": "eyJhbGc...",
+  "user": {...}
+}
+
+PROBAR DIFERENTES USUARIOS:
+
+Médico:
+curl -X POST "http://localhost:3000/api/auth/login" `
+  -H "Content-Type: application/json" `
+  -d '{"email":"medico@clinic.com","password":"password123"}'
+
+Admin:
+curl -X POST "http://localhost:3000/api/auth/login" `
+  -H "Content-Type: application/json" `
+  -d '{"email":"admin@clinic.com","password":"password123"}'
+
+ERROR - Contraseña incorrecta (status 401):
+curl -X POST "http://localhost:3000/api/auth/login" `
+  -H "Content-Type: application/json" `
+  -d '{"email":"paciente@clinic.com","password":"wrongpassword"}'
+
+═══════════════════════════════════════════════════════════════════════════
+ 📮 MÉTODO 3: CON POSTMAN
+═══════════════════════════════════════════════════════════════════════════
+
+1. Abre Postman (o descárgalo: https://www.postman.com)
+
+2. Crea nueva request:
+   - Método: POST
+   - URL: http://localhost:3000/api/auth/login
+
+3. Headers:
+   Key: Content-Type
+   Value: application/json
+
+4. Body (raw, JSON):
+   {
+     "email": "paciente@clinic.com",
+     "password": "password123"
+   }
+
+5. Click en "Send"
+
+6. VE LA RESPUESTA EN EL PANEL INFERIOR
+
+═══════════════════════════════════════════════════════════════════════════
+ 🎯 MÉTODO 4: PÁGINA DE PRUEBA INTERACTIVA
+═══════════════════════════════════════════════════════════════════════════
+
+CREAR: app/test-login/page.tsx
+
+Copia el contenido de: COMO_PROBAR_MOCKS.md (sección Método 4)
+
+LUEGO:
+1. npm run dev
+2. Abre http://localhost:3000/test-login
+3. Haz click en los botones (Paciente, Médico, Admin)
+4. Ve las respuestas en tiempo real
+5. ¡Perfecto para testing iterativo!
+
+═══════════════════════════════════════════════════════════════════════════
+ 👥 USUARIOS DE PRUEBA
+═══════════════════════════════════════════════════════════════════════════
+
+TODOS USAN: password123
+
+│ Rol     │ Email                 │ Password    │
+├─────────┼───────────────────────┼─────────────┤
+│ 👤 Pac  │ paciente@clinic.com   │ password123 │
+│ 👨‍⚕️ Med  │ medico@clinic.com     │ password123 │
+│ 🔐 Ad   │ admin@clinic.com      │ password123 │
+
+═══════════════════════════════════════════════════════════════════════════
+ ✅ CASOS DE PRUEBA
+═══════════════════════════════════════════════════════════════════════════
+
+TEST 1: Login válido - Paciente
+├─ Email: paciente@clinic.com
+├─ Password: password123
+└─ Resultado: ✅ 200 OK + token + user
+
+TEST 2: Login válido - Médico
+├─ Email: medico@clinic.com
+├─ Password: password123
+└─ Resultado: ✅ 200 OK + token + user con role="medico"
+
+TEST 3: Login válido - Admin
+├─ Email: admin@clinic.com
+├─ Password: password123
+└─ Resultado: ✅ 200 OK + token + user con role="admin"
+
+TEST 4: Contraseña incorrecta
+├─ Email: paciente@clinic.com
+├─ Password: wrongpassword
+└─ Resultado: ❌ 401 UNAUTHORIZED + error "Contraseña incorrecta"
+
+TEST 5: Usuario no existe
+├─ Email: noexiste@clinic.com
+├─ Password: password123
+└─ Resultado: ❌ 404 NOT FOUND + error "Usuario no encontrado"
+
+TEST 6: Email vacío
+├─ Email: (vacío)
+├─ Password: password123
+└─ Resultado: ❌ 400 BAD REQUEST + error
+
+═══════════════════════════════════════════════════════════════════════════
+ 🔍 VERIFICAR QUE FUNCIONA
+═══════════════════════════════════════════════════════════════════════════
+
+1. Abre DevTools (F12)
+
+2. Tab "Console":
+   ✅ Debe mostrar: "✅ MSW iniciado correctamente"
+
+3. Tab "Network":
+   ✅ Ejecuta un fetch a /api/auth/login
+   ✅ Debe mostrar status 200 (o 401/404 si error)
+   ✅ Response debe tener "token" y "user"
+
+4. Tab "Storage":
+   ✅ Tras login exitoso, verifica localStorage:
+      - token: eyJhbGc...
+      - user: {"id":"...","email":"paciente@clinic.com",...}
+
+═══════════════════════════════════════════════════════════════════════════
+ ❌ TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+PROBLEMA: Console dice "❌ Error iniciando MSW"
+SOLUCIÓN:
+  1. Verifica que MSWProvider está en app/layout.tsx
+  2. Verifica que mockServiceWorker.js existe en public/
+  3. Reinstala: npm install msw
+
+PROBLEMA: Las requests no se interceptan
+SOLUCIÓN:
+  1. Reinicia servidor: Ctrl+C y npm run dev
+  2. Limpia cache: Ctrl+Shift+R (hard refresh)
+  3. Verifica que endpoint está en src/mocks/handlers/auth.ts
+  4. Verifica que handlers.ts importa authHandlers
+
+PROBLEMA: Token = null o indefinido
+SOLUCIÓN:
+  1. Verifica que login retorna status 200
+  2. Verifica que response.json() tiene "token"
+  3. Revisa Network tab para ver respuesta completa
+
+═══════════════════════════════════════════════════════════════════════════
+ 💾 GUARDAR TOKEN Y USUARIO
+═══════════════════════════════════════════════════════════════════════════
+
+DESPUÉS DE LOGIN EXITOSO:
+
+localStorage.setItem('token', response.token);
+localStorage.setItem('user', JSON.stringify(response.user));
+
+VERIFICAR:
+console.log(localStorage.getItem('token'));
+console.log(JSON.parse(localStorage.getItem('user')));
+
+═══════════════════════════════════════════════════════════════════════════
+ 📚 ARCHIVOS DE REFERENCIA
+═══════════════════════════════════════════════════════════════════════════
+
+📖 COMO_PROBAR_MOCKS.md
+   └─ Guía completa con todos los métodos
+
+📖 src/mocks/README.md
+   └─ Documentación de los mocks
+
+📖 MSW_SETUP_COMPLETE.txt
+   └─ Resumen de lo que se creó
+
+📂 src/features/auth/components/LoginForm.example.tsx
+   └─ Componente ejemplo funcional
+
+═══════════════════════════════════════════════════════════════════════════
+ 🚀 FLUJO COMPLETO DE TESTING
+═══════════════════════════════════════════════════════════════════════════
+
+1. npm install msw
+2. Actualiza app/layout.tsx con MSWProvider
+3. npm run dev
+4. Abre DevTools Console
+5. Ejecuta fetch de login
+6. Verifica respuesta
+7. Verifica localStorage
+8. ¡LISTO! 🎉
+
+═══════════════════════════════════════════════════════════════════════════
+
+                    ¿NECESITAS AYUDA? LEE COMO_PROBAR_MOCKS.md
+
+═══════════════════════════════════════════════════════════════════════════
