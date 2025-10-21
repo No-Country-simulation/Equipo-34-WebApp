@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import MSWProvider from '@/mocks/providers/MSWProvider';
+import AuthProvider from '@/shared/providers/AuthProvider';
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
+import { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +17,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
-  title: { default: 'Clinica NC', template: '%s | Clinica NC' },
+  title: { default: '🏥 Clínica NC', template: '%s | 🏥 Clínica NC' },
   description: 'Healthcare web application built with Next.js and Clean Architecture',
+  icons: {
+    icon: [
+      {
+        url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🏥</text></svg>',
+        type: 'image/svg+xml',
+      },
+    ],
+  },
   alternates: {
     canonical: 'https://example.com',
     languages: {
@@ -24,25 +35,29 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
-    title: 'Clinica NC',
+    title: '🏥 Clínica NC',
     description: 'Healthcare web application built with Next.js and Clean Architecture',
     url: 'https://example.com',
-    siteName: 'Clinica NC site',
-    images: [{ url: 'https://i.imgur.com/ID5uwIJ.png' }]
+    siteName: '🏥 Clínica NC',
+    images: [{ url: 'https://i.imgur.com/0ZBPKyC.png' }]
   },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <MSWProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </MSWProvider>
       </body>
     </html>
   );

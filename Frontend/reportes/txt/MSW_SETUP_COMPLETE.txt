@@ -1,0 +1,208 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                  ✅ MSW MOCKS - SETUP COMPLETADO                            ║
+║           Login funcional para roles: Paciente, Médico, Admin               ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📊 ARCHIVOS CREADOS:
+═══════════════════════════════════════════════════════════════════════════
+
+✅ src/shared/types/auth.types.ts
+   └─ Tipos: User, LoginRequest/Response, UserRole, etc.
+
+✅ src/mocks/data/users.mock.ts
+   └─ 3 usuarios de prueba (paciente, médico, admin)
+   └─ Funciones: getMockUser(), validateMockCredentials()
+
+✅ src/mocks/utils/jwt.mock.ts
+   └─ generateMockToken() - Genera JWT mock
+   └─ decodeMockToken() - Decodifica tokens
+   └─ isMockTokenExpired() - Valida expiración
+
+✅ src/mocks/handlers/auth.ts
+   └─ POST /api/auth/login       (login con rol validation)
+   └─ POST /api/auth/register    (registro de usuarios)
+   └─ POST /api/auth/logout      (cierre de sesión)
+   └─ GET  /api/auth/me          (usuario actual)
+
+✅ src/mocks/handlers/handlers.ts
+   └─ Agregador central de todos los handlers
+
+✅ src/mocks/providers/MSWProvider.tsx
+   └─ Hook React para inicializar MSW en el navegador
+
+✅ src/mocks/README.md
+   └─ Documentación completa con ejemplos
+
+✅ src/features/auth/components/LoginForm.example.tsx
+   └─ Ejemplo de componente usando los mocks
+
+✅ MOCKS_SETUP.md (en la raíz del Frontend)
+   └─ Guía de setup y uso
+
+═══════════════════════════════════════════════════════════════════════════
+
+👥 USUARIOS DE PRUEBA:
+═══════════════════════════════════════════════════════════════════════════
+
+  PACIENTE:
+  ┌─ Email: paciente@clinic.com
+  ├─ Password: password123
+  └─ Rol: paciente
+
+  MÉDICO:
+  ┌─ Email: medico@clinic.com
+  ├─ Password: password123
+  └─ Rol: medico
+
+  ADMIN:
+  ┌─ Email: admin@clinic.com
+  ├─ Password: password123
+  └─ Rol: admin
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔄 ENDPOINTS MOCKADOS:
+═══════════════════════════════════════════════════════════════════════════
+
+  Login:
+  POST /api/auth/login
+  {
+    "email": "paciente@clinic.com",
+    "password": "password123"
+  }
+  ↓
+  Response: { token: "jwt...", user: {...} }
+
+  Register:
+  POST /api/auth/register
+  {
+    "email": "nuevo@clinic.com",
+    "name": "Pedro",
+    "last_name": "García",
+    "password": "password123",
+    "phone": "+34 912345681",
+    "role_id": 1
+  }
+
+  Get Current User:
+  GET /api/auth/me
+  Header: Authorization: Bearer {token}
+
+  Logout:
+  POST /api/auth/logout
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 PRÓXIMOS PASOS:
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  Añadir MSWProvider en app/layout.tsx:
+
+    import MSWProvider from '@/mocks/providers/MSWProvider';
+
+    export default function RootLayout({ children }) {
+      return (
+        <html>
+          <body>
+            <MSWProvider>
+              {children}
+            </MSWProvider>
+          </body>
+        </html>
+      );
+    }
+
+2️⃣  Copiar LoginForm.example.tsx → LoginForm.tsx y adaptarlo
+
+3️⃣  Crear rutas dinámicas por rol:
+    - app/(public)/login/page.tsx
+    - app/(paciente)/dashboard/page.tsx
+    - app/(medico)/agenda/page.tsx
+    - app/(admin)/gestión/page.tsx
+
+4️⃣  Crear AuthContainer.tsx que orqueste todo
+
+5️⃣  Agregar más handlers (appointments, medical-records, etc.)
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTACIÓN:
+═══════════════════════════════════════════════════════════════════════════
+
+  📖 src/mocks/README.md
+     - Guía de uso completa
+     - Ejemplos de código
+     - Testing con MSW
+     - Cómo agregar nuevos handlers
+
+  📖 MOCKS_SETUP.md
+     - Resumen de lo que se creó
+     - Flujo de login
+     - Testear MSW
+
+═══════════════════════════════════════════════════════════════════════════
+
+✨ CARACTERÍSTICAS:
+═══════════════════════════════════════════════════════════════════════════
+
+  ✅ Type-safe - Todo tipado con TypeScript
+  ✅ Validación - Email, contraseña, usuarios
+  ✅ 3 Roles - Paciente, Médico, Admin
+  ✅ Tokens - JWT mock funcionales
+  ✅ Latencia - Simula delay de red
+  ✅ Errores - Respuestas realistas
+  ✅ Documentado - README con ejemplos
+  ✅ Escalable - Fácil agregar nuevos handlers
+  ✅ Clean Architecture - Respeta la arquitectura del proyecto
+  ✅ Listo para Producción - Configuración moderna
+
+═══════════════════════════════════════════════════════════════════════════
+
+🧪 TESTEAR:
+═══════════════════════════════════════════════════════════════════════════
+
+  Con curl:
+  curl -X POST http://localhost:3000/api/auth/login \
+    -H "Content-Type: application/json" \
+    -d '{"email":"paciente@clinic.com","password":"password123"}'
+
+  Con Postman:
+  POST http://localhost:3000/api/auth/login
+  Body: {"email":"paciente@clinic.com","password":"password123"}
+
+  En navegador (DevTools):
+  fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: 'paciente@clinic.com',
+      password: 'password123'
+    })
+  }).then(r => r.json()).then(console.log)
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 TIPS:
+═══════════════════════════════════════════════════════════════════════════
+
+  • MSW solo funciona en desarrollo (NODE_ENV === 'development')
+  • Los tokens mock expiran en 1 hora
+  • Puedes editar usuarios en src/mocks/data/users.mock.ts
+  • Agregar logs con console.warn/error en los handlers
+  • Revisar Network tab en DevTools para ver las interceptaciones
+  • Los handlers retornan respuestas realistas con delays
+
+═══════════════════════════════════════════════════════════════════════════
+
+¿PREGUNTAS?
+═══════════════════════════════════════════════════════════════════════════
+
+  Revisa los comentarios en los archivos .ts
+  Lee src/mocks/README.md para ejemplos detallados
+  Ve MOCKS_SETUP.md para más información
+
+═══════════════════════════════════════════════════════════════════════════
+
+                            🎉 ¡LISTO PARA USAR!
+
+═══════════════════════════════════════════════════════════════════════════

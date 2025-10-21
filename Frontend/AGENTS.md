@@ -301,129 +301,105 @@ export function withRoleGuard(allowedRoles: string[]) {
 
 ---
 
-## 🔄 Flujo de Desarrollo (Paso a Paso)
+## ��️ Herramientas de Desarrollo
 
-### Para agregar una nueva feature:
+### ESLint + Prettier
 
-1. **Crear estructura base**
-   ```bash
-   mkdir -p src/features/[feature-name]/{domain,use-cases,adapters,services,components}
-   ```
+**Configuración en proyecto base** ✅
 
-2. **Definir entidades y reglas** (`domain/`)
-   ```typescript
-   // features/appointments/domain/AppointmentEntity.ts
-   export class AppointmentEntity {
-     constructor(
-       public id: string,
-       public date: Date,
-       public doctorId: string
-     ) {}
+\\\ash
+# Ejecutar linter
+npm run lint
 
-     isValid(): boolean {
-       return this.date > new Date();
-     }
-   }
-   ```
+# Formatear código
+npm run format
 
-3. **Crear casos de uso** (`use-cases/`)
-   ```typescript
-   // features/appointments/use-cases/create-appointment.use-case.ts
-   export async function createAppointmentUseCase(data: CreateAppointmentDTO) {
-     const entity = new AppointmentEntity(data.id, data.date, data.doctorId);
-     if (!entity.isValid()) throw new InvalidAppointmentError();
-     return await appointmentsService.create(entity);
-   }
-   ```
+# ESLint auto-fix
+npm run lint:fix
+\\\
 
-4. **Mapear API ↔ Dominio** (`adapters/`)
-   ```typescript
-   // features/appointments/adapters/appointments.adapter.ts
-   export function appointmentApiToDomain(apiData: AppointmentAPI): AppointmentEntity {
-     return new AppointmentEntity(apiData.id, new Date(apiData.date), apiData.doctor_id);
-   }
-   ```
-
-5. **Comunicar con backend** (`services/`)
-   ```typescript
-   // features/appointments/services/appointments.service.ts
-   export async function create(entity: AppointmentEntity) {
-     const response = await fetch(`${API_URL}/appointments`, {
-       method: 'POST',
-       body: JSON.stringify(entity),
-     });
-     return response.json();
-   }
-   ```
-
-6. **Construir contenedor** (orquestador)
-   ```typescript
-   // features/appointments/AppointmentsContainer.tsx
-   export function AppointmentsContainer() {
-     const [appointments, setAppointments] = useState<AppointmentEntity[]>([]);
-
-     const handleCreate = async (data: CreateAppointmentDTO) => {
-       const result = await createAppointmentUseCase(data);
-       setAppointments([...appointments, result]);
-     };
-
-     return <AppointmentsView onCreateAppointment={handleCreate} />;
-   }
-   ```
-
-7. **Conectar en rutas** (`app/(role)/`)
-   ```typescript
-   // app/(paciente)/appointments/page.tsx
-   import { AppointmentsContainer } from '@/features/appointments/AppointmentsContainer';
-
-   export default function AppointmentsPage() {
-     return <AppointmentsContainer />;
-   }
-   ```
+**Reglas principales:**
+- TypeScript strict mode
+- Prohibición de \ny\ (con excepciones)
+- Espacios antes de \{\
+- Punto y coma requerido
+- Comillas simples para strings
 
 ---
 
-## 🚫 Restricciones Obligatorias
+### MSW (Mock Service Worker)
 
-| Prohibición | Razón | Alternativa |
-|-------------|-------|-------------|
-| Lógica en `page.tsx` | Violation SoC | Mover a `XContainer.tsx` |
-| Imports cruzados entre features | Acoplamiento | Usar `shared/` para código global |
-| Carpetas vacías | Ruido | Crear solo si se usa |
-| Llamadas API directas en componentes | Imposible de testear | Usar `services/` + `use-cases/` |
-| Estado en múltiples stores | Inconsistencia | Centralizar en Zustand |
-| Tipos locales no globales | Duplicación | Exportar desde `shared/types/` |
+**Propósito**: Interceptar y mockear endpoints durante desarrollo.
 
----
+**Estructura base:**
+\\\
+src/mocks/
+├── browser.ts                    # Setup de MSW
+├── handlers/
+│   ├── index.ts                  # Agregador central
+│   ├── auth.ts                   # Handlers de autenticación
+│   ├── admin.ts                  # Handlers de admin
+│   └── [feature].ts
+├── data/
+│   └── [feature].mock.ts         # Datos simulados
+└── providers/
+    └── MSWProvider.tsx           # Proveedor React
+\\\
 
-## ✅ Checklist para Agentes de IA
+**Crear handler:**
 
-Antes de hacer cambios, verifica:
+\\\	ypescript
+// src/mocks/handlers/example.ts
+import { http, HttpResponse } from 'msw';
 
-- [ ] ¿La lógica nueva va en `domain/` o `use-cases/`?
-- [ ] ¿He creado tipos en `shared/types/`?
-- [ ] ¿He usado rutas absolutas (`@/...`)?
-- [ ] ¿He separado llamadas API en `services/`?
-- [ ] ¿He mapeado datos con adaptadores?
-- [ ] ¿El componente solo renderiza (sin lógica)?
-- [ ] ¿He respetado convenciones de nombres?
-- [ ] ¿He evitado imports cruzados entre features?
-- [ ] ¿He añadido MSW mocks si es necesario?
-
----
-
-## 📚 Referencias
-
-- **Clean Architecture (Front-end)**: [Chapter 08 - The Amazing Gentleman Programming Book](https://the-amazing-gentleman-programming-book.vercel.app/es/book/Chapter08_Clean_Architecture_Front_End)
-- **Next.js App Router**: [nextjs.org/docs/app](https://nextjs.org/docs/app)
-- **TypeScript**: [typescriptlang.org](https://www.typescriptlang.org/)
-- **Tailwind CSS**: [tailwindcss.com](https://tailwindcss.com/)
-- **shadcn/ui**: [ui.shadcn.com](https://ui.shadcn.com/)
+export const exampleHandlers = [
+  http.get('*/api/example', async () => {
+    return HttpResponse.json({ message: 'OK' }, { status: 200 });
+  }),
+];
+\\\
 
 ---
 
-## 🎓 Regla de Oro
+### Zustand - Gestión de Estado
 
-> **"La presentación no debe saber cómo funciona el dominio. Solo debe orquestar datos entre capas."**
+**Crear store:**
 
-Cada layer es responsable de una cosa. Las capas superiores NO pueden saltarse capas inferiores.
+\\\	ypescript
+// src/shared/stores/user.store.ts
+import { create } from 'zustand';
+
+interface UserStore {
+  user: User | null;
+  setUser: (user: User) => void;
+  clearUser: () => void;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  clearUser: () => set({ user: null }),
+}));
+\\\
+
+**Usar en componente:**
+
+\\\	ypescript
+import { useUserStore } from '@/shared/stores/user.store';
+
+export function Profile() {
+  const { user, clearUser } = useUserStore();
+  
+  return (
+    <div>
+      <h1>{user?.name}</h1>
+      <button onClick={clearUser}>Logout</button>
+    </div>
+  );
+}
+\\\
+
+---
+
+**Última actualización**: 21 de octubre de 2025  
+**Versión**: 1.2 (Agregado: ESLint, Prettier, MSW, Zustand)

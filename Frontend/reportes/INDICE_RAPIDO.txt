@@ -1,0 +1,249 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                         📚 ÍNDICE RÁPIDO DE REPORTES                            ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+🎯 ¿POR DÓNDE EMPIEZO?
+
+1. PRIMERO: Entiende el proyecto
+   → reportes/md/AGENTS.md - Arquitectura general
+
+2. LUEGO: Aprende sobre Zustand
+   → reportes/md/ZUSTAND_AUTH_README.md - Guía rápida
+   → reportes/txt/ZUSTAND_ARQUITECTURA.txt - Diagramas
+
+3. FINALMENTE: Prueba los ejemplos
+   → reportes/txt/ZUSTAND_EJEMPLOS_RAPIDOS.ts - 15+ ejemplos
+   → reportes/txt/COMO_PROBAR_ZUSTAND.txt - 4 métodos de testing
+
+
+📖 DOCUMENTOS POR CATEGORÍA
+
+┌─ ARQUITECTURA Y DISEÑO ─────────────────────────────────────────────────┐
+│                                                                         │
+│ 📄 reportes/md/AGENTS.md                                              │
+│    → Contexto arquitectónico del proyecto                              │
+│    → Clean Architecture explicada                                      │
+│    → Stack técnico completo                                            │
+│                                                                         │
+│ 📄 reportes/txt/ZUSTAND_ARQUITECTURA.txt                              │
+│    → Diagramas ASCII de las capas                                      │
+│    → Flujo de datos (login)                                            │
+│    → Ciclo de vida de componentes                                      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─ ZUSTAND - STATE MANAGEMENT ────────────────────────────────────────────┐
+│                                                                         │
+│ 📄 reportes/md/ZUSTAND_AUTH_README.md                                  │
+│    → Guía de inicio rápido                                             │
+│    → Cómo usar el store                                                │
+│    → Checklist de integración                                          │
+│                                                                         │
+│ 📄 reportes/txt/ZUSTAND_SETUP_COMPLETE.txt                            │
+│    → Setup paso a paso                                                 │
+│    → Archivos creados                                                  │
+│    → Próximos pasos                                                    │
+│                                                                         │
+│ 📄 reportes/txt/ZUSTAND_RESUMEN_FINAL.txt                             │
+│    → Resumen ejecutivo                                                 │
+│    → Características implementadas                                     │
+│    → Estadísticas                                                      │
+│                                                                         │
+│ 📄 reportes/txt/ZUSTAND_EJEMPLOS_RAPIDOS.ts                           │
+│    → 15+ ejemplos copy-paste                                           │
+│    → Login, logout, protección de rutas                                │
+│    → Validación de roles                                               │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─ MSW - MOCK SERVICE WORKER ─────────────────────────────────────────────┐
+│                                                                         │
+│ 📄 reportes/md/MOCKS_SETUP.md                                          │
+│    → Qué se creó en MSW                                                │
+│    → Usuarios de prueba                                                │
+│    → Endpoints mockados                                                │
+│                                                                         │
+│ 📄 reportes/md/COMO_PROBAR_MOCKS.md                                    │
+│    → 4 métodos de testing MSW                                          │
+│    → DevTools Console                                                  │
+│    → curl/PowerShell                                                   │
+│    → Postman                                                           │
+│    → Página de prueba interactiva                                      │
+│    → Troubleshooting                                                   │
+│                                                                         │
+│ 📄 reportes/txt/MSW_SETUP_COMPLETE.txt                                │
+│    → Setup completado                                                  │
+│    → Archivos creados                                                  │
+│    → Próximos pasos                                                    │
+│                                                                         │
+│ 📄 reportes/txt/TEST_MOCKS_QUICK.txt                                   │
+│    → Guía rápida de testing                                            │
+│    → Casos de prueba                                                   │
+│    → Usuarios de prueba                                                │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─ TESTING ───────────────────────────────────────────────────────────────┐
+│                                                                         │
+│ 📄 reportes/txt/COMO_PROBAR_ZUSTAND.txt                                │
+│    → 4 opciones de testing                                             │
+│    → Opción 1: Interfaz web (recomendado)                             │
+│    → Opción 2: Console (debugging)                                     │
+│    → Opción 3: Postman                                                 │
+│    → Opción 4: curl/PowerShell                                         │
+│    → Usuarios y credenciales de prueba                                 │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+🚀 GUÍA RÁPIDA DE PRUEBA
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN 1: UI (Más fácil - 2 minutos)                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ npm run dev                                                     │
+│ # Abre: http://localhost:3000/auth/login                      │
+│ # Haz clic en: "👤 Paciente" / "🏥 Médico" / "⚙️ Admin"      │
+│ # ¡Listo!                                                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN 2: Console (Debugging - 5 minutos)                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ 1. npm run dev                                                  │
+│ 2. F12 → Console                                                │
+│ 3. Copia de reportes/txt/COMO_PROBAR_ZUSTAND.txt              │
+│ 4. Ejecuta: await store.login('paciente@clinic.com', '...')  │
+│ 5. console.log(store.user)                                      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN 3: Postman (Recomendado para API testing)               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ Lee: reportes/txt/TEST_MOCKS_QUICK.txt                        │
+│ Sección: "MÉTODO 3: CON POSTMAN"                              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+
+👥 USUARIOS DE PRUEBA
+
+┌──────────────────────────────────────────────────────┐
+│ Rol      │ Email                  │ Contraseña     │
+├──────────┼────────────────────────┼────────────────┤
+│ 👤 Pac   │ paciente@clinic.com    │ password123    │
+│ 🏥 Med   │ medico@clinic.com      │ password123    │
+│ ⚙️ Admin  │ admin@clinic.com       │ password123    │
+└──────────────────────────────────────────────────────┘
+
+
+📊 ARCHIVOS POR TEMA
+
+ZUSTAND (State Management):
+ ✓ reportes/md/ZUSTAND_AUTH_README.md
+ ✓ reportes/txt/ZUSTAND_SETUP_COMPLETE.txt
+ ✓ reportes/txt/ZUSTAND_RESUMEN_FINAL.txt
+ ✓ reportes/txt/ZUSTAND_ARQUITECTURA.txt
+ ✓ reportes/txt/ZUSTAND_EJEMPLOS_RAPIDOS.ts
+
+MSW (Mocking):
+ ✓ reportes/md/MOCKS_SETUP.md
+ ✓ reportes/md/COMO_PROBAR_MOCKS.md
+ ✓ reportes/txt/MSW_SETUP_COMPLETE.txt
+ ✓ reportes/txt/TEST_MOCKS_QUICK.txt
+
+TESTING:
+ ✓ reportes/txt/COMO_PROBAR_ZUSTAND.txt
+ ✓ reportes/md/COMO_PROBAR_MOCKS.md
+
+ARQUITECTURA:
+ ✓ reportes/md/AGENTS.md
+ ✓ reportes/txt/ZUSTAND_ARQUITECTURA.txt
+
+
+🎯 BÚSQUEDA RÁPIDA
+
+¿Cómo uso el store?
+ → reportes/md/ZUSTAND_AUTH_README.md
+
+¿Cómo pruebo todo?
+ → reportes/txt/COMO_PROBAR_ZUSTAND.txt
+
+¿Quiero entender la arquitectura?
+ → reportes/md/AGENTS.md + reportes/txt/ZUSTAND_ARQUITECTURA.txt
+
+¿Necesito ejemplos de código?
+ → reportes/txt/ZUSTAND_EJEMPLOS_RAPIDOS.ts
+
+¿Tengo errores en MSW?
+ → reportes/md/COMO_PROBAR_MOCKS.md (Troubleshooting)
+
+¿Qué archivos se crearon?
+ → reportes/txt/ZUSTAND_SETUP_COMPLETE.txt
+ → reportes/txt/MSW_SETUP_COMPLETE.txt
+
+
+📌 ESTRUCTURA DE CARPETAS
+
+reportes/
+├── README.md                           ← Índice de reportes
+├── CONVENCION_DOCUMENTACION.txt        ← Norma de almacenamiento
+├── INDICE_RAPIDO.txt                  ← Este archivo
+│
+├── md/                                 ← Documentación Markdown
+│   ├── AGENTS.md
+│   ├── COMO_PROBAR_MOCKS.md
+│   ├── MOCKS_SETUP.md
+│   └── ZUSTAND_AUTH_README.md
+│
+└── txt/                                ← Documentación Texto
+    ├── COMO_PROBAR_ZUSTAND.txt
+    ├── MSW_SETUP_COMPLETE.txt
+    ├── TEST_MOCKS_QUICK.txt
+    ├── ZUSTAND_ARQUITECTURA.txt
+    ├── ZUSTAND_EJEMPLOS_RAPIDOS.ts
+    ├── ZUSTAND_RESUMEN_FINAL.txt
+    └── ZUSTAND_SETUP_COMPLETE.txt
+
+
+🚀 PRÓXIMOS PASOS
+
+Después de entender todo:
+
+1. Crear rutas protegidas por rol
+   → app/(paciente), app/(medico), app/(admin)
+
+2. Agregar más handlers MSW
+   → appointments, medical-records, etc.
+
+3. Crear dashboards específicos por rol
+   → features/paciente, features/medico, features/admin
+
+4. Implementar validaciones avanzadas
+   → Email verification, Password strength, etc.
+
+5. Documentación para GitHub Wiki
+   → Usar estos archivos como base
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📌 DE AHORA EN ADELANTE:
+
+Toda documentación nueva (.md, .txt) se guardará en:
+  ✓ reportes/md/  ← Documentación formal (Markdown)
+  ✓ reportes/txt/ ← Notas y resúmenes (Texto plano)
+
+Root solo tendrá:
+  ✓ README.md (principal)
+  ✓ package.json (configuración)
+  ✓ Código (src/, public/, etc.)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Última actualización: 21 de octubre de 2025

@@ -1,0 +1,151 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║           📋 CONVENCIÓN: ARCHIVOS DE DOCUMENTACIÓN Y REPORTES                   ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+📌 NORMA ESTABLECIDA:
+
+Todos los archivos de documentación (.md, .txt) creados a partir de ahora 
+deberán guardarse en:
+
+    Frontend/reportes/
+    ├── md/     ← Documentación en Markdown (.md)
+    └── txt/    ← Documentación en texto plano (.txt)
+
+✅ DESDE AHORA:
+
+1. Cada vez que crees un archivo .md o .txt para explicar algo
+   → Se guardará automáticamente en reportes/md/ o reportes/txt/
+
+2. Los archivos que YA ESTÁN en el root (README.md, package.json, etc.)
+   → Se mantienen en el root (excepto si se especifica lo contrario)
+
+3. Estructura LIMPIA del root:
+   ✅ Archivos de configuración (package.json, tsconfig.json, etc.)
+   ✅ README.md principal (documentación del proyecto)
+   ✅ Carpetas de código (src/, public/, etc.)
+   ❌ Documentación de desarrollo (va a reportes/)
+
+
+📂 CLASIFICACIÓN:
+
+MARKDOWN (.md) en reportes/md/:
+  • Documentación técnica detallada
+  • Guías paso a paso
+  • Referencias de API
+  • Arquitectura explicada
+  • Ejemplos formateados
+  
+  Ejemplos:
+  ✅ COMO_PROBAR_MOCKS.md
+  ✅ MOCKS_SETUP.md
+  ✅ ZUSTAND_AUTH_README.md
+  ✅ AGENTS.md
+
+
+TEXTO PLANO (.txt) en reportes/txt/:
+  • Notas rápidas
+  • Resúmenes ejecutivos
+  • Guías de testing
+  • Instrucciones paso a paso
+  • Ejemplos de código (si es .ts/.js, también aquí)
+  
+  Ejemplos:
+  ✅ COMO_PROBAR_ZUSTAND.txt
+  ✅ MSW_SETUP_COMPLETE.txt
+  ✅ ZUSTAND_ARQUITECTURA.txt
+  ✅ ZUSTAND_EJEMPLOS_RAPIDOS.ts (código = .txt)
+  ✅ ZUSTAND_SETUP_COMPLETE.txt
+  ✅ TEST_MOCKS_QUICK.txt
+
+
+🎯 CRITERIO DE ELECCIÓN:
+
+¿Cuándo usar .md (Markdown)?
+→ Si es documentación FORMAL y ESTRUCTURADA
+→ Si tiene muchas secciones y subsecciones
+→ Si necesita tablas, listas formateadas, enlaces
+→ Si es para desarrolladores que necesitan referencia rápida
+→ Ejemplo: "COMO_PROBAR_MOCKS.md" (guía completa)
+
+¿Cuándo usar .txt (Texto plano)?
+→ Si es un resumen RÁPIDO o NOTAS
+→ Si es para LECTURA RÁPIDA
+→ Si incluye diseños ASCII (diagramas)
+→ Si es un listado de instrucciones simples
+→ Ejemplo: "ZUSTAND_ARQUITECTURA.txt" (diagramas ASCII)
+
+
+💾 FLUJO AL CREAR NUEVO ARCHIVO:
+
+PASO 1: Creas un archivo de documentación
+        ↓
+PASO 2: Clasifica: ¿Es .md o .txt?
+        ↓
+PASO 3: Guárdalo directamente en:
+        reportes/md/nombre.md  ← SI ES MARKDOWN
+        reportes/txt/nombre.txt ← SI ES TEXTO
+        ↓
+PASO 4: ✅ LISTO - No vuelve a la raíz del Frontend
+
+
+🗂️ ESTRUCTURA FINAL (LIMPIA):
+
+Frontend/
+├── 📄 README.md              ← Principal (mantener aquí)
+├── 📄 package.json           ← Configuración (mantener aquí)
+├── 📄 tsconfig.json          ← Configuración (mantener aquí)
+├── 📄 next.config.ts         ← Configuración (mantener aquí)
+├── 📂 src/                   ← Código
+├── 📂 public/                ← Assets
+├── 📂 node_modules/          ← Dependencias
+│
+└── 📂 reportes/              ← ✅ NUEVA ESTRUCTURA
+    ├── 📄 README.md          ← Índice de reportes
+    ├── 📂 md/                ← Documentación Markdown
+    │   ├── AGENTS.md
+    │   ├── COMO_PROBAR_MOCKS.md
+    │   ├── MOCKS_SETUP.md
+    │   └── ZUSTAND_AUTH_README.md
+    │
+    └── 📂 txt/               ← Documentación Texto
+        ├── COMO_PROBAR_ZUSTAND.txt
+        ├── MSW_SETUP_COMPLETE.txt
+        ├── TEST_MOCKS_QUICK.txt
+        ├── ZUSTAND_ARQUITECTURA.txt
+        ├── ZUSTAND_EJEMPLOS_RAPIDOS.ts
+        ├── ZUSTAND_RESUMEN_FINAL.txt
+        └── ZUSTAND_SETUP_COMPLETE.txt
+
+
+🚀 FUTURO: MANUAL PARA GITHUB WIKI
+
+Los archivos en reportes/ serán procesados luego para:
+  → Crear manual de usuario
+  → Actualizar wiki de GitHub
+  → Documentación oficial
+
+
+✨ BENEFICIOS:
+
+✅ Root limpio y organizado
+✅ Documentación centralizada
+✅ Fácil de mantener
+✅ Estructura escalable
+✅ Distinción clara entre código y documentación
+✅ Mejor experiencia para nuevos desarrolladores
+
+
+📝 NOTAS:
+
+• Todos los archivos que YA están en la raíz han sido movidos
+• Este archivo es la NORMA para el futuro
+• Si dudas sobre dónde guardar algo, pregunta
+• Excepción: README.md y package.json SIEMPRE en root
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CONVENCIÓN ESTABLECIDA: 21 de octubre de 2025
+De ahora en adelante: Toda documentación (.md, .txt) → reportes/
+
+═══════════════════════════════════════════════════════════════════════════════
