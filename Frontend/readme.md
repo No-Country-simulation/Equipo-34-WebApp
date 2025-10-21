@@ -1,36 +1,72 @@
-`This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClinicaNC 
 
-## Getting Started
+## 📋 Project Overview
 
-First, run the development server:
+**Project Name**: ClinicaNC  
+**Type**: Healthcare Web Application  
+**Organization**: No Country - Equipo 34
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Technical Stack
+
+### Frontend
+- **Framework**: Next.js (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS
+- **Package Manager**: npm
+
+### Architecture
+- **Approach**: Clean Architecture (organic, frontend-focused)
+- **Reference**: [Chapter 08 - Clean Architecture Front End](https://the-amazing-gentleman-programming-book.vercel.app/es/book/Chapter08_Clean_Architecture_Front_End)
+
+## 📁 Project Structure
+
+```
+src/
+├── app/              # Next.js App Router pages and layouts
+├── shared/           # Shared components, utilities, and domain logic
+├── features/         # Feature-specific modules (business logic)
+├── styles/           # Global styles and theme configuration
+├── assets/           # Static assets (images, fonts, etc.)
+├── mocks/            # Mock data for development and testing
+└── AGENTS.md         # This file - context for AI agents
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Project Goals
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Clinica NC is a healthcare web application built with modern web technologies and clean architecture principles. The project emphasizes:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Scalability**: Modular structure ready to grow
+- **Type Safety**: Strict TypeScript configuration
+- **Developer Experience**: Modern tooling and best practices
+- **Clean Code**: Separation of concerns and maintainability
 
-## Learn More
+## 🔧 Development Commands
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Path Aliases
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The project uses the `@/*` alias for absolute imports from the `src/` directory:
 
-## Deploy on Vercel
+```typescript
+import { Component } from '@/shared/components/Component';
+import { useFeature } from '@/features/example/hooks';
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contributing Guidelines
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+When working on this project:
+
+1. Follow the established folder structure
+2. Use TypeScript strict mode
+3. Maintain clean architecture principles
+4. Write self-documenting code
+5. Keep components small and focused
+
+---
+
+**Last Updated**: 2025-10-20
+**Maintained by**: @davidcoachdev
