@@ -1,26 +1,251 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* CSS Variables para temas */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.6%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.6%;
+
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 142.1 76.2% 36.3%;
+    --accent-foreground: 355.7 100% 97.3%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 142.4 71.8% 29.2%;
+
+    --radius: 0.5rem;
+
+    --color-success: 22 163 74;
+    --color-warning: 251 146 60;
+    --color-error: 239 68 68;
+    --color-info: 14 165 233;
+  }
+
+  .dark {
+    --background: 0 0% 3.6%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3.6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.6%;
+    --popover-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 142.1 70.6% 45.3%;
+    --accent-foreground: 144.9 97.3% 6.7%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 142.4 71.8% 29.2%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+
+  /* Tipografía base */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
+  }
+
+  /* Párrafos */
+  p {
+    @apply text-base leading-relaxed;
+  }
+
+  small {
+    @apply text-sm;
+  }
+
+  /* Enlaces */
+  a {
+    @apply text-primary-500 hover:text-primary-600 transition-colors;
+  }
+
+  a:focus {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+
+  /* Inputs */
+  input,
+  textarea,
+  select {
+    @apply rounded-md border border-input bg-background px-3 py-2;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+
+  /* Botones */
+  button {
+    @apply transition-colors;
+  }
+
+  /* Listas */
+  ul,
+  ol {
+    @apply ml-6;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  li {
+    @apply mb-2;
+  }
+
+  /* Código */
+  code,
+  pre {
+    @apply rounded-md bg-muted p-2 font-mono text-sm;
+  }
+
+  pre {
+    @apply p-4 overflow-x-auto;
+  }
+
+  /* Tablas */
+  table {
+    @apply w-full border-collapse;
+  }
+
+  th,
+  td {
+    @apply border border-border px-4 py-2;
+  }
+
+  th {
+    @apply bg-muted font-semibold;
+  }
+
+  /* Scrollbar personalizado */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-secondary-400 rounded-full hover:bg-secondary-500;
+  }
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  /* Ocultar elementos accesiblemente */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden clip-path-none border-0;
+  }
+
+  /* Centrado flexbox */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  /* Gradiente clínico */
+  .gradient-clinic {
+    @apply bg-gradient-to-r from-primary-500 to-accent-500;
+  }
+
+  /* Sombra suave */
+  .shadow-soft {
+    @apply shadow-md hover:shadow-lg transition-shadow;
+  }
+
+  /* Transición suave */
+  .transition-smooth {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  /* Responsive hide/show */
+  .hide-mobile {
+    @apply hidden sm:block;
+  }
+
+  .hide-desktop {
+    @apply block sm:hidden;
+  }
+}
+
+/* Animaciones personalizadas */
+@layer utilities {
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }
