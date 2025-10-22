@@ -14,44 +14,119 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-    id                  String @id @default(uuid())
-    email               String @unique
-    name                String
-    last_name           String
-    password            String
-    phone               String
-    emergency_contact   String?
-    two_factor_auth     DateTime?
-    role_id             Int
-    role                Role @relation(fields:[role_id], references:[id])
-    created_at          DateTime
-    updated_at          DateTime
+model User {
+  id                 String    @id @default(uuid())
+  email              String    @unique
+  password_hash      String    
+  role               Role      @default(PATIENT) 
+  is_verified        Boolean   @default(false) 
+  verification_token String?   @unique
+  verification_token_expires DateTime?
+  two_factor_enabled Boolean   @default(false)
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  // Relations 1-1 with them profile
+  patient_profile Patient?
+  doctor_profile  Doctor?
+
+  // Appointment relation ( An user could be a Doctor or a Patient)
+  patient_appointments Appointment[] @relation("PatientAppointments")
+  doctor_appointments  Appointment[] @relation("DoctorAppointments")
 }
 
-model Role{
-  id                  Int @id @default(autoincrement())
-  role_name           String 
-  users               user[]
-  description         String
-  permissions_id      Int 
-  permission          Permission @relation(fields: [permissions_id], references: [id])
-  created_at          DateTime
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+  
 }
 
-model Permission{
-  id                  Int @id @default(autoincrement())
-  name                String
-  roles               Role[]
-  description         String
+model Patient {
+  id                String   @id @default(uuid())
+  user_id           String   @unique // Enlace 1-a-1 con User
+  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  first_name        String
+  last_name         String
+  phone             String?
+  date_of_birth     DateTime?
+  national_id       String?  @unique
+  emergency_contact String?
+
+  ehr_fhir_id       String?  @unique @map("ehr_fhir_id")
 }
 
-// enum Role_name {
-//     admin
-//     client
-//     patient
-//     doctor
-//     nurse
-//     manager
-//     receptionist
-// }
+model Doctor {
+  id                String   @id @default(uuid())
+  user_id           String   @unique
+  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  first_name        String 
+  last_name         String
+  phone             String?
+
+  medical_license   String   @unique 
+  specialty         String   
+  
+  affiliated_centers MedicalCenter[] @relation("DoctorAffiliations")
+  
+}
+
+model MedicalCenter {
+  id                  String   @id @default(uuid())
+  name                String   // Ej: "Clínica de la Salud Norte"
+  address_street      String   // Ej: "Av. Principal 123"
+  address_city        String
+  address_state       String
+  address_postal_code String
+  phone               String?
+
+  
+  appointments        Appointment[]
+
+  doctors             Doctor[] @relation("DoctorAffiliations")
+
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+}
+
+model Appointment {
+  id                String    @id @default(uuid())
+  patient_id        String
+  patient           User      @relation("PatientAppointments", fields: [patient_id], references: [id])
+  doctor_id         String
+  doctor            User      @relation("DoctorAppointments", fields: [doctor_id], references: [id])
+  
+  start_time        DateTime
+  end_time          DateTime
+  status            AppointmentStatus @default(SCHEDULED)
+  
+  is_virtual        Boolean   @default(false)
+
+ 
+  medical_center_id String?
+  medical_center    MedicalCenter? @relation(fields: [medical_center_id], references: [id])
+  
+  consultation_room String?
+  
+  teleconsult_url   String?  
+
+  notes             String?   
+  cancellation_reason String?
+
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  @@index([patient_id])
+  @@index([doctor_id])
+  @@index([medical_center_id])
+  @@index([start_time])
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW 
+}
