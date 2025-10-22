@@ -152,7 +152,7 @@ npm install class-variance-authority
 npm install lucide-react
 ```
 
-**Total de dependencias**: 458 packages  
+**Total de dependencias**: 458 packages
 **Vulnerabilities**: 0
 
 ---
@@ -162,7 +162,7 @@ npm install lucide-react
 ```
 Frontend/
 ├── src/
-│   ├── app/
+│   ├── styles/
 │   │   └── globals.css          # Estilos globales Tailwind v4
 │   └── shared/
 │       ├── lib/
@@ -257,6 +257,6 @@ Frontend/
 
 ---
 
-**Autor**: GitHub Copilot  
-**Rama**: `task/clinic-nc-project-base/design-system`  
+**Autor**:@davidcoachdev
+**Rama**: `task/clinic-nc-project-base/design-system`
 **Fecha**: 21 de octubre de 2025
