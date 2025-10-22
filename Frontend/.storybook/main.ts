@@ -11,13 +11,7 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-a11y",
     "@storybook/addon-vitest",
-    {
-      name: "@storybook/addon-tailwind",
-      options: {
-        postcssConfigPath: "../postcss.config.mjs",
-      },
-    },
-    "@storybook/addon-styling-webpack"
+    "@storybook/addon-themes"
   ],
   "framework": {
     "name": "@storybook/nextjs-vite",
