@@ -13,7 +13,7 @@ import { ReactNode, useEffect } from 'react';
  */
 export function MSWProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    if (globalThis.window !== 'undefined') {
+    if (typeof globalThis.window !== 'undefined') {
       // Solo en desarrollo
       if (process.env.NODE_ENV === 'development') {
         // Importar dinámicamente para evitar problemas de bundle

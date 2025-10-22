@@ -25,16 +25,43 @@
           "icon": "preview",
           "color": "terminal.ansiYellow",
           "commands": [
-            "cd frontend && npm run dev"
+            "clear && cd frontend && npm run dev"
           ]
         },
         {
           "name": "Library",
           "autoExecuteCommands": true,
           "icon": "library",
+          "color": "terminal.ansiGreen",
+          "commands": [
+            "clear && cd frontend && npm list"
+          ]
+        },
+        {
+          "name": "GitFlow",
+          "autoExecuteCommands": true,
+          "icon": "github",
+          "color": "terminal.ansiRed",
+          "commands": [
+            "clear && git fetch origin && git branch -a"
+          ]
+        },
+        {
+          "name": "Server",
+          "autoExecuteCommands": true,
+          "icon": "server-process",
+          "color": "terminal.ansiBlue",
+          "commands": [
+            "clear && cd backend && npm list"
+          ]
+        },
+        {
+          "name": "Story Book",
+          "autoExecuteCommands": true,
+          "icon": "folder-library",
           "color": "terminal.ansiMagenta",
           "commands": [
-            "cd frontend && npm list"
+            "clear && cd frontend && npm run storybook"
           ]
         }
       ]
