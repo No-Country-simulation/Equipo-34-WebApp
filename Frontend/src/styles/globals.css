@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary: #0ea5e9;
@@ -50,7 +50,9 @@ html {
 body {
   background-color: hsl(var(--color-background));
   color: hsl(var(--color-foreground));
-  font-feature-settings: 'rlig' 1, 'calt' 1;
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 1;
 }
 
 /* Typography */
@@ -142,7 +144,9 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px hsl(var(--color-ring) / 0.1), 0 0 0 2px hsl(var(--color-ring));
+  box-shadow:
+    0 0 0 3px hsl(var(--color-ring) / 0.1),
+    0 0 0 2px hsl(var(--color-ring));
 }
 
 /* Buttons */

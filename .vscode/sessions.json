@@ -32,7 +32,7 @@
           "name": "Library",
           "autoExecuteCommands": true,
           "icon": "library",
-          "color": "terminal.ansiMagenta",
+          "color": "terminal.ansiGreen",
           "commands": [
             "clear && cd frontend && npm list"
           ]
@@ -53,6 +53,15 @@
           "color": "terminal.ansiBlue",
           "commands": [
             "clear && cd backend && npm list"
+          ]
+        },
+        {
+          "name": "Story Book",
+          "autoExecuteCommands": true,
+          "icon": "folder-library",
+          "color": "terminal.ansiMagenta",
+          "commands": [
+            "clear && cd frontend && npm run storybook"
           ]
         }
       ]
