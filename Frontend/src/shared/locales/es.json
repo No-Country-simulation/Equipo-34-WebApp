@@ -1,0 +1,241 @@
+{
+  "common": {
+    "appName": "🏥 Clínica NC",
+    "login": "Ingresar",
+    "logout": "Cerrar sesión",
+    "back": "Volver",
+    "startNow": "Comenzar Ahora",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "landing": {
+    "hero": {
+      "title": "Tu salud es nuestra prioridad",
+      "subtitle": "Accede a tu historial médico, agenda citas y realiza teleconsultas desde cualquier lugar."
+    },
+    "features": {
+      "medical_history": {
+        "title": "Historial Médico",
+        "description": "Acceso completo a tu información médica"
+      },
+      "appointments": {
+        "title": "Agendar Citas",
+        "description": "Reserva citas con nuestros especialistas"
+      },
+      "teleconsultation": {
+        "title": "Teleconsultas",
+        "description": "Consulta desde la comodidad de tu hogar"
+      }
+    },
+    "illustration": {
+      "text": "Portal de Salud Integral"
+    },
+    "whyChoose": {
+      "title": "¿Por qué elegir Clínica NC?",
+      "secure": {
+        "title": "Seguro",
+        "description": "Tus datos médicos están protegidos con encriptación de nivel empresarial."
+      },
+      "fast": {
+        "title": "Rápido",
+        "description": "Interfaz intuitiva para acceder rápidamente a toda tu información."
+      },
+      "accessible": {
+        "title": "Accesible",
+        "description": "Disponible desde cualquier dispositivo, en cualquier momento."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Accede a tu cuenta o crea una nueva en segundos",
+      "action": "Ir al Login"
+    },
+    "footer": {
+      "copyright": "© 2025 Clínica NC. Todos los derechos reservados."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Ingresa tus credenciales para continuar",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Tu contraseña",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando...",
+      "noAccount": "¿No tienes cuenta?",
+      "register": "Regístrate aquí",
+      "backToHome": "Volver a la página principal",
+      "showPassword": "Ver",
+      "hidePassword": "Ocultar",
+      "orTestWith": "O prueba con",
+      "testUsers": {
+        "patient": "👤 Paciente",
+        "doctor": "🏥 Médico",
+        "admin": "⚙️ Admin"
+      },
+      "testCredentials": {
+        "title": "Credenciales de prueba:",
+        "password": "Contraseña:",
+        "emails": "Emails:"
+      }
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "subtitle": "Completa el formulario para registrarte",
+      "name": "Nombre completo",
+      "namePlaceholder": "Tu nombre",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "+1234567890",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Repite tu contraseña",
+      "submit": "Registrarse",
+      "submitting": "Registrando...",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "loginHere": "Inicia sesión aquí",
+      "backToHome": "Volver a la página principal",
+      "info": "Crea tu cuenta para acceder a todos los servicios"
+    },
+    "errors": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "El correo electrónico no es válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+      "nameRequired": "El nombre es obligatorio",
+      "phoneRequired": "El teléfono es obligatorio",
+      "phoneInvalid": "El teléfono no es válido",
+      "confirmPasswordRequired": "Debes confirmar tu contraseña",
+      "passwordsNotMatch": "Las contraseñas no coinciden",
+      "loginFailed": "Credenciales incorrectas",
+      "registerFailed": "Error al registrar usuario"
+    }
+  },
+  "dashboard": {
+    "welcome": "Panel de Control",
+    "greeting": "Bienvenido/a",
+    "stats": {
+      "appointments": "Citas Programadas",
+      "teleconsultations": "Teleconsultas Realizadas",
+      "documents": "Documentos Médicos"
+    },
+    "nextAppointment": {
+      "title": "Próxima Cita",
+      "noAppointments": "No tienes citas programadas"
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "scheduleAppointment": "Agendar Cita",
+      "viewHistory": "Ver Historial",
+      "newTeleconsultation": "Nueva Teleconsulta"
+    },
+    "userInfo": {
+      "name": "NOMBRE",
+      "email": "EMAIL",
+      "role": "ROL",
+      "phone": "TELÉFONO"
+    },
+    "fullData": "Datos Completos",
+    "roleAccess": "Acceso por Rol",
+    "rolePanels": {
+      "patient": {
+        "title": "👤 Panel de Paciente",
+        "description": "Aquí iría el panel específico para pacientes (citas, historial médico, etc.)"
+      },
+      "doctor": {
+        "title": "🏥 Panel de Médico",
+        "description": "Aquí iría el panel específico para médicos (pacientes asignados, historial, etc.)"
+      },
+      "admin": {
+        "title": "⚙️ Panel de Administrador",
+        "description": "Aquí iría el panel de administración (gestión de usuarios, roles, etc.)",
+        "viewUsers": "👥 Ver Usuarios Registrados"
+      }
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Usuarios Registrados",
+      "loading": "Cargando usuarios...",
+      "empty": "No hay usuarios registrados aún.",
+      "selectUser": "Selecciona un usuario para ver los detalles",
+      "back": "Volver",
+      "table": {
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "role": "Rol",
+        "actions": "Acciones",
+        "roles": {
+          "patient": "🏥 Paciente",
+          "doctor": "👨‍⚕️ Médico",
+          "admin": "⚙️ Admin"
+        },
+        "actionButtons": {
+          "view": "👁️ Ver",
+          "delete": "🗑️ Eliminar"
+        }
+      },
+      "details": {
+        "title": "Detalles del Usuario",
+        "close": "✕",
+        "labels": {
+          "name": "NOMBRE",
+          "lastname": "APELLIDO",
+          "email": "EMAIL",
+          "phone": "TELÉFONO",
+          "role": "ROL",
+          "id": "ID",
+          "created": "CREADO",
+          "password": "CONTRASEÑA"
+        },
+        "edit": {
+          "title": "Editar Datos",
+          "name": "Nombre",
+          "lastname": "Apellido",
+          "email": "Email",
+          "phone": "Teléfono",
+          "save": "✓ Guardar",
+          "cancel": "✕ Cancelar"
+        },
+        "password": {
+          "title": "🔐 Cambiar Contraseña",
+          "new": "Nueva contraseña",
+          "confirm": "Confirmar contraseña",
+          "show": "👁️ Ver",
+          "hide": "🙈 Ocultar",
+          "save": "✓ Guardar",
+          "cancel": "✕ Cancelar",
+          "button": "🔐 Cambiar Contraseña",
+          "cancelButton": "🔐 Cancelar"
+        },
+        "role": {
+          "title": "👤 Cambiar Rol",
+          "patient": "👤 Paciente",
+          "doctor": "🏥 Médico",
+          "admin": "⚙️ Admin",
+          "save": "✓ Guardar",
+          "cancel": "✕ Cancelar",
+          "button": "👤 Cambiar Rol",
+          "cancelButton": "👤 Cancelar"
+        },
+        "buttons": {
+          "edit": "✏️ Editar Datos",
+          "changePassword": "🔐 Cambiar Contraseña",
+          "changeRole": "👤 Cambiar Rol",
+          "delete": "🗑️ Eliminar"
+        }
+      },
+      "stats": {
+        "total": "Total de usuarios",
+        "patients": "Pacientes",
+        "doctors": "Médicos"
+      }
+    }
+  }
+}

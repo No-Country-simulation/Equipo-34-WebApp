@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import MSWProvider from '@/mocks/providers/MSWProvider';
-import AuthProvider from '@/shared/providers/AuthProvider';
+import { AppProviders } from '@/shared/core/AppProviders';
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { ReactNode } from "react";
@@ -49,15 +48,41 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const stored = localStorage.getItem('theme-storage');
+                  if (stored) {
+                    const { state } = JSON.parse(stored);
+                    if (state && state.theme) {
+                      const theme = state.theme;
+                      let resolved = theme;
+                      
+                      if (theme === 'system') {
+                        resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                      }
+                      
+                      if (resolved === 'dark') {
+                        document.documentElement.classList.add('dark');
+                      }
+                    }
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
-        <MSWProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </MSWProvider>
+        <AppProviders>
+          {children}
+        </AppProviders>
       </body>
     </html>
   );
