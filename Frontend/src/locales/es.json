@@ -1,0 +1,54 @@
+{
+  "common": {
+    "appName": "Clínica NC",
+    "welcome": "Bienvenido",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "register": "Registrarse",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "search": "Buscar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "auth": {
+    "loginTitle": "Iniciar Sesión",
+    "loginSubtitle": "Ingresa tus credenciales",
+    "registerTitle": "Crear Cuenta",
+    "emailPlaceholder": "correo@ejemplo.com",
+    "passwordPlaceholder": "Tu contraseña",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "quickLogin": "Acceso Rápido",
+    "testAccounts": "Cuentas de Prueba",
+    "patient": "Paciente",
+    "doctor": "Médico",
+    "admin": "Administrador"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido/a",
+    "appointments": "Citas",
+    "patients": "Pacientes",
+    "doctors": "Médicos",
+    "profile": "Perfil"
+  },
+  "errors": {
+    "required": "Este campo es requerido",
+    "invalidEmail": "Correo electrónico inválido",
+    "minLength": "Debe tener al menos {min} caracteres",
+    "loginFailed": "Error al iniciar sesión",
+    "networkError": "Error de conexión"
+  }
+}

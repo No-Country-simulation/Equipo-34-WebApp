@@ -5,13 +5,15 @@
 
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 /**
  * Hook para inicializar MSW en el navegador
  * Debe ejecutarse en el layout raíz (app/layout.tsx)
  */
 export function MSWProvider({ children }: { children: ReactNode }) {
+  const [mswReady, setMswReady] = useState(false);
+
   useEffect(() => {
     if (typeof globalThis.window !== 'undefined') {
       // Solo en desarrollo
@@ -24,13 +26,29 @@ export function MSWProvider({ children }: { children: ReactNode }) {
               quiet: false,
             });
             console.log('✅ MSW iniciado correctamente');
+            setMswReady(true);
           } catch (error) {
             console.error('❌ Error iniciando MSW:', error);
+            setMswReady(true); // Continuar de todos modos
           }
         });
+      } else {
+        setMswReady(true);
       }
     }
   }, []);
+
+  // En desarrollo, esperar a que MSW esté listo
+  if (process.env.NODE_ENV === 'development' && !mswReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Inicializando MSW...</p>
+        </div>
+      </div>
+    );
+  }
 
   return <>{children}</>;
 }

@@ -6,7 +6,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAuthStore } from '../store/auth.store';
+import { useAuthStore } from '../stores/auth.store';
 import type { UserRole } from '../types/auth.types';
 
 /**

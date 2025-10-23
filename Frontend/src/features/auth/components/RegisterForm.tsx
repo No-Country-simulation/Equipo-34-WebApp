@@ -15,10 +15,14 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/shared/hooks/useAuth';
+import { useTranslations } from '@/shared/hooks/useTranslations';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
+import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
 
 export default function RegisterForm() {
   const router = useRouter();
   const { register, isLoading, error } = useAuth();
+  const t = useTranslations();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,29 +44,29 @@ export default function RegisterForm() {
     const errors: typeof validationErrors = {};
 
     if (!formData.name.trim()) {
-      errors.name = 'Nombre es requerido';
+      errors.name = t('auth.errors.nameRequired');
     }
 
     if (!formData.email.trim()) {
-      errors.email = 'Email es requerido';
+      errors.email = t('auth.errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = 'Email inválido';
+      errors.email = t('auth.errors.emailInvalid');
     }
 
     if (!formData.phone.trim()) {
-      errors.phone = 'Teléfono es requerido';
+      errors.phone = t('auth.errors.phoneRequired');
     }
 
     if (!formData.password) {
-      errors.password = 'Contraseña es requerida';
+      errors.password = t('auth.errors.passwordRequired');
     } else if (formData.password.length < 6) {
-      errors.password = 'La contraseña debe tener al menos 6 caracteres';
+      errors.password = t('auth.errors.passwordTooShort');
     }
 
     if (!formData.confirmPassword) {
-      errors.confirmPassword = 'Confirmar contraseña es requerido';
+      errors.confirmPassword = t('auth.errors.confirmPasswordRequired');
     } else if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = 'Las contraseñas no coinciden';
+      errors.confirmPassword = t('auth.errors.passwordsNotMatch');
     }
 
     setValidationErrors(errors);
@@ -86,26 +90,32 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 transition-colors">
       {/* Botón de regreso a landing */}
       <button
         onClick={() => router.push('/')}
-        className="absolute top-4 left-4 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded-full transition"
-        title="Volver a inicio"
+        className="absolute top-4 left-4 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"
+        title={t('auth.register.backToHome')}
       >
-        ← Volver
+        ← {t('common.back')}
       </button>
 
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-center text-2xl font-bold">
-          🏥 Clínica NC - Registro
+      {/* Controles de tema e idioma */}
+      <div className="absolute top-4 right-4 flex items-center gap-3">
+        <ThemeToggle />
+        <LanguageSwitcher />
+      </div>
+
+      <div className="w-full max-w-md rounded-lg bg-white dark:bg-gray-800 p-8 shadow-md transition-colors">
+        <h1 className="mb-6 text-center text-2xl font-bold dark:text-white">
+          {t('common.appName')} - {t('auth.register.title')}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nombre */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Nombre Completo
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('auth.register.name')}
             </label>
             <input
               id="name"
@@ -117,19 +127,19 @@ export default function RegisterForm() {
                   setValidationErrors({ ...validationErrors, name: undefined });
                 }
               }}
-              placeholder="Tu nombre"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder={t('auth.register.namePlaceholder')}
+              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               disabled={isLoading}
             />
             {validationErrors.name && (
-              <p className="mt-1 text-xs text-red-600">{validationErrors.name}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.name}</p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('auth.register.email')}
             </label>
             <input
               id="email"
@@ -141,19 +151,19 @@ export default function RegisterForm() {
                   setValidationErrors({ ...validationErrors, email: undefined });
                 }
               }}
-              placeholder="tu@email.com"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder={t('auth.register.emailPlaceholder')}
+              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               disabled={isLoading}
             />
             {validationErrors.email && (
-              <p className="mt-1 text-xs text-red-600">{validationErrors.email}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.email}</p>
             )}
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-              Teléfono
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('auth.register.phone')}
             </label>
             <input
               id="phone"
@@ -165,19 +175,19 @@ export default function RegisterForm() {
                   setValidationErrors({ ...validationErrors, phone: undefined });
                 }
               }}
-              placeholder="+34 600 123 456"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder={t('auth.register.phonePlaceholder')}
+              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               disabled={isLoading}
             />
             {validationErrors.phone && (
-              <p className="mt-1 text-xs text-red-600">{validationErrors.phone}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.phone}</p>
             )}
           </div>
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Contraseña
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('auth.register.password')}
             </label>
             <div className="relative">
               <input
@@ -190,28 +200,28 @@ export default function RegisterForm() {
                     setValidationErrors({ ...validationErrors, password: undefined });
                   }
                 }}
-                placeholder="••••••"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder={t('auth.register.passwordPlaceholder')}
+                className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 disabled={isLoading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                 title={showPassword ? 'Ocultar' : 'Ver'}
               >
                 {showPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {validationErrors.password && (
-              <p className="mt-1 text-xs text-red-600">{validationErrors.password}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.password}</p>
             )}
           </div>
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              Confirmar Contraseña
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('auth.register.confirmPassword')}
             </label>
             <div className="relative">
               <input
@@ -224,28 +234,28 @@ export default function RegisterForm() {
                     setValidationErrors({ ...validationErrors, confirmPassword: undefined });
                   }
                 }}
-                placeholder="••••••"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder={t('auth.register.confirmPasswordPlaceholder')}
+                className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 disabled={isLoading}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                 title={showConfirmPassword ? 'Ocultar' : 'Ver'}
               >
                 {showConfirmPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {validationErrors.confirmPassword && (
-              <p className="mt-1 text-xs text-red-600">{validationErrors.confirmPassword}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.confirmPassword}</p>
             )}
           </div>
 
           {/* Error General */}
           {error && (
-            <div className="rounded-md bg-red-50 p-3">
-              <p className="text-sm text-red-800">❌ {error}</p>
+            <div className="rounded-md bg-red-50 dark:bg-red-900/30 p-3">
+              <p className="text-sm text-red-800 dark:text-red-200">❌ {error}</p>
             </div>
           )}
 
@@ -253,37 +263,37 @@ export default function RegisterForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="w-full rounded-md bg-indigo-600 dark:bg-indigo-500 px-4 py-2 text-white font-medium hover:bg-indigo-700 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
-            {isLoading ? 'Registrando...' : 'Registrarse'}
+            {isLoading ? t('auth.register.submitting') : t('auth.register.submit')}
           </button>
         </form>
 
         {/* Info Box */}
-        <div className="mt-6 rounded-md bg-indigo-50 p-3">
-          <p className="text-xs font-semibold text-indigo-900">
-            ℹ️ Crea tu cuenta para acceder a todos los servicios
+        <div className="mt-6 rounded-md bg-indigo-50 dark:bg-indigo-900/30 p-3">
+          <p className="text-xs font-semibold text-indigo-900 dark:text-indigo-200">
+            ℹ️ {t('auth.register.info')}
           </p>
         </div>
 
         {/* Login y navegación */}
         <div className="mt-6 space-y-4">
-          <div className="text-center text-sm text-gray-600">
-            ¿Ya tienes cuenta?{' '}
+          <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+            {t('auth.register.hasAccount')}{' '}
             <button
               onClick={() => router.push('/auth/login')}
-              className="text-indigo-600 font-semibold hover:text-indigo-700 transition"
+              className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition"
             >
-              Inicia sesión aquí
+              {t('auth.register.loginHere')}
             </button>
           </div>
 
-          <div className="text-center text-sm text-gray-600">
+          <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             <button
               onClick={() => router.push('/')}
-              className="text-gray-600 hover:text-gray-900 font-medium transition"
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium transition"
             >
-              ← Volver a la página principal
+              ← {t('auth.register.backToHome')}
             </button>
           </div>
         </div>
