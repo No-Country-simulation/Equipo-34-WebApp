@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { AppProviders } from '@/shared/core/AppProviders';
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.css";
 import { ReactNode } from "react";
+import { AppProviders } from '@/shared/core/AppProviders';
+import { ThemeScript } from '@/shared/components/ThemeScript';
+import "../styles/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,35 +51,11 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const stored = localStorage.getItem('theme-storage');
-                  if (stored) {
-                    const { state } = JSON.parse(stored);
-                    if (state && state.theme) {
-                      const theme = state.theme;
-                      let resolved = theme;
-                      
-                      if (theme === 'system') {
-                        resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                      }
-                      
-                      if (resolved === 'dark') {
-                        document.documentElement.classList.add('dark');
-                      }
-                    }
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <ThemeScript />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300`}
+        suppressHydrationWarning
       >
         <AppProviders>
           {children}

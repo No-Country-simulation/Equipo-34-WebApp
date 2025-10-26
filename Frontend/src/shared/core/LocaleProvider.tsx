@@ -10,7 +10,7 @@ import { useEffect, type ReactNode } from 'react';
 import { initializeLocale } from '@/shared/stores';
 
 interface LocaleProviderProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export function LocaleProvider({ children }: LocaleProviderProps) {

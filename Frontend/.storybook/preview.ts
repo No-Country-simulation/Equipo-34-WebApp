@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import { CoreProviders } from '../src/shared/core/CoreProviders';
+import { createElement } from 'react';
 import '../src/styles/globals.css';
 
 const preview: Preview = {
@@ -19,13 +21,14 @@ const preview: Preview = {
     },
   },
   decorators: [
+    (Story) => createElement(CoreProviders, null, createElement(Story)),
     withThemeByDataAttribute({
       themes: {
-        light: 'light',
+        light: '',
         dark: 'dark',
       },
       defaultTheme: 'light',
-      attributeName: 'data-mode',
+      attributeName: 'class',
     }),
   ],
 };
