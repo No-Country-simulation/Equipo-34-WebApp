@@ -11,7 +11,7 @@
 import { ReactNode } from 'react';
 
 interface PublicLayoutProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
