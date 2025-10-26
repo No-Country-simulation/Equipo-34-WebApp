@@ -18,7 +18,7 @@ import { ThemeProvider } from '@/shared/core/ThemeProvider';
 import { LocaleProvider } from '@/shared/core/LocaleProvider';
 
 interface CoreProvidersProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 /**

@@ -14,10 +14,10 @@ export default function TestAuthPage() {
 
     try {
       console.log('🔍 Enviando petición a /api/auth/login...');
-      
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -56,7 +56,7 @@ export default function TestAuthPage() {
 
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
           <h2 className="text-xl font-semibold mb-4">Diagnóstico</h2>
-          
+
           <div className="space-y-4">
             <div>
               <p className="font-medium">🔍 MSW Status:</p>
@@ -71,10 +71,12 @@ export default function TestAuthPage() {
                 POST /api/auth/login
               </p>
               <pre className="bg-gray-100 p-3 rounded text-xs">
-{`{
-  "email": "paciente@clinic.com",
-  "password": "password123"
-}`}
+                {
+                  `{
+                    "email": "paciente@clinic.com",
+                    "password": "password123"
+                  }`
+                }
               </pre>
             </div>
 
@@ -131,4 +133,4 @@ export default function TestAuthPage() {
     </div>
   );
 }
-http://localhost:3001/test-auth
+//http://localhost:3000/test-auth

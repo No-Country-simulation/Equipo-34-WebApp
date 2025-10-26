@@ -153,6 +153,38 @@ export function initializeTheme() {
 }
 
 /**
+ * Genera el script de inicialización para evitar flash de tema
+ * Este script se ejecuta ANTES de que React se hidrate
+ * Usa la MISMA lógica que Zustand para consistencia
+ */
+export function getThemeInitScript(): string {
+  return `
+    (function() {
+      try {
+        const stored = localStorage.getItem('theme-storage');
+        if (stored) {
+          const { state } = JSON.parse(stored);
+          if (state && state.theme) {
+            const theme = state.theme;
+            let resolved = theme;
+            
+            if (theme === 'system') {
+              resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            
+            if (resolved === 'dark') {
+              document.documentElement.classList.add('dark');
+              document.body.classList.add('dark');
+              document.documentElement.style.colorScheme = 'dark';
+            }
+          }
+        }
+      } catch (e) {}
+    })();
+  `.trim();
+}
+
+/**
  * Configurar observador de mutaciones para mantener el tema sincronizado
  */
 function setupThemeObserver() {
