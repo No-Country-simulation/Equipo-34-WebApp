@@ -21,7 +21,7 @@ export default function LandingPage() {
             <ThemeToggle />
             <LanguageSwitcher />
             <button
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/login')}
               className="px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition"
             >
               {t('common.login')}
@@ -69,7 +69,7 @@ export default function LandingPage() {
             </div>
 
             <button
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/login')}
               className="px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition transform hover:scale-105 mt-6"
             >
               {t('common.startNow')} →
@@ -122,7 +122,7 @@ export default function LandingPage() {
           {t('landing.cta.subtitle')}
         </p>
         <button
-          onClick={() => router.push('/auth/login')}
+          onClick={() => router.push('/login')}
           className="px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition transform hover:scale-105"
         >
           {t('landing.cta.action')}

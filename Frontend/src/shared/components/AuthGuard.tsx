@@ -16,9 +16,9 @@ import { useAuth, useHasRole } from '@/shared/hooks/useAuth';
 import type { UserRole } from '@/shared/types/auth.types';
 
 interface ProtectedRouteProps {
-  children: ReactNode;
-  requiredRoles?: UserRole | UserRole[];
-  fallback?: ReactNode;
+  readonly children: ReactNode;
+  readonly requiredRoles?: UserRole | UserRole[];
+  readonly fallback?: ReactNode;
 }
 
 /**
@@ -43,7 +43,7 @@ export function ProtectedRoute({
 
     // Si no está autenticado, redirigir a login
     if (!isAuthenticated) {
-      router.replace('/auth/login');
+      router.replace('/login');
       return;
     }
 
@@ -68,7 +68,7 @@ export function ProtectedRoute({
 /**
  * Componente para mostrar contenido solo si está autenticado
  */
-export function AuthGuard({ children }: { children: ReactNode }) {
+export function AuthGuard({ children }: { readonly children: ReactNode }) {
   return (
     <ProtectedRoute requiredRoles={undefined}>
       {children}
@@ -84,9 +84,9 @@ export function RoleGuard({
   roles,
   fallback,
 }: {
-  children: ReactNode;
-  roles: UserRole | UserRole[];
-  fallback?: ReactNode;
+  readonly children: ReactNode;
+  readonly roles: UserRole | UserRole[];
+  readonly fallback?: ReactNode;
 }) {
   return (
     <ProtectedRoute requiredRoles={roles} fallback={fallback}>

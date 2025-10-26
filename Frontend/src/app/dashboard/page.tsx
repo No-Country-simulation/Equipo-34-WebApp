@@ -16,7 +16,7 @@ function DashboardContent() {
 
   const handleLogout = async () => {
     await logout();
-    router.push('/auth/login');
+    router.push('/login');
   };
 
   return (
@@ -118,7 +118,7 @@ function DashboardContent() {
                       {t('dashboard.rolePanels.admin.description')}
                     </p>
                     <button
-                      onClick={() => router.push('/admin/users')}
+                      onClick={() => router.push('/users')}
                       className="rounded-md bg-purple-600 dark:bg-purple-500 px-4 py-2 text-white text-sm font-medium hover:bg-purple-700 dark:hover:bg-purple-600 transition"
                     >
                       {t('dashboard.rolePanels.admin.viewUsers')}

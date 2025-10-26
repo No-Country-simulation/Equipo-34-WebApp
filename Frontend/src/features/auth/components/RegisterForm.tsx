@@ -281,7 +281,7 @@ export default function RegisterForm() {
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             {t('auth.register.hasAccount')}{' '}
             <button
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/login')}
               className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition"
             >
               {t('auth.register.loginHere')}
