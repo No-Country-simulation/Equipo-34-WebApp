@@ -8,7 +8,7 @@ import type {
   log_user_dto,
   register_user_dto,
   update_user_dto,
-} from "../../application/dto/auth.dto";
+} from "../../application/dto/User/auth.dto";
 
 const auth_router = express.Router();
 const controller = new auth_controller();
@@ -35,6 +35,24 @@ auth_router.post(
       const response = await controller.login(login_data);
 
       //Generate cookie
+      if (response.data?.token) {
+        res.cookie("Access-Token", response.data.token, {
+          httpOnly: true,
+        });
+        res.status(response.status).json(response);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+auth_router.get(
+  "/verify/:token",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { token } = req.params;
+
+    try {
+      const response = await controller.mark_as_verified(token!);
       if (response.data?.token) {
         res.cookie("Access-Token", response.data.token, {
           httpOnly: true,

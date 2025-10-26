@@ -25,7 +25,7 @@ export class user_controller extends Controller {
     } catch (error) {
       if (error instanceof no_users_registered) {
         return {
-          status: 204,
+          status: 404,
           message: "No users registered yet",
           error: "No Content",
         };
