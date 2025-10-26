@@ -35,7 +35,7 @@ export default function UsersPage() {
       if (response.ok) {
         const data = await response.json();
         setUsers(data.users || []);
-        
+
         // Si hay un usuario seleccionado, actualizar con los nuevos datos
         if (selectedUser) {
           const updatedUser = (data.users || []).find((u: User) => u.email === selectedUser.email);
@@ -113,7 +113,7 @@ export default function UsersPage() {
     setConfirmPassword('');
     setNewRole(user.role as 'paciente' | 'medico' | 'admin');
     setShowPassword(false);
-    
+
     // Recuperar la contraseña del servidor
     try {
       const response = await fetch(
@@ -160,10 +160,10 @@ export default function UsersPage() {
         setShowPassword(false);
         setShowNewPassword(false);
         setShowConfirmPassword(false);
-        
+
         // Actualizar la contraseña mostrada
         setUserPassword(newPassword);
-        
+
         // Recargar la lista de usuarios
         await fetchUsers();
       } else {

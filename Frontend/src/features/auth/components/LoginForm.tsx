@@ -227,7 +227,7 @@ export default function LoginForm() {
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             {t('auth.login.noAccount')}{' '}
             <button
-              onClick={() => router.push('/auth/register')}
+              onClick={() => router.push('/register')}
               className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition"
             >
               {t('auth.login.register')}

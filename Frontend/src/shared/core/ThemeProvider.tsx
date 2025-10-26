@@ -10,14 +10,13 @@ import { useEffect, type ReactNode } from 'react';
 import { initializeTheme } from '@/shared/stores';
 
 interface ThemeProviderProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     // Inicializar tema al montar
     const cleanup = initializeTheme();
-    
     return cleanup;
   }, []);
 

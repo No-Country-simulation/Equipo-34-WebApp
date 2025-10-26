@@ -1,41 +1,41 @@
 /**
- * AppProviders - Agrupador de todos los proveedores globales
- * 
+ * AppProviders - Agrupador de todos los proveedores para la APLICACIÓN
+ *
  * Organización:
- * - /shared/core/: Proveedores VERDADERAMENTE GLOBALES (Theme, Locale)
- * - /shared/providers/: Proveedores de features específicas (Auth)
- * - /mocks/providers/: Proveedores de desarrollo (MSW)
+ * - CoreProviders: Tema e Idioma (se usa también en Storybook)
+ * - MSWProvider: Mock Service Worker (solo para desarrollo)
+ * - AuthProvider: Estado de autenticación
+ *
+ * IMPORTANTE:
+ * - Para Storybook, usar solo CoreProviders
+ * - Para la App completa, usar AppProviders
  */
 
 'use client';
 
 import { ReactNode } from 'react';
-import { ThemeProvider } from '@/shared/core/ThemeProvider';
-import { LocaleProvider } from '@/shared/core/LocaleProvider';
+import { CoreProviders } from '@/shared/core/CoreProviders';
 import MSWProvider from '@/mocks/providers/MSWProvider';
 import AuthProvider from '@/shared/providers/AuthProvider';
 
 interface AppProvidersProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 /**
  * Orden de proveedores (de afuera hacia adentro):
- * 1. ThemeProvider - Inicializa tema con persistencia (Zustand)
- * 2. LocaleProvider - Inicializa idioma con persistencia (Zustand)
- * 3. MSWProvider - Mock Service Worker para desarrollo
- * 4. AuthProvider - Estado de autenticación
+ * 1. CoreProviders (Theme + Locale)
+ * 2. MSWProvider - Mock Service Worker para desarrollo
+ * 3. AuthProvider - Estado de autenticación
  */
 export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <ThemeProvider>
-      <LocaleProvider>
-        <MSWProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </MSWProvider>
-      </LocaleProvider>
-    </ThemeProvider>
+    <CoreProviders>
+      <MSWProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </MSWProvider>
+    </CoreProviders>
   );
 }
