@@ -4,6 +4,7 @@ import express, {
   type NextFunction,
 } from "express";
 import { patient_controller } from "../controllers/Patient/patient.controller";
+import type { update_patient_validation } from "../../infrastructure/external/Validation/patient/patient.validation";
 
 export const patient_router = express.Router();
 
@@ -17,6 +18,21 @@ patient_router.get(
 
     try {
       const response = await controller.find_all(page, limit);
+
+      res.status(response.status).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+patient_router.put(
+  "/update",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.cookies["Access-Token"];
+    const patient_data: update_patient_validation = req.body;
+
+    try {
+      const response = await controller.update_patient(token, patient_data);
 
       res.status(response.status).json(response);
     } catch (error) {

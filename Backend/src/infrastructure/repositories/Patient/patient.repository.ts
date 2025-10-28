@@ -32,6 +32,15 @@ export class patient_repository_implemented implements patient_repository {
     };
   }
 
+  async find_patient(user_id: string): Promise<Patient> {
+    const patient = await Prisma.patient.findUnique({
+      where: { user_id },
+      include: { user: true },
+    });
+
+    return patient as Patient;
+  }
+
   async create_patient(user_id: string): Promise<Patient> {
     const patient = await Prisma.patient.create({
       data: { user_id: user_id },

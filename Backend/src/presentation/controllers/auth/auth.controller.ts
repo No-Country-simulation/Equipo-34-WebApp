@@ -8,10 +8,7 @@ import {
   Route,
   SuccessResponse,
 } from "tsoa";
-import type {
-  log_user_dto,
-  update_user_dto,
-} from "../../../application/dto/User/auth.dto";
+import type { update_user_dto } from "../../../application/dto/User/auth.dto";
 import { auth_repository_implemented } from "../../../infrastructure/repositories/auth/auth.repository";
 import { user_repository_implemented } from "../../../infrastructure/repositories/user/user.repository";
 import { register_user_use_case } from "../../../application/use-cases/auth/register_user.use-case";
@@ -23,7 +20,10 @@ import { login_use_case } from "../../../application/use-cases/auth/login.use-ca
 import type { User } from "../../../domain/entities/User/user.entity";
 import { wrong_password_exception } from "../../../domain/exceptions/auth/wrong_password.exception";
 import { patient_repository_implemented } from "../../../infrastructure/repositories/Patient/patient.repository";
-import type { register_user_validation } from "../../../infrastructure/external/Validation/auth.validation";
+import type {
+  log_user_validation,
+  register_user_validation,
+} from "../../../infrastructure/external/Validation/auth.validation";
 import { mark_as_verified_use_case } from "../../../application/use-cases/verification/mark-verified.use-case";
 import { user_already_verified_exception } from "../../../domain/exceptions/verification/user-already-verified.exception";
 import { user_not_verified_exception } from "../../../domain/exceptions/verification/user_not_verified.exception";
@@ -65,7 +65,7 @@ export class auth_controller extends Controller {
 
   @Post("/login")
   @SuccessResponse("200", `welcome user`)
-  async login(@Body() login_data: log_user_dto) {
+  async login(@Body() login_data: log_user_validation) {
     const use_case = new login_use_case(this.user_repository);
 
     try {
@@ -96,8 +96,9 @@ export class auth_controller extends Controller {
       }
 
       if (error instanceof user_not_verified_exception) {
+        console.log(`error: ${error}`);
         return {
-          status: 400,
+          status: 403,
           message: "User not verified",
           error: "Forbidden",
         };

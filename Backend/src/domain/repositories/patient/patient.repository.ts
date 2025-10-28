@@ -7,6 +7,7 @@ export interface patient_repository {
     page: number,
     limit: number
   ): Promise<{ data: Patient[]; pagination: Pagination }>;
+  find_patient(user_id: string): Promise<Patient>;
   create_patient(user_id: string): Promise<Patient>;
   update_patient(
     user_id: string,
