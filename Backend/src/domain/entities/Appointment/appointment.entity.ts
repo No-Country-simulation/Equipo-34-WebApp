@@ -1,4 +1,4 @@
-import type { MedicalCenter } from "../Hospital/medical-center.entity";
+import type { medical_center } from "../Hospital/medical-center.entity";
 import { AppointmentType } from "../enums/Appointment/appointment-type.enum";
 import { AppointmentPriority } from "../enums/Appointment/appointment-priority.enum";
 import { AppointmentStatus } from "../enums/Appointment/appointment-statu.enum";
@@ -53,7 +53,7 @@ export interface Appointment {
   // Relations
   patient_profile?: Patient;
   doctor_profile?: Doctor;
-  medical_center?: MedicalCenter;
+  medical_center?: medical_center;
   consultation?: Consultation;
   notifications?: Notification[];
 }
