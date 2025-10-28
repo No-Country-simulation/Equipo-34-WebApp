@@ -1,6 +1,6 @@
 import type { EducationItem } from "../../../domain/entities/Doctor/education.entity";
 
-export interface CreateDoctorDto {
+export interface create_doctor_dto {
   user_id: string;
   medical_license: string;
   specialty_id?: string;
@@ -13,7 +13,7 @@ export interface CreateDoctorDto {
   is_accepting_patients?: boolean;
 }
 
-export interface UpdateDoctorDto {
+export interface update_doctor_dto {
   medical_license?: string;
   specialty_id?: string;
   bio?: string;

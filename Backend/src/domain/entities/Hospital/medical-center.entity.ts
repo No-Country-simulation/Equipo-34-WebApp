@@ -1,8 +1,8 @@
 import type { Appointment } from "../Appointment/appointment.entity";
 import type { DoctorMedicalCenter } from "../Relations/doctor-medicalcenter.entity";
-import type { DoctorSchedule } from "../Doctor/doctor-schedule.entity";
+import type { doctor_schedule } from "../Doctor/doctor-schedule.entity";
 
-export interface MedicalCenter {
+export interface medical_center {
   id: string;
   name: string;
   description?: string;
@@ -36,5 +36,5 @@ export interface MedicalCenter {
   // Relations
   appointments?: Appointment[];
   doctors?: DoctorMedicalCenter[];
-  doctor_schedules?: DoctorSchedule[];
+  doctor_schedules?: doctor_schedule[];
 }
