@@ -616,5 +616,42 @@ export const BusinessRules = {
 
 ---
 
-**Última actualización**: 29 de octubre de 2025  
-**Versión**: 1.3 (Agregado: Guía de Features, Patrón Container)
+## 📡 WebRTC (Teleasistencia)
+
+### Estado Actual: Stub Arquitectónico
+
+La funcionalidad de **videollamadas seguras** para teleconsultas se implementará en una feature futura dedicada (`/src/features/video-call`).
+
+**Por ahora existe:**
+- 📄 Stub en `/src/shared/core/webrtc-stub.ts` como marcador arquitectónico
+- ⚠️ **NO es funcional** - solo documenta la intención y estructura futura
+- 🚫 **NO hay dependencias instaladas** (simple-peer, socket.io, etc.)
+
+**Implementación futura incluirá:**
+- Configuración de servidores TURN/STUN
+- Gestión de conexiones peer-to-peer con WebRTC
+- Señalización via WebSocket (socket.io)
+- Manejo de streams de audio/video
+- Control de permisos de cámara/micrófono
+- UI de sala de videollamada
+- Grabación de sesiones (opcional)
+
+**Decisión arquitectónica:**
+- WebRTC es **lógica de dominio específica** → vivirá en su propia feature
+- No forma parte del proyecto base para evitar deuda técnica temprana
+- Se implementará cuando se defina el proveedor (Twilio, Agora, custom)
+
+**Archivo stub:**
+```typescript
+// src/shared/core/webrtc-stub.ts
+export const initWebRTC = (): void => {
+  console.warn('WebRTC stub: implementación pendiente');
+};
+```
+
+> ⚠️ **Importante**: No usar este stub en código de producción. Es solo un recordatorio.
+
+---
+
+**Última actualización**: 30 de octubre de 2025  
+**Versión**: 1.4 (Agregado: WebRTC Stub, Documentación de teleasistencia)
