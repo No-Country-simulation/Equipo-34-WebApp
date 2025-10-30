@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactNode } from "react";
-import { AppProviders } from '@/shared/core/AppProviders';
+import { EnhancedScrollIndicator } from "@/shared/components/scroll/EnhancedScrollIndicator";
 import { ThemeScript } from '@/shared/components/ThemeScript';
+import { AppProviders } from '@/shared/core/AppProviders';
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -58,6 +59,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AppProviders>
+          <EnhancedScrollIndicator />
           {children}
         </AppProviders>
       </body>
