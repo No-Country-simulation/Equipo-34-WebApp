@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account confirmation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .confirmation-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 500px;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #e8f7ee;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 25px;
+      }
+
+      .success-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: #10b981;
+      }
+
+      h1 {
+        color: #1f2937;
+        margin-bottom: 15px;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      p {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        font-size: 16px;
+      }
+
+      .user-email {
+        font-weight: 600;
+        color: #3b82f6;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #3b82f6;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: #f3f4f6;
+        color: #4b5563;
+        margin-left: 10px;
+      }
+
+      .btn-secondary:hover {
+        background-color: #e5e7eb;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .help-text {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #9ca3af;
+      }
+
+      .help-text a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+
+      .help-text a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        .confirmation-container {
+          padding: 30px 20px;
+        }
+
+        .btn {
+          display: block;
+          width: 100%;
+          margin-left: 0;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="confirmation-container">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+      </div>
+
+      <h1>Account confirmed</h1>
+
+      <p>
+        Your account with the email
+        <span class="user-email">${email}</span> ha sido confirmada
+        exitosamente.
+      </p>
+
+      <p>Now you can acces to the app features</p>
+
+      <div class="action-buttons">
+        <a href="#" class="btn">Ir al Inicio</a>
+        <a href="#" class="btn btn-secondary">Update profile</a>
+      </div>
+
+      <p class="help-text">Need help? <a href="#">Contact us</a></p>
+    </div>
+  </body>
+</html>

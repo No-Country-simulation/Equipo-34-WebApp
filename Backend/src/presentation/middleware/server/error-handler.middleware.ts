@@ -11,7 +11,7 @@ const error_handler = (
     message: "Internal Server Error",
     error: "Unknown",
   });
-  console.log(error);
+  console.log(`Error: ${error}`);
   next();
 };
 

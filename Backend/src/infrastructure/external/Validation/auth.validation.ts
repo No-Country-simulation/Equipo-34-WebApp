@@ -1,20 +1,18 @@
 import {
+  IsDate,
   IsEmail,
+  IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsPhoneNumber,
-  IsPositive,
   IsString,
 } from "class-validator";
 import type {
   log_user_dto,
   register_user_dto,
-} from "../../../application/dto/auth.dto";
+} from "../../../application/dto/User/auth.dto";
+import { Role } from "../../../domain/entities/enums/User/role.enum";
 
 export class log_user_validation implements log_user_dto {
-  @IsString()
-  id!: string;
-
   @IsNotEmpty({ message: "The email must not be empty" })
   @IsEmail()
   email!: string;
@@ -25,11 +23,7 @@ export class log_user_validation implements log_user_dto {
 }
 
 export class register_user_validation implements register_user_dto {
-  @IsNotEmpty()
-  @IsString()
-  id!: string;
-
-  @IsNotEmpty()
+  @IsNotEmpty({ message: "Name must not be empty" })
   @IsString()
   name!: string;
 
@@ -45,12 +39,17 @@ export class register_user_validation implements register_user_dto {
   @IsString()
   password!: string;
 
-  @IsNotEmpty()
   @IsPhoneNumber()
-  phone!: string;
+  phone?: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  role_id!: number;
+  @IsDate()
+  date_of_birth?: Date;
+
+  @IsPhoneNumber()
+  emergency_contact?: string;
+
+  dni?: string;
+
+  @IsEnum(Role)
+  role?: Role;
 }

@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Route, SuccessResponse } from "tsoa";
-import { user_repository_implemented } from "../../../infrastructure/repositories/user/user.repository";
+import { user_repository_implemented } from "../../../infrastructure/repositories/User/user.repository";
 import { get_users_use_case } from "../../../application/use-cases/user/get_all_users.use-case";
 import { no_users_registered } from "../../../domain/exceptions/user/no_users_registered.exception";
 import { search_user_by_email_use_case } from "../../../application/use-cases/user/search_user_email.use-case";
@@ -25,7 +25,7 @@ export class user_controller extends Controller {
     } catch (error) {
       if (error instanceof no_users_registered) {
         return {
-          status: 204,
+          status: 404,
           message: "No users registered yet",
           error: "No Content",
         };
