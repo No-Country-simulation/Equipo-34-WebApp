@@ -2,7 +2,7 @@ import { user_already_exist_exception } from "../../../domain/exceptions/auth/us
 import { user_not_found } from "../../../domain/exceptions/user/not-found.exception";
 import type { auth_repository } from "../../../domain/repositories/auth/auth.repository";
 import type { user_repository } from "../../../domain/repositories/user/user.repository";
-import type { update_user_dto } from "../../dto/auth.dto";
+import type { update_user_dto } from "../../dto/User/auth.dto";
 import { search_user } from "../../services/user/search_user_by_email.service";
 
 export class update_user_use_case {

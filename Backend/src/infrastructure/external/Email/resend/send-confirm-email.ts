@@ -1,10 +1,16 @@
+import { verify_account_template } from "../Template/verify-account.template";
 import { mailer } from "./resend";
-export const send_mail = async (email: string) => {
+
+export const send_confirmation_mail = async (email: string, token: string) => {
+  const PORT = process.env.PORT || 3001;
+  const company_email = process.env.COMPANY_EMAIL || "emailmuyreal@gmail.com";
+  const html = verify_account_template(email, company_email, PORT, token);
+
   const { data, error } = await mailer.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "No-Reply <onboarding@resend.dev>",
     to: `${email}`,
-    subject: "hello world",
-    html: "<strong>it works!</strong>",
+    subject: "Confirm it's you",
+    html,
   });
 
   if (data) {

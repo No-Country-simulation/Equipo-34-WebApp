@@ -18,5 +18,12 @@
   },
   "routes": {
     "routesDir": "src/presentation/routes"
-  }
+  },
+  "ignore": [
+    "**/node_modules/**",
+    "**/*.d.ts",
+    "**/lib.dom.d.ts",
+    "**/lib.*.d.ts",
+    "node_modules/typescript/lib/lib.dom.d.ts"
+  ]
 }

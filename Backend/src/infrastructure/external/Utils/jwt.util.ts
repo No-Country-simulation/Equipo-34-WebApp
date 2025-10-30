@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 const SECRET = process.env.SECRET || "ljhlfjdghjdfgdjgfhfdjkn13213213";
 
 interface Payload {
+  user_id: string;
   name: string;
   email: string;
-  role_id: number;
+  role: string;
 }
 
 export const Token = (payload: Payload): string => {

@@ -19,6 +19,7 @@
     // Best practices
     "strict": true,
     "skipLibCheck": true,
+    "types": [],
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,

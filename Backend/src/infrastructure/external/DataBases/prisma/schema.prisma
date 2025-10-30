@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -14,44 +8,844 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-    id                  String @id @default(uuid())
-    email               String @unique
-    name                String
-    last_name           String
-    password            String
-    phone               String
-    emergency_contact   String?
-    two_factor_auth     DateTime?
-    role_id             Int
-    role                Role @relation(fields:[role_id], references:[id])
-    created_at          DateTime
-    updated_at          DateTime
+// ============================================
+// USERS & AUTH
+// ============================================
+
+model User {
+  id                 String    @id @default(uuid())
+  email              String    @unique
+  password           String    
+  
+  // Personal data
+  name               String
+  last_name          String
+  phone              String?
+  date_of_birth      DateTime?
+  dni                String?   @unique
+  emergency_contact  String?
+  gender             Gender?
+  avatar_url         String?
+  
+  // Auth & Security
+  role               Role      @default(PATIENT) 
+  is_verified        Boolean   @default(false) 
+  is_active          Boolean   @default(true)  
+  verification_token String?   @unique
+  verification_token_expires DateTime?
+  password_reset_token String? @unique         
+  password_reset_expires DateTime?             
+  two_factor_enabled Boolean   @default(false)
+  two_factor_secret  String?                   
+  last_login_at      DateTime?                 
+  
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  // Relations 1-1 with profiles
+  patient_profile    Patient?
+  doctor_profile     Doctor?
+
+  
+  // Notifications
+  notifications      Notification[]
+  
+  // Audit logs
+  audit_logs         AuditLog[]
+  
+  // Medical documents uploaded by this user
+  uploaded_documents MedicalDocument[] @relation("DocumentUploader")
+
+  @@index([email])
+  @@index([role])
+  @@index([is_active])
+  @@index([created_at])
+  @@map("users")
 }
 
-model Role{
-  id                  Int @id @default(autoincrement())
-  role_name           String 
-  users               user[]
-  description         String
-  permissions_id      Int 
-  permission          Permission @relation(fields: [permissions_id], references: [id])
-  created_at          DateTime
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
 }
 
-model Permission{
-  id                  Int @id @default(autoincrement())
-  name                String
-  roles               Role[]
-  description         String
+enum Gender {
+  MALE
+  FEMALE
 }
 
-// enum Role_name {
-//     admin
-//     client
-//     patient
-//     doctor
-//     nurse
-//     manager
-//     receptionist
-// }
+// ============================================
+// PATIENT PROFILE
+// ============================================
+
+model Patient {
+  id                String   @id @default(uuid())
+  user_id           String   @unique
+  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  // Insurance information
+  insurance_provider String?
+  insurance_number   String?
+  insurance_expiry   DateTime?
+  
+  // Emergency contact details 
+  emergency_name     String?
+  emergency_phone    String?
+  emergency_relation String?
+
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Medical relations
+  medical_history    MedicalHistory?
+  medical_documents  MedicalDocument[]
+  appointments       Appointment[] @relation("PatientProfile")
+  follow_ups         PatientFollowUp[]
+  consultations      Consultation[] @relation("PatientConsultations") 
+  
+  @@index([user_id])
+  @@map("patients")
+}
+
+// ============================================
+// DOCTOR PROFILE
+// ============================================
+
+model Doctor {
+  id                String   @id @default(uuid())
+  user_id           String   @unique
+  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  medical_license   String   @unique 
+  specialty_id      String?
+  specialty         Specialty? @relation(fields: [specialty_id], references: [id])
+  bio               String?   @db.Text  
+  experience_years  Int?
+  education         Json?     // Degrees and cetifications array
+  languages         String[]  @default([])
+  
+  // Professional details 
+  consultation_fee  Decimal?  @db.Decimal(10, 2)  
+  accepts_insurance Boolean   @default(false) 
+  rating_average    Decimal?  @db.Decimal(3, 2)   
+  rating_count      Int       @default(0)         
+  
+  // Status
+  is_accepting_patients Boolean @default(true)   
+  verified_at       DateTime?                   
+  
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  // Relations
+  affiliated_centers DoctorMedicalCenter[]        
+  schedules         DoctorSchedule[]
+  schedule_blocks   ScheduleBlock[]
+  appointments      Appointment[] @relation("DoctorProfile")
+  consultations     Consultation[]
+  
+  @@index([user_id])
+  @@index([medical_license])
+  @@index([specialty_id])
+  @@index([is_accepting_patients])
+  @@index([rating_average])
+  @@map("doctors")
+}
+
+// ============================================
+// SPECIALTY
+// ============================================
+
+model Specialty {
+  id                String    @id @default(uuid())
+  name              String    @unique
+  description       String?   @db.Text
+  icon_url          String?   
+  is_active         Boolean   @default(true)  
+  display_order     Int       @default(0)     
+  
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  
+  doctors           Doctor[]
+
+  @@index([is_active])
+  @@index([display_order])
+  @@map("specialties")
+}
+
+// ============================================
+// MEDICAL CENTER
+// ============================================
+
+model MedicalCenter {
+  id                  String   @id @default(uuid())
+  name                String   
+  description         String?  @db.Text  
+  
+  // Address
+  address_street      String   
+  address_city        String
+  address_state       String
+  address_country     String   
+  address_postal_code String
+  
+  // Contact
+  phone               String?
+  email               String?  
+  website             String?  
+  
+  // Coordinates for maps 
+  latitude            Decimal? @db.Decimal(10, 8)
+  longitude           Decimal? @db.Decimal(11, 8)
+  
+  // Operating hours
+  opening_time        String?  // "08:00"
+  closing_time        String?  // "18:00"
+  
+  // Status
+  is_active           Boolean  @default(true)
+  
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  // Relations
+  appointments        Appointment[]
+  doctors             DoctorMedicalCenter[] 
+  doctor_schedules    DoctorSchedule[]
+  
+  @@index([name])
+  @@index([address_city])
+  @@index([is_active])
+  @@map("medical_centers")
+}
+
+// ============================================
+// DOCTOR-MEDICAL CENTER 
+// ============================================
+
+model DoctorMedicalCenter {
+  id                String        @id @default(uuid())
+  doctor_id         String
+  doctor            Doctor        @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+  medical_center_id String
+  medical_center    MedicalCenter @relation(fields: [medical_center_id], references: [id], onDelete: Cascade)
+  
+  // Additional fields
+  is_primary        Boolean       @default(false)  
+  joined_at         DateTime      @default(now())
+  
+  @@unique([doctor_id, medical_center_id])
+  @@index([doctor_id])
+  @@index([medical_center_id])
+  @@map("doctor_medical_centers")
+}
+
+// ============================================
+// APPOINTMENTS
+// ============================================
+
+model Appointment {
+  id                String    @id @default(uuid())
+  
+  // Relations
+  patient_id        String
+  patient_profile   Patient   @relation("PatientProfile", fields: [patient_id], references: [user_id]) 
+  
+  doctor_id         String
+  doctor_profile    Doctor    @relation("DoctorProfile", fields: [doctor_id], references: [user_id]) 
+  
+  // Timing
+  start_time        DateTime
+  end_time          DateTime
+  duration_minutes  Int      
+  
+  // Status & Type
+  status            AppointmentStatus @default(SCHEDULED)
+  appointment_type  AppointmentType   @default(GENERAL)  
+  is_virtual        Boolean   @default(false)
+  priority          AppointmentPriority @default(NORMAL) 
+ 
+  // Location (for in-person)
+  medical_center_id String?
+  medical_center    MedicalCenter? @relation(fields: [medical_center_id], references: [id])
+  consultation_room String?
+  
+  // Virtual meeting
+  teleconsult_url   String?  
+  teleconsult_id    String?  
+  
+  // Details
+  reason            String?   @db.Text 
+  notes             String?   @db.Text
+  patient_notes     String?   @db.Text  
+  cancellation_reason String? @db.Text
+  cancelled_by      String?   
+  
+  // Reminders 
+  reminder_sent     Boolean   @default(false)
+  reminder_sent_at  DateTime?
+  
+  // Timestamps
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  confirmed_at      DateTime? 
+  started_at        DateTime? 
+  completed_at      DateTime? 
+  cancelled_at      DateTime? 
+
+  // Relations
+  consultation      Consultation?
+  notifications     Notification[]  
+
+  @@index([patient_id, start_time])
+  @@index([doctor_id, start_time])
+  @@index([medical_center_id])
+  @@index([start_time])
+  @@index([status])
+  @@index([is_virtual])
+  @@index([reminder_sent])
+  @@map("appointments")
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW 
+  RESCHEDULED
+}
+
+enum AppointmentType {
+  GENERAL          
+  FOLLOW_UP        
+  URGENT           
+  ROUTINE_CHECKUP  
+  SPECIALIST       
+  TELECONSULTATION 
+}
+
+enum AppointmentPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+// ============================================
+// MEDICAL HISTORY
+// ============================================
+
+model MedicalHistory {
+  id                String   @id @default(uuid())
+  patient_id        String   @unique
+  patient           Patient  @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  
+  // Medical information
+  blood_type        BloodType?
+  height            Decimal?  @db.Decimal(5, 2) 
+  weight            Decimal?  @db.Decimal(5, 2) 
+  allergies         String?   @db.Text
+  chronic_conditions String?  @db.Text
+  current_medications String? @db.Text
+  family_history    String?   @db.Text
+  surgical_history  String?   @db.Text
+  trauma_history    String?   @db.Text
+  immunizations     Json?     
+  habits            String?   @db.Text
+  
+  // Lifestyle 
+  smoking_status    SmokingStatus?
+  alcohol_consumption AlcoholConsumption?
+  exercise_frequency ExerciseFrequency?
+  
+  notes             String?   @db.Text
+  
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  
+  @@index([patient_id])
+  @@map("medical_histories")
+}
+
+enum BloodType {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE  
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum SmokingStatus {
+  NEVER
+  FORMER
+  CURRENT
+}
+
+enum AlcoholConsumption {
+  NONE
+  OCCASIONAL
+  MODERATE
+  HEAVY
+}
+
+enum ExerciseFrequency {
+  NONE
+  RARELY
+  WEEKLY
+  DAILY
+}
+
+// ============================================
+// CONSULTATION
+// ============================================
+
+model Consultation {
+  id                String    @id @default(uuid())
+  appointment_id    String    @unique
+  appointment       Appointment @relation(fields: [appointment_id], references: [id], onDelete: Cascade)
+  
+  doctor_id         String
+  doctor            Doctor    @relation(fields: [doctor_id], references: [id])
+  
+  patient_id        String    
+  patient           Patient   @relation("PatientConsultations", fields: [patient_id], references: [id])
+  
+  // Consultation details
+  chief_complaint   String    @db.Text  
+  history_present_illness String? @db.Text
+  symptoms          String?   @db.Text
+  duration_minutes  Int?      
+  
+  // Physical examination
+  vital_signs       Json?     // { temperature, bp_systolic, bp_diastolic, heart_rate, respiratory_rate }
+  physical_exam     String?   @db.Text
+  observations      String?   @db.Text
+  
+  // Diagnosis & Treatment
+  diagnosis         String?   @db.Text
+  diagnosis_codes   String[]  @default([])  // ICD-10 codes
+  treatment_plan    String?   @db.Text      
+  prescriptions     Json?    
+  lab_orders        Json?     
+  imaging_orders    Json?     
+  recommendations   String?   @db.Text
+  
+  // Follow-up
+  follow_up_required Boolean  @default(false)  
+  follow_up_date    DateTime?
+  follow_up_notes   String?   @db.Text         
+  
+  // Status
+  is_completed      Boolean   @default(false)  
+  
+  // Relations
+  medical_documents MedicalDocument[]
+  follow_ups        PatientFollowUp[]
+  
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  completed_at      DateTime?  
+  
+  @@index([appointment_id])
+  @@index([doctor_id])
+  @@index([patient_id])
+  @@index([created_at])
+  @@map("consultations")
+}
+
+// ============================================
+// MEDICAL DOCUMENTS
+// ============================================
+
+model MedicalDocument {
+  id                String    @id @default(uuid())
+  patient_id        String
+  patient           Patient   @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  
+  // Document info
+  title             String
+  document_type     DocumentType
+  file_url          String
+  file_name         String
+  file_size         Int       // in bytes size
+  mime_type         String
+  description       String?   @db.Text
+  
+  // Relations
+  consultation_id   String?
+  consultation      Consultation? @relation(fields: [consultation_id], references: [id])
+  
+  uploaded_by       String    
+  uploader          User      @relation("DocumentUploader", fields: [uploaded_by], references: [id])
+  
+  // Metadata 
+  is_sensitive      Boolean   @default(false) 
+  expiry_date       DateTime? 
+  
+  upload_date       DateTime  @default(now())
+  
+  @@index([patient_id])
+  @@index([document_type])
+  @@index([upload_date])
+  @@index([consultation_id])
+  @@map("medical_documents")
+}
+
+enum DocumentType {
+  LAB_RESULT
+  IMAGE
+  XRAY
+  MRI
+  CT_SCAN
+  ULTRASOUND
+  PRESCRIPTION
+  MEDICAL_REPORT
+  CONSENT_FORM
+  INSURANCE
+  IDENTIFICATION
+  VACCINATION_RECORD
+  OTHER
+}
+
+// ============================================
+// DOCTOR SCHEDULE
+// ============================================
+
+model DoctorSchedule {
+  id                String    @id @default(uuid())
+  doctor_id         String
+  doctor            Doctor    @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+  
+  day_of_week       Int       // 0=Sunday, 1=Monday, ..., 6=Saturday
+  start_time        String    // Format: "HH:MM"
+  end_time          String    
+  
+  // Slot configuration 
+  slot_duration     Int       @default(30) 
+  break_time        Int       @default(0)  
+  
+  medical_center_id String?
+  medical_center    MedicalCenter? @relation(fields: [medical_center_id], references: [id])
+  
+  is_active         Boolean   @default(true)
+  
+  // Validity period
+  valid_from        DateTime  @default(now())
+  valid_until       DateTime? 
+  
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  
+  @@unique([doctor_id, day_of_week, medical_center_id, valid_from])
+  @@index([doctor_id])
+  @@index([day_of_week])
+  @@index([medical_center_id])
+  @@index([is_active])
+  @@map("doctor_schedules")
+}
+
+// ============================================
+// SCHEDULE BLOCKS (Vacations, Breaks, etc.)
+// ============================================
+
+model ScheduleBlock {
+  id                String    @id @default(uuid())
+  doctor_id         String
+  doctor            Doctor    @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+  
+  title             String
+  block_type        BlockType @default(UNAVAILABLE)  
+  start_time        DateTime
+  end_time          DateTime
+  reason            String?   @db.Text
+  
+  // Recurrence
+  is_recurring      Boolean   @default(false)
+  recurrence_pattern String?   // "weekly", "monthly", etc.
+  recurrence_end    DateTime? 
+  
+  is_active         Boolean   @default(true)  
+  
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  
+  @@index([doctor_id])
+  @@index([start_time, end_time])
+  @@index([is_active])
+  @@map("schedule_blocks")
+}
+
+enum BlockType {
+  VACATION
+  SICK_LEAVE
+  CONFERENCE
+  BREAK
+  UNAVAILABLE
+  OTHER
+}
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+
+model Notification {
+  id                String    @id @default(uuid())
+  user_id           String
+  user              User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  type              NotificationType
+  channel           NotificationChannel @default(IN_APP)  
+  title             String
+  message           String    @db.Text
+  
+  // Related entity
+  related_entity_type String? // "appointment", "consultation", "document"
+  related_entity_id String?
+  appointment_id    String?   
+  appointment       Appointment? @relation(fields: [appointment_id], references: [id])
+  
+  // Status
+  is_read           Boolean   @default(false)
+  is_sent           Boolean   @default(false)  
+  
+  // Scheduling
+  scheduled_for     DateTime?
+  sent_at           DateTime?
+  read_at           DateTime?
+  
+  // Metadata 
+  priority          NotificationPriority @default(NORMAL)
+  action_url        String?   
+  
+  created_at        DateTime  @default(now())
+  
+  @@index([user_id, is_read])
+  @@index([scheduled_for])
+  @@index([type])
+  @@index([is_sent])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  APPOINTMENT_REMINDER
+  APPOINTMENT_CONFIRMATION
+  APPOINTMENT_CANCELLATION
+  APPOINTMENT_RESCHEDULED
+  APPOINTMENT_STARTED
+  LAB_RESULT_READY
+  NEW_PRESCRIPTION
+  FOLLOW_UP_REMINDER
+  SECURITY_ALERT
+  ACCOUNT_VERIFICATION
+  PASSWORD_RESET
+  GENERAL
+  SYSTEM
+}
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+// ============================================
+// PATIENT FOLLOW-UPS
+// ============================================
+
+model PatientFollowUp {
+  id                String    @id @default(uuid())
+  patient_id        String
+  patient           Patient   @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  
+  type              FollowUpType
+  title             String   
+  description       String?   @db.Text  
+  due_date          DateTime
+  completed_date    DateTime?
+  notes             String?   @db.Text
+  priority          FollowUpPriority @default(MEDIUM)
+  
+  // Relations
+  consultation_id   String?
+  consultation      Consultation? @relation(fields: [consultation_id], references: [id])
+  
+  assigned_to       String?   
+  
+  status            FollowUpStatus @default(PENDING)
+  
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  
+  @@index([patient_id])
+  @@index([due_date])
+  @@index([status])
+  @@index([type])
+  @@index([priority])
+  @@map("patient_follow_ups")
+}
+
+enum FollowUpType {
+  LAB_TEST
+  IMAGING_STUDY
+  SPECIALIST_VISIT
+  MEDICATION_REVIEW
+  SYMPTOM_MONITORING
+  VACCINATION
+  PHYSICAL_THERAPY
+  NUTRITION_CONSULT
+  PSYCHOLOGICAL_EVALUATION
+  GENERAL_CHECKUP
+}
+
+enum FollowUpStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  OVERDUE
+}
+
+enum FollowUpPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ============================================
+// REPORTS & ANALYTICS
+// ============================================
+
+model MedicalReport {
+  id                String    @id @default(uuid())
+  title             String
+  report_type       ReportType
+  generated_by      String    
+  
+  // Data
+  parameters        Json?
+  data              Json
+  
+  // Export
+  file_url          String?
+  file_format       FileFormat? 
+  
+  // Visibility
+  is_public         Boolean   @default(false)
+  shared_with       String[]  @default([])  
+  
+  // Period 
+  period_start      DateTime?
+  period_end        DateTime?
+  
+  generated_at      DateTime @default(now())
+  expires_at        DateTime? 
+  
+  @@index([report_type])
+  @@index([generated_at])
+  @@index([generated_by])
+  @@map("medical_reports")
+}
+
+enum ReportType {
+  APPOINTMENT_STATS
+  PATIENT_DEMOGRAPHICS
+  MEDICAL_CONDITIONS
+  DOCTOR_PRODUCTIVITY
+  REVENUE_REPORT
+  MEDICAL_AUDIT
+  PATIENT_SATISFACTION
+  OPERATIONAL_METRICS
+  NO_SHOW_ANALYSIS
+}
+
+enum FileFormat {
+  PDF
+  EXCEL
+  CSV
+  JSON
+}
+
+// ============================================
+// AUDIT LOG
+// ============================================
+
+model AuditLog {
+  id                String    @id @default(uuid())
+  user_id           String?
+  user              User?     @relation(fields: [user_id], references: [id])
+  
+  // Action details
+  action            AuditAction
+  entity_type       String
+  entity_id         String
+  
+  // Changes
+  old_values        Json?
+  new_values        Json?
+  description       String?   @db.Text
+  
+  
+  request_id        String?   
+  
+  // Result
+  success           Boolean   @default(true)
+  error_message     String?
+  
+  timestamp         DateTime  @default(now())
+  
+  @@index([user_id])
+  @@index([entity_type, entity_id])
+  @@index([timestamp])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  VIEW
+  EXPORT
+  LOGIN
+  LOGOUT
+  LOGIN_FAILED
+  PASSWORD_CHANGE
+  PASSWORD_RESET
+  ACCOUNT_LOCKED
+  ACCOUNT_UNLOCKED
+}
+
+// ============================================
+// SYSTEM SETTINGS 
+// ============================================
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String   @db.Text
+  data_type   String   @default("string")  // string, number, boolean, json
+  category    String   // general, email, sms, appointment, etc.
+  description String?  @db.Text
+  is_public   Boolean  @default(false) 
+  
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  
+  @@index([category])
+  @@map("system_settings")
+}
