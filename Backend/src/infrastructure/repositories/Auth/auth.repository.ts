@@ -17,14 +17,14 @@ export class auth_repository_implemented implements auth_repository {
       },
     });
 
-    return new_user as User;
+    return new_user as unknown as User;
   }
 
   async login(user_data: log_user_validation): Promise<User> {
     const user = await Prisma.user.findUnique({
       where: { email: user_data.email },
     });
-    return user as User;
+    return user as unknown as User;
   }
 
   async mark_as_verified(user_id: string): Promise<User> {
@@ -35,7 +35,7 @@ export class auth_repository_implemented implements auth_repository {
       },
     });
 
-    return user as User;
+    return user as unknown as User;
   }
 
   async update_user(email: string, user_data: update_user_dto): Promise<User> {
@@ -43,7 +43,7 @@ export class auth_repository_implemented implements auth_repository {
       where: { email: email },
       data: user_data,
     });
-    return user as User;
+    return user as unknown as User;
   }
 
   async delete_user(email: string): Promise<null> {
