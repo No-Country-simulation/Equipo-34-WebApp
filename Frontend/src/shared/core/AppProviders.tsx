@@ -17,6 +17,7 @@ import { ReactNode } from 'react';
 import { CoreProviders } from '@/shared/core/CoreProviders';
 import MSWProvider from '@/mocks/providers/MSWProvider';
 import AuthProvider from '@/shared/providers/AuthProvider';
+import { AnimationProvider } from '../providers/AnimationProvider';
 
 interface AppProvidersProps {
   readonly children: ReactNode;
@@ -33,7 +34,9 @@ export function AppProviders({ children }: AppProvidersProps) {
     <CoreProviders>
       <MSWProvider>
         <AuthProvider>
-          {children}
+          <AnimationProvider>
+            {children}
+          </AnimationProvider>
         </AuthProvider>
       </MSWProvider>
     </CoreProviders>
