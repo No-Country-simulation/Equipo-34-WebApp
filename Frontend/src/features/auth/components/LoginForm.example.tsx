@@ -9,7 +9,7 @@
 
 import { useState } from 'react';
 import type { LoginRequest } from '@/shared/types/auth.types';
-import { useAuthStore } from '@/shared/store/auth.store';
+import { useAuthStore } from '@/shared/stores/auth.store';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
