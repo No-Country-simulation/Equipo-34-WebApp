@@ -1,0 +1,414 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    🧪 CÓMO PROBAR EL SISTEMA DE AUTH                           ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+✅ El servidor está corriendo en: http://192.168.100.9:3000
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 OPCIÓN 1: INTERFAZ WEB (MÁS FÁCIL - RECOMENDADO)
+────────────────────────────────────────────────────────────────────────────────
+
+PASO 1: ABRE EL NAVEGADOR
+┌────────────────────────────────────────────────────────────────────────────┐
+│ URL: http://192.168.100.9:3000/auth/login                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+PASO 2: VERÁS ESTO
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                                                            │
+│                         Clínica NC - Login                                │
+│                                                                            │
+│   ┌──────────────────────────────────────────┐                           │
+│   │ Email:                                   │                           │
+│   │ [________________@clinic.com__________]  │                           │
+│   │                                          │                           │
+│   │ Contraseña:                              │                           │
+│   │ [____________________]                   │                           │
+│   │                                          │                           │
+│   │ [         Ingresar         ]             │                           │
+│   └──────────────────────────────────────────┘                           │
+│                                                                            │
+│              ────────────────────────────────                              │
+│                  O prueba con                                              │
+│              ────────────────────────────────                              │
+│                                                                            │
+│   [ 👤 Paciente ]  [ 🏥 Médico ]  [ ⚙️ Admin ]                           │
+│                                                                            │
+│   ┌─────────────────────────────────────────┐                            │
+│   │ Credenciales de prueba:                 │                            │
+│   │ Contraseña: password123                 │                            │
+│   │ Emails: paciente@clinic.com             │                            │
+│   │         medico@clinic.com               │                            │
+│   │         admin@clinic.com                │                            │
+│   └─────────────────────────────────────────┘                            │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+PASO 3: HAZ CLIC EN UN BOTÓN (Ej: "👤 Paciente")
+→ La página cargará automáticamente los datos
+→ Se mostrará un spinner "Ingresando..."
+
+PASO 4: ¡VERÁS EL DASHBOARD!
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                                                            │
+│  Clínica NC                                          [Cerrar sesión]      │
+│                                                                            │
+│  Dashboard                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                                                                  │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐             │   │
+│  │  │  NOMBRE     │  │  EMAIL      │  │  ROL        │             │   │
+│  │  │ Juan Pérez  │  │ paciente@   │  │  paciente   │             │   │
+│  │  │             │  │ clinic.com  │  │             │             │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘             │   │
+│  │                                                                  │   │
+│  │  Datos Completos:                                              │   │
+│  │  {                                                              │   │
+│  │    "id": "1",                                                   │   │
+│  │    "name": "Juan",                                              │   │
+│  │    "email": "paciente@clinic.com",                              │   │
+│  │    "role": "paciente",                                          │   │
+│  │    ...                                                          │   │
+│  │  }                                                              │   │
+│  │                                                                  │   │
+│  │  Acceso por Rol:                                               │   │
+│  │  ┌─────────────────────────────────────────────────────────┐   │   │
+│  │  │ 👤 Panel de Paciente                                   │   │   │
+│  │  │ Aquí iría el panel específico para pacientes...        │   │   │
+│  │  └─────────────────────────────────────────────────────────┘   │   │
+│  │                                                                  │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+✅ ¡ÉXITO! Tu sesión está guardada en localStorage
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+🔍 OPCIÓN 2: DEVTOOLS CONSOLE (PARA DEBUGGING)
+────────────────────────────────────────────────────────────────────────────────
+
+PASO 1: ABRE EL NAVEGADOR
+┌────────────────────────────────────────────────────────────────────────────┐
+│ URL: http://192.168.100.9:3000/auth/login                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+PASO 2: ABRE DEVTOOLS
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Presiona: F12 (o Ctrl+Shift+I)                                             │
+│ Haz clic en la pestaña: "Console"                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+PASO 3: COPIA Y PEGA ESTO EN LA CONSOLE
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                                                            │
+│ // Importar el store                                                      │
+│ import { useAuthStore } from '@/shared/store/auth.store';                 │
+│ const store = useAuthStore.getState();                                    │
+│                                                                            │
+│ // Login                                                                  │
+│ await store.login('paciente@clinic.com', 'password123');                  │
+│                                                                            │
+│ // Ver usuario actual                                                     │
+│ console.log('✅ Usuario:', store.user);                                   │
+│                                                                            │
+│ // Ver token                                                              │
+│ console.log('🔑 Token:', store.token);                                    │
+│                                                                            │
+│ // Ver si está autenticado                                                │
+│ console.log('🔐 Autenticado:', store.isAuthenticated);                    │
+│                                                                            │
+│ // Ver en localStorage                                                    │
+│ console.log('💾 localStorage:', JSON.parse(                               │
+│   localStorage.getItem('auth-store')                                      │
+│ ));                                                                        │
+│                                                                            │
+│ // Logout                                                                 │
+│ await store.logout();                                                     │
+│                                                                            │
+│ // Ver que se limpió                                                      │
+│ console.log('✅ Después logout:', store.user);                            │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+RESULTADO ESPERADO:
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                                                            │
+│ > await store.login('paciente@clinic.com', 'password123')                 │
+│ < Promise {<pending>}                                                     │
+│                                                                            │
+│ ✅ Usuario: {                                                             │
+│   id: '1',                                                                 │
+│   name: 'Juan',                                                            │
+│   email: 'paciente@clinic.com',                                            │
+│   role: 'paciente',                                                        │
+│   phone: '+34 912345678',                                                  │
+│   last_name: 'Pérez',                                                      │
+│   created_at: '2025-10-21T10:00:00Z'                                       │
+│ }                                                                          │
+│                                                                            │
+│ 🔑 Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...                       │
+│                                                                            │
+│ 🔐 Autenticado: true                                                      │
+│                                                                            │
+│ 💾 localStorage: {                                                        │
+│   state: {                                                                 │
+│     token: 'eyJ0eXAi...',                                                 │
+│     user: { id: '1', name: 'Juan', ... }                                  │
+│   }                                                                        │
+│ }                                                                          │
+│                                                                            │
+│ ✅ Después logout: null                                                   │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+🧪 OPCIÓN 3: POSTMAN (PARA HTTP REQUESTS)
+────────────────────────────────────────────────────────────────────────────────
+
+REQUEST 1: LOGIN
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Método: POST                                                               │
+│ URL: http://192.168.100.9:3000/api/auth/login                             │
+│ Headers:                                                                   │
+│   Content-Type: application/json                                           │
+│                                                                            │
+│ Body (JSON):                                                               │
+│ {                                                                          │
+│   "email": "paciente@clinic.com",                                          │
+│   "password": "password123"                                                │
+│ }                                                                          │
+│                                                                            │
+│ Response (200 OK):                                                         │
+│ {                                                                          │
+│   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",                   │
+│   "user": {                                                                │
+│     "id": "1",                                                             │
+│     "name": "Juan",                                                        │
+│     "email": "paciente@clinic.com",                                        │
+│     "role": "paciente",                                                    │
+│     "phone": "+34 912345678",                                              │
+│     "last_name": "Pérez",                                                  │
+│     "created_at": "2025-10-21T10:00:00Z"                                   │
+│   }                                                                        │
+│ }                                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+REQUEST 2: GET CURRENT USER (requiere token)
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Método: GET                                                                │
+│ URL: http://192.168.100.9:3000/api/auth/me                                │
+│ Headers:                                                                   │
+│   Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...          │
+│                                                                            │
+│ Response (200 OK):                                                         │
+│ {                                                                          │
+│   "id": "user-current-001",                                                │
+│   "email": "paciente@clinic.com",                                          │
+│   "name": "Juan",                                                          │
+│   "last_name": "Pérez",                                                    │
+│   "role": "paciente",                                                      │
+│   "phone": "+34 912345678",                                                │
+│   "created_at": "2025-10-21T10:00:00Z"                                     │
+│ }                                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+REQUEST 3: LOGOUT
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Método: POST                                                               │
+│ URL: http://192.168.100.9:3000/api/auth/logout                            │
+│ Headers:                                                                   │
+│   Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...          │
+│                                                                            │
+│ Response (200 OK):                                                         │
+│ {                                                                          │
+│   "message": "Sesión cerrada correctamente"                                │
+│ }                                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+REQUEST 4: REGISTER (nuevo usuario)
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Método: POST                                                               │
+│ URL: http://192.168.100.9:3000/api/auth/register                          │
+│ Headers:                                                                   │
+│   Content-Type: application/json                                           │
+│                                                                            │
+│ Body (JSON):                                                               │
+│ {                                                                          │
+│   "email": "nuevo@clinic.com",                                             │
+│   "password": "password123",                                               │
+│   "name": "Carlos",                                                        │
+│   "last_name": "Gómez",                                                    │
+│   "phone": "+34 987654321",                                                │
+│   "role_id": "1"                                                           │
+│ }                                                                          │
+│                                                                            │
+│ Response (201 Created):                                                    │
+│ {                                                                          │
+│   "id": "2",                                                               │
+│   "email": "nuevo@clinic.com",                                             │
+│   "name": "Carlos",                                                        │
+│   "last_name": "Gómez",                                                    │
+│   "phone": "+34 987654321",                                                │
+│   "role": "paciente"                                                       │
+│ }                                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+⚡ OPCIÓN 4: POWERSHELL CURL (QUICK TEST)
+────────────────────────────────────────────────────────────────────────────────
+
+ABRE PowerShell y ejecuta:
+
+LOGIN:
+──────
+$response = Invoke-WebRequest -Uri 'http://192.168.100.9:3000/api/auth/login' `
+  -Method 'POST' `
+  -Headers @{'Content-Type' = 'application/json'} `
+  -Body (@{
+    email = 'paciente@clinic.com'
+    password = 'password123'
+  } | ConvertTo-Json)
+
+$response.Content | ConvertFrom-Json | ConvertTo-Json -Depth 10
+
+
+LOGOUT:
+───────
+$token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'  # Pega el token
+
+$response = Invoke-WebRequest -Uri 'http://192.168.100.9:3000/api/auth/logout' `
+  -Method 'POST' `
+  -Headers @{
+    'Authorization' = "Bearer $token"
+    'Content-Type' = 'application/json'
+  }
+
+$response.Content | ConvertFrom-Json | ConvertTo-Json
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+📋 CHECKLIST DE PRUEBA:
+────────────────────────────────────────────────────────────────────────────────
+
+PRUEBA 1: LOGIN CON UI
+[ ] Accedo a /auth/login
+[ ] Veo el formulario
+[ ] Hago clic en "Paciente"
+[ ] Se carga el login
+[ ] Me redirige a /dashboard
+[ ] Veo mis datos en el dashboard
+[ ] El botón logout funciona
+
+
+PRUEBA 2: PERSISTENCIA
+[ ] Accedo a /auth/login
+[ ] Hago login
+[ ] Recargo la página (F5)
+[ ] ¡Sigo autenticado! (datos aún visible)
+[ ] Abro DevTools Console:
+    localStorage.getItem('auth-store')
+[ ] Veo el token y datos guardados
+
+
+PRUEBA 3: VALIDACIÓN DE ROLES
+[ ] Login como paciente
+[ ] Dashboard muestra "Panel de Paciente"
+[ ] Logout
+[ ] Login como médico
+[ ] Dashboard muestra "Panel de Médico"
+[ ] Logout
+[ ] Login como admin
+[ ] Dashboard muestra "Panel de Administrador"
+
+
+PRUEBA 4: PROTECCIÓN DE RUTAS
+[ ] Sin loguearme, acceso a /dashboard
+[ ] Me redirige a /auth/login
+[ ] Logueado, puedo acceder a /dashboard
+[ ] Logout me devuelve a /auth/login
+
+
+PRUEBA 5: HOOKS EN CONSOLE
+[ ] Abre DevTools Console
+[ ] import { useAuthStore } from '@/shared/store/auth.store'
+[ ] const store = useAuthStore.getState()
+[ ] store.login('medico@clinic.com', 'password123')
+[ ] console.log(store.user) muestra datos
+
+
+PRUEBA 6: MSW INTERCEPTION
+[ ] Abre DevTools Network
+[ ] Haz login
+[ ] Puedes ver POST /api/auth/login → Status 200
+[ ] No hay error 404
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 RESUMEN DE USUARIOS DE PRUEBA:
+────────────────────────────────────────────────────────────────────────────────
+
+👤 PACIENTE
+   Email:    paciente@clinic.com
+   Password: password123
+   Role:     paciente
+
+🏥 MÉDICO
+   Email:    medico@clinic.com
+   Password: password123
+   Role:     medico
+
+⚙️ ADMIN
+   Email:    admin@clinic.com
+   Password: password123
+   Role:     admin
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+❌ SI ALGO SALE MAL:
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEMA: "Error 404 en /api/auth/login"
+SOLUCIÓN: 
+  1. Verifica que MSW esté iniciado (DevTools Console debe mostrar "✅ MSW iniciado")
+  2. Recarga la página (Ctrl+F5)
+  3. Verifica que estés en http://192.168.100.9:3000 (no localhost)
+
+PROBLEMA: "No veo datos en el dashboard"
+SOLUCIÓN:
+  1. Abre DevTools Console
+  2. import { useAuthStore } from '@/shared/store/auth.store'
+  3. const store = useAuthStore.getState()
+  4. console.log(store.user) - debería mostrar datos
+  5. Si user es null, el login no guardó datos
+
+PROBLEMA: "Pierdo la sesión al recargar"
+SOLUCIÓN:
+  1. Verifica localStorage: localStorage.getItem('auth-store')
+  2. Si está vacío, la persistencia no funciona
+  3. Revisa que AuthProvider esté en app/layout.tsx
+
+PROBLEMA: "MSW no intercepta las requests"
+SOLUCIÓN:
+  1. Verifica que los handlers usan '*/api/*' (patrones wildcard)
+  2. Recarga la página
+  3. DevTools Console debe mostrar "✅ MSW iniciado correctamente"
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+✅ ¡LISTO PARA PROBAR!
+
+Ahora sigue uno de los 4 métodos arriba y te funcionará perfecto.
+El método más fácil es la OPCIÓN 1 (interfaz web).
+
+¿Cuál prefieres usar?

@@ -1,0 +1,241 @@
+{
+  "common": {
+    "appName": "🏥 NC Clinic",
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "back": "Back",
+    "startNow": "Get Started",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "landing": {
+    "hero": {
+      "title": "Your health is our priority",
+      "subtitle": "Access your medical history, schedule appointments and have teleconsultations from anywhere."
+    },
+    "features": {
+      "medical_history": {
+        "title": "Medical History",
+        "description": "Complete access to your medical information"
+      },
+      "appointments": {
+        "title": "Schedule Appointments",
+        "description": "Book appointments with our specialists"
+      },
+      "teleconsultation": {
+        "title": "Teleconsultations",
+        "description": "Consult from the comfort of your home"
+      }
+    },
+    "illustration": {
+      "text": "Comprehensive Health Portal"
+    },
+    "whyChoose": {
+      "title": "Why choose NC Clinic?",
+      "secure": {
+        "title": "Secure",
+        "description": "Your medical data is protected with enterprise-level encryption."
+      },
+      "fast": {
+        "title": "Fast",
+        "description": "Intuitive interface to quickly access all your information."
+      },
+      "accessible": {
+        "title": "Accessible",
+        "description": "Available from any device, at any time."
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Access your account or create a new one in seconds",
+      "action": "Go to Login"
+    },
+    "footer": {
+      "copyright": "© 2025 NC Clinic. All rights reserved."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Enter your credentials to continue",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "Your password",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "register": "Register here",
+      "backToHome": "Back to home page",
+      "showPassword": "Show",
+      "hidePassword": "Hide",
+      "orTestWith": "Or try with",
+      "testUsers": {
+        "patient": "👤 Patient",
+        "doctor": "🏥 Doctor",
+        "admin": "⚙️ Admin"
+      },
+      "testCredentials": {
+        "title": "Test credentials:",
+        "password": "Password:",
+        "emails": "Emails:"
+      }
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Fill out the form to register",
+      "name": "Full name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1234567890",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "submit": "Register",
+      "submitting": "Registering...",
+      "hasAccount": "Already have an account?",
+      "loginHere": "Sign in here",
+      "backToHome": "Back to home page",
+      "info": "Create your account to access all services"
+    },
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is not valid",
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "nameRequired": "Name is required",
+      "phoneRequired": "Phone is required",
+      "phoneInvalid": "Phone is not valid",
+      "confirmPasswordRequired": "You must confirm your password",
+      "passwordsNotMatch": "Passwords do not match",
+      "loginFailed": "Invalid credentials",
+      "registerFailed": "Error registering user"
+    }
+  },
+  "dashboard": {
+    "welcome": "Dashboard",
+    "greeting": "Welcome",
+    "stats": {
+      "appointments": "Scheduled Appointments",
+      "teleconsultations": "Teleconsultations Completed",
+      "documents": "Medical Documents"
+    },
+    "nextAppointment": {
+      "title": "Next Appointment",
+      "noAppointments": "You have no scheduled appointments"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "scheduleAppointment": "Schedule Appointment",
+      "viewHistory": "View History",
+      "newTeleconsultation": "New Teleconsultation"
+    },
+    "userInfo": {
+      "name": "NAME",
+      "email": "EMAIL",
+      "role": "ROLE",
+      "phone": "PHONE"
+    },
+    "fullData": "Full Data",
+    "roleAccess": "Role-based Access",
+    "rolePanels": {
+      "patient": {
+        "title": "👤 Patient Panel",
+        "description": "This would be the specific panel for patients (appointments, medical history, etc.)"
+      },
+      "doctor": {
+        "title": "🏥 Doctor Panel",
+        "description": "This would be the specific panel for doctors (assigned patients, history, etc.)"
+      },
+      "admin": {
+        "title": "⚙️ Administrator Panel",
+        "description": "This would be the administration panel (user management, roles, etc.)",
+        "viewUsers": "👥 View Registered Users"
+      }
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Registered Users",
+      "loading": "Loading users...",
+      "empty": "No registered users yet.",
+      "selectUser": "Select a user to view details",
+      "back": "Back",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "role": "Role",
+        "actions": "Actions",
+        "roles": {
+          "patient": "🏥 Patient",
+          "doctor": "👨‍⚕️ Doctor",
+          "admin": "⚙️ Admin"
+        },
+        "actionButtons": {
+          "view": "👁️ View",
+          "delete": "🗑️ Delete"
+        }
+      },
+      "details": {
+        "title": "User Details",
+        "close": "✕",
+        "labels": {
+          "name": "NAME",
+          "lastname": "LAST NAME",
+          "email": "EMAIL",
+          "phone": "PHONE",
+          "role": "ROLE",
+          "id": "ID",
+          "created": "CREATED",
+          "password": "PASSWORD"
+        },
+        "edit": {
+          "title": "Edit Data",
+          "name": "Name",
+          "lastname": "Last Name",
+          "email": "Email",
+          "phone": "Phone",
+          "save": "✓ Save",
+          "cancel": "✕ Cancel"
+        },
+        "password": {
+          "title": "🔐 Change Password",
+          "new": "New password",
+          "confirm": "Confirm password",
+          "show": "👁️ Show",
+          "hide": "🙈 Hide",
+          "save": "✓ Save",
+          "cancel": "✕ Cancel",
+          "button": "🔐 Change Password",
+          "cancelButton": "🔐 Cancel"
+        },
+        "role": {
+          "title": "👤 Change Role",
+          "patient": "👤 Patient",
+          "doctor": "🏥 Doctor",
+          "admin": "⚙️ Admin",
+          "save": "✓ Save",
+          "cancel": "✕ Cancel",
+          "button": "👤 Change Role",
+          "cancelButton": "👤 Cancel"
+        },
+        "buttons": {
+          "edit": "✏️ Edit Data",
+          "changePassword": "🔐 Change Password",
+          "changeRole": "👤 Change Role",
+          "delete": "🗑️ Delete"
+        }
+      },
+      "stats": {
+        "total": "Total users",
+        "patients": "Patients",
+        "doctors": "Doctors"
+      }
+    }
+  }
+}

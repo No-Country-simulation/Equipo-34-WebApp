@@ -1,0 +1,332 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    🎯 ARQUITECTURA DEL SISTEMA DE AUTH                        ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+
+📱 CAPAS DE LA APLICACIÓN:
+────────────────────────────────────────────────────────────────────────────────
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        UI LAYER (Componentes React)                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  LoginForm → Dashboard → ProtectedRoute → RoleGuard → Navbar               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    HOOKS LAYER (Custom Hooks)                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  useAuth() → useCurrentUser() → useUserRole() → useHasRole()              │
+│  useIsAuthenticated() → useAuthActions() → useCanAccess()                  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              STATE MANAGEMENT LAYER (Zustand Store)                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐        │
+│  │     STATE        │  │    ACCIONES      │  │    HELPERS       │        │
+│  ├──────────────────┤  ├──────────────────┤  ├──────────────────┤        │
+│  │ • user           │  │ • login()        │  │ • getUserRole()  │        │
+│  │ • token          │  │ • logout()       │  │ • isUserRole()   │        │
+│  │ • isAuth         │  │ • register()     │  │                  │        │
+│  │ • isLoading      │  │ • getCurrentUser │  │                  │        │
+│  │ • error          │  │                  │  │                  │        │
+│  └──────────────────┘  └──────────────────┘  └──────────────────┘        │
+│                                                                             │
+│              🔄 PERSISTENCIA: localStorage (auth-store)                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│             HTTP CLIENT LAYER (Fetch + MSW Mocks)                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                            POST /api/auth/login                            │
+│                            POST /api/auth/register                         │
+│                            POST /api/auth/logout                           │
+│                            GET  /api/auth/me                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              MSW MOCK LAYER (Service Worker Mocks)                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  handlers/auth.ts:                                                         │
+│  ├─ Intercepta requests                                                    │
+│  ├─ Valida credenciales                                                    │
+│  ├─ Genera JWT mock                                                        │
+│  └─ Retorna respuestas mock                                                │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+🔄 FLUJO DE DATOS - LOGIN:
+────────────────────────────────────────────────────────────────────────────────
+
+USER TYPES EMAIL & PASSWORD
+            ↓
+        [LOGIN FORM]
+            ↓
+    useAuth().login(email, pwd)
+            ↓
+    store.login() ACTION
+            ↓
+    fetch('/api/auth/login')
+            ↓
+    MSW INTERCEPTA LA REQUEST
+            ↓
+    MSW VALIDA CREDENCIALES
+            ↓
+    MSW GENERA JWT MOCK
+            ↓
+    MSW RETORNA { token, user }
+            ↓
+    STORE ACTUALIZA ESTADO:
+    ├─ user = { id, name, email, role, ... }
+    ├─ token = "eyJ0..."
+    ├─ isAuthenticated = true
+    └─ ERROR = null
+            ↓
+    STORE PERSISTE EN localStorage
+            ↓
+    ZUSTAND NOTIFICA SUBSCRIBERS
+            ↓
+    COMPONENTES RE-RENDEREAN
+            ↓
+    Router.push('/dashboard')
+            ↓
+    ProtectedRoute VALIDA AUTH
+            ↓
+    DASHBOARD OBTIENE USER DEL STORE
+            ↓
+    ✅ RENDERIZA CON DATOS DEL USUARIO
+
+
+📊 COMPONENTES Y SUS RESPONSABILIDADES:
+────────────────────────────────────────────────────────────────────────────────
+
+┌─────────────────────────────┐
+│  LoginForm.tsx              │
+├─────────────────────────────┤
+│ • Captura email/password    │
+│ • Valida campos             │
+│ • Llama useAuth().login()   │
+│ • Muestra errores           │
+│ • Redirige a /dashboard     │
+└─────────────────────────────┘
+
+┌─────────────────────────────┐
+│  Dashboard.tsx              │
+├─────────────────────────────┤
+│ • Envuelto en ProtectedRoute│
+│ • Accede a useCurrentUser() │
+│ • Accede a useUserRole()    │
+│ • Renderiza datos por rol   │
+│ • Muestra botón logout      │
+└─────────────────────────────┘
+
+┌─────────────────────────────┐
+│  AuthGuard.tsx              │
+├─────────────────────────────┤
+│ • Valida autenticación      │
+│ • Valida roles              │
+│ • Redirige si no auth       │
+│ • Redirige si rol inválido  │
+│ • Muestra fallback si no    │
+└─────────────────────────────┘
+
+┌─────────────────────────────┐
+│  AuthProvider.tsx           │
+├─────────────────────────────┤
+│ • Monta en app/layout.tsx   │
+│ • Llama useSyncCurrentUser()│
+│ • Recupera token de storage │
+│ • Valida con /api/auth/me   │
+│ • Restaura sesión           │
+└─────────────────────────────┘
+
+
+🎣 HOOKS Y CUÁNDO USARLOS:
+────────────────────────────────────────────────────────────────────────────────
+
+useAuth()
+  → Acceso completo a estado y acciones
+  → Úsalo cuando necesites todo
+
+useCurrentUser()
+  → Solo usuario actual
+  → Para mostrar nombre, email, etc.
+
+useIsAuthenticated()
+  → Solo saber si está logueado
+  → Para condicionales simples
+
+useUserRole()
+  → Solo obtener el rol
+  → Para lógica basada en rol
+
+useHasRole(role | roles[])
+  → Validar si tiene rol específico
+  → Mejor que useUserRole() para condicionales
+
+useAuthActions()
+  → Solo funciones (login, logout, register)
+  → Para botones de acción
+
+useAuthStatus()
+  → Solo loading y error
+  → Para mostrar spinners y mensajes
+
+useCanAccess(roles)
+  → Lógica compleja de acceso
+  → Para rendered condicional avanzado
+
+useSyncCurrentUser()
+  → Sincronizar sesión (solo en AuthProvider)
+  → Se ejecuta automáticamente
+
+
+💾 PERSISTENCIA EN localStorage:
+────────────────────────────────────────────────────────────────────────────────
+
+KEY: "auth-store"
+
+VALOR:
+{
+  "state": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "user": {
+      "id": "1",
+      "email": "paciente@clinic.com",
+      "name": "Juan",
+      "last_name": "Pérez",
+      "role": "paciente",
+      "phone": "+34 912345678",
+      "created_at": "2025-10-21T10:00:00Z"
+    }
+  },
+  "version": 0
+}
+
+CICLO DE VIDA:
+1. LOGIN → Se guarda en localStorage
+2. RECARGAR → Se lee de localStorage
+3. AUTH PROVIDER → Valida token
+4. LOGOUT → Se borra de localStorage
+
+
+🔐 SEGURIDAD:
+────────────────────────────────────────────────────────────────────────────────
+
+✓ Token se guarda en localStorage (accesible desde JS)
+✓ MSW genera JWT mock sin firmar (SOLO para desarrollo)
+✓ AuthGuard protege rutas antes de mostrar contenido
+✓ RoleGuard valida rol antes de acceder
+✓ Componentes se renderizan solo si autenticados
+✓ Errores se capturan y muestran
+✓ Sessions se sincronizan al cargar
+
+
+🧪 TESTING WORKFLOW:
+────────────────────────────────────────────────────────────────────────────────
+
+1. ABRE APP:
+   → AuthProvider monta
+   → useSyncCurrentUser() busca token en localStorage
+   → Si existe, lo valida con /api/auth/me
+   → Si es válido, restaura sesión
+
+2. USUARIO NO LOGUEADO:
+   → Accede a /auth/login
+   → Ve formulario
+
+3. USUARIO HACE LOGIN:
+   → Ingresa credenciales
+   → MSW intercepta y retorna { token, user }
+   → Store guarda y persiste
+   → Redirige a /dashboard
+
+4. USUARIO VE DASHBOARD:
+   → ProtectedRoute valida auth
+   → Si no está auth → redirige a /login
+   → Si está auth → muestra dashboard
+   → Dashboard obtiene datos de useCurrentUser()
+   → Dashboard renderiza según useUserRole()
+
+5. USUARIO RECARGA PÁGINA:
+   → App rehydrata de localStorage
+   → AuthProvider valida token
+   → Sesión se restaura automáticamente
+
+6. USUARIO HACE LOGOUT:
+   → Llama store.logout()
+   → localStorage se limpia
+   → Redirige a /auth/login
+
+
+📈 FLUJO DE ROLES:
+────────────────────────────────────────────────────────────────────────────────
+
+LOGIN con paciente@clinic.com
+    ↓
+user.role = "paciente"
+    ↓
+useUserRole() retorna "paciente"
+    ↓
+useHasRole('paciente') retorna true
+    ↓
+Dashboard renderiza:
+   ├─ Tarjeta azul con datos de paciente
+   ├─ Panel específico: "Panel de Paciente"
+   └─ Opciones de paciente
+
+LOGIN con medico@clinic.com
+    ↓
+user.role = "medico"
+    ↓
+useUserRole() retorna "medico"
+    ↓
+useHasRole(['medico', 'admin']) retorna true
+    ↓
+Dashboard renderiza:
+   ├─ Tarjeta verde con datos de médico
+   ├─ Panel específico: "Panel de Médico"
+   └─ Opciones de médico
+
+LOGIN con admin@clinic.com
+    ↓
+user.role = "admin"
+    ↓
+useUserRole() retorna "admin"
+    ↓
+useHasRole('admin') retorna true
+    ↓
+Dashboard renderiza:
+   ├─ Tarjeta púrpura con datos de admin
+   ├─ Panel específico: "Panel de Administrador"
+   └─ Opciones de admin
+
+
+🚀 RESUMEN:
+────────────────────────────────────────────────────────────────────────────────
+
+✅ Zustand Store → Estado centralizado
+✅ Persistencia → localStorage
+✅ Sincronización → useSyncCurrentUser()
+✅ Protección → ProtectedRoute + RoleGuard
+✅ Hooks → useAuth + 8 especializados
+✅ MSW Mocks → Intercepción HTTP
+✅ Validación → Roles y autenticación
+✅ Errores → Handling robusto
+✅ TypeScript → Seguridad de tipos
+✅ Documentación → Completa y ejemplos
+
+
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    ¡Sistema listo para producción!                            ║
+╚════════════════════════════════════════════════════════════════════════════════╝

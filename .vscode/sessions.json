@@ -1,0 +1,70 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v11/terminal-keeper.json",
+  "theme": "chaos",
+  "active": "DcDevTerm",
+  "noClear": true,
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      {
+        "name": "projecs",
+        "autoExecuteCommands": true,
+        "icon": "project",
+        "color": "terminal.ansiBlue",
+        "commands": [
+          "clear"
+        ]
+      }
+    ],
+    "DcDevTerm": [
+      [
+        {
+          "name": "Client",
+          "autoExecuteCommands": true,
+          "icon": "preview",
+          "color": "terminal.ansiYellow",
+          "commands": [
+            "clear && cd frontend && npm run dev"
+          ]
+        },
+        {
+          "name": "Library",
+          "autoExecuteCommands": true,
+          "icon": "library",
+          "color": "terminal.ansiGreen",
+          "commands": [
+            "clear && cd frontend && npm list"
+          ]
+        },
+        {
+          "name": "GitFlow",
+          "autoExecuteCommands": true,
+          "icon": "github",
+          "color": "terminal.ansiRed",
+          "commands": [
+            "clear && git fetch origin && git branch -a"
+          ]
+        },
+        {
+          "name": "Server",
+          "autoExecuteCommands": true,
+          "icon": "server-process",
+          "color": "terminal.ansiBlue",
+          "commands": [
+            "clear && cd backend && npm list"
+          ]
+        },
+        {
+          "name": "Story Book",
+          "autoExecuteCommands": true,
+          "icon": "folder-library",
+          "color": "terminal.ansiMagenta",
+          "commands": [
+            "clear && cd frontend && npm run storybook"
+          ]
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "common": {
+    "appName": "Clinic NC",
+    "welcome": "Welcome",
+    "login": "Log In",
+    "logout": "Log Out",
+    "register": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "auth": {
+    "loginTitle": "Log In",
+    "loginSubtitle": "Enter your credentials",
+    "registerTitle": "Create Account",
+    "emailPlaceholder": "email@example.com",
+    "passwordPlaceholder": "Your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "quickLogin": "Quick Access",
+    "testAccounts": "Test Accounts",
+    "patient": "Patient",
+    "doctor": "Doctor",
+    "admin": "Administrator"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "doctors": "Doctors",
+    "profile": "Profile"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email",
+    "minLength": "Must be at least {min} characters",
+    "loginFailed": "Login failed",
+    "networkError": "Connection error"
+  }
+}
