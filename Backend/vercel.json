@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.ts"
+    }
+  ],
+  "functions": {
+    "server.ts": {
+      "maxDuration": 30,
+      "runtime": "@vercel/node"
+    }
+  },
+  "installCommand": "bun install",
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist"
+}

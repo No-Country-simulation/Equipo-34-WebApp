@@ -1,5 +1,5 @@
 import type { Doctor } from "../Doctor/doctor.entity";
-import type { MedicalCenter } from "../Hospital/medical-center.entity";
+import type { medical_center } from "../Hospital/medical-center.entity";
 
 export interface DoctorMedicalCenter {
   id: string;
@@ -9,5 +9,5 @@ export interface DoctorMedicalCenter {
   joined_at: Date;
 
   doctor?: Doctor;
-  medical_center?: MedicalCenter;
+  medical_center?: medical_center;
 }

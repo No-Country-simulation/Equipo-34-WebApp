@@ -1,6 +1,7 @@
 import type { Patient } from "./patient.entity";
 import type { Consultation } from "../Consults/consultation.entity";
 import type { User } from "../User/user.entity";
+import type { DocumentType } from "../enums/Documents/Medical-document.enum";
 
 export interface MedicalDocument {
   id: string;
