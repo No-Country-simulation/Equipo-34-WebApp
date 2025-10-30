@@ -13,6 +13,7 @@ import { create_doctor_use_case } from "../../../../application/use-cases/doctor
 import { decoding_token_exception } from "../../../../domain/exceptions/verification/decoding_token.exception";
 import { incompatible_role_exception } from "../../../../domain/exceptions/verification/incompatible-role-exception";
 import { update_doctor_use_case } from "../../../../application/use-cases/doctor/profile/update-doctor.use-case";
+import { admin_create_doctor_use_case } from "../../../../application/use-cases/doctor/profile/admin-create-doctor.use-case copy";
 
 export class doctor_controller extends Controller {
   private readonly doctor_repo = new doctor_repository_implemented();
@@ -147,6 +148,33 @@ export class doctor_controller extends Controller {
           status: 404,
           message: "Doctor not found",
           error: "Not found",
+        };
+      }
+
+      throw error;
+    }
+  }
+
+  async admin_create_doctor(
+    email: string,
+    doctor_data: create_doctor_profile_validation
+  ) {
+    const use_case = new admin_create_doctor_use_case(this.doctor_repo);
+
+    try {
+      const new_doctor = await use_case.run(email, doctor_data);
+
+      return {
+        status: 201,
+        message: "Doctor created",
+        data: new_doctor,
+      };
+    } catch (error) {
+      if (error instanceof user_not_found) {
+        return {
+          status: 404,
+          message: "User not found",
+          error: "Not Found",
         };
       }
 

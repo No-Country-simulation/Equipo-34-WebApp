@@ -9,8 +9,8 @@ import {
   SuccessResponse,
 } from "tsoa";
 import type { update_user_dto } from "../../../application/dto/User/auth.dto";
-import { auth_repository_implemented } from "../../../infrastructure/repositories/auth/auth.repository";
-import { user_repository_implemented } from "../../../infrastructure/repositories/user/user.repository";
+import { auth_repository_implemented } from "../../../infrastructure/repositories/Auth/auth.repository";
+import { user_repository_implemented } from "../../../infrastructure/repositories/User/user.repository";
 import { register_user_use_case } from "../../../application/use-cases/auth/register_user.use-case";
 import { user_already_exist_exception } from "../../../domain/exceptions/auth/user_already_exist.exception";
 import { update_user_use_case } from "../../../application/use-cases/auth/update_user.use-case";

@@ -17,5 +17,8 @@ export interface appointment_repository {
     limit: number
   ): Promise<{ data: Appointment[]; pagination: Pagination }>;
   create_appointment(data: create_appointment_dto): Promise<Appointment>;
-  update_appointment(data: update_appointment_dto): Promise<Appointment>;
+  update_appointment(
+    id: string,
+    data: update_appointment_dto
+  ): Promise<Appointment>;
 }
