@@ -401,5 +401,220 @@ export function Profile() {
 
 ---
 
-**Última actualización**: 21 de octubre de 2025  
-**Versión**: 1.2 (Agregado: ESLint, Prettier, MSW, Zustand)
+## 🧩 Cómo Crear una Nueva Feature
+
+### Plantilla Base
+
+El proyecto incluye una **feature de ejemplo** en `/src/features/example-feature/` que sirve como **plantilla arquitectónica canónica** para todas las features futuras.
+
+```bash
+src/features/example-feature/
+├── ExampleContainer.tsx       # Patrón Container (punto de entrada)
+├── index.ts                   # Exportaciones públicas
+├── README.md                  # Documentación detallada
+├── domain/
+│   └── types.ts              # Entidades, interfaces y reglas de negocio
+├── use-cases/
+│   └── example.use-case.ts   # Lógica de aplicación (hook personalizado)
+├── adapters/
+│   └── example.adapter.ts    # Mapeo API ↔ Dominio
+├── services/
+│   └── example.service.ts    # Comunicación con backend
+└── components/
+    └── ExampleUI.tsx         # Componentes de UI específicos
+```
+
+### Flujo de Datos (Patrón Container)
+
+```
+┌──────────────────────────────────────────────────────┐
+│              ExampleContainer.tsx                     │
+│  (orquesta lógica y UI, maneja eventos)              │
+└───────────────┬──────────────────────────────────────┘
+                │
+                ├─► useExampleUseCase()
+                │    ├─► exampleService.getAll()
+                │    ├─► ExampleAdapter.toDomain()
+                │    └─► ExampleBusinessRules.validate()
+                │
+                └─► <ExampleUI /> (presenta datos)
+```
+
+### Pasos para Crear una Feature
+
+#### 1. Copiar la plantilla
+```bash
+cd src/features
+cp -r example-feature mi-nueva-feature
+```
+
+#### 2. Renombrar archivos
+- `ExampleContainer.tsx` → `MiFeatureContainer.tsx`
+- `example.use-case.ts` → `mi-feature.use-case.ts`
+- `example.service.ts` → `mi-feature.service.ts`
+- `example.adapter.ts` → `mi-feature.adapter.ts`
+- `ExampleUI.tsx` → `MiFeatureUI.tsx`
+
+#### 3. Actualizar exports
+```typescript
+// src/features/mi-feature/index.ts
+export { MiFeatureContainer } from './MiFeatureContainer';
+export { MiFeatureUI } from './components/MiFeatureUI';
+export { useMiFeatureUseCase } from './use-cases/mi-feature.use-case';
+```
+
+#### 4. Crear página que use la feature
+```tsx
+// src/app/(role)/mi-ruta/page.tsx
+import { MiFeatureContainer } from '@/features/mi-feature';
+
+export default function Page() {
+  return <MiFeatureContainer />;
+}
+```
+
+#### 5. Implementar las capas
+
+**a) Domain (Dominio)**
+```typescript
+// domain/types.ts
+export interface IMiEntidad {
+  readonly id: string;
+  readonly nombre: string;
+  readonly estado: MiEstado;
+}
+
+export const MiBusinessRules = {
+  esValido: (nombre: string) => nombre.length >= 3,
+};
+```
+
+**b) Service (Servicio)**
+```typescript
+// services/mi-feature.service.ts
+export class MiFeatureService {
+  async getAll(): Promise<MiDTO[]> {
+    const response = await fetch(`${API_URL}/mi-endpoint`);
+    return response.json();
+  }
+}
+
+export const miFeatureService = new MiFeatureService();
+```
+
+**c) Adapter (Adaptador)**
+```typescript
+// adapters/mi-feature.adapter.ts
+export function mapDTOToEntity(dto: MiDTO): IMiEntidad {
+  return {
+    id: dto.id,
+    nombre: dto.name,
+    estado: dto.status as MiEstado,
+  };
+}
+```
+
+**d) Use Case (Caso de Uso)**
+```typescript
+// use-cases/mi-feature.use-case.ts
+export function useMiFeatureUseCase() {
+  const [data, setData] = useState<IMiEntidad[]>([]);
+  
+  const fetchData = async () => {
+    const dtos = await miFeatureService.getAll();
+    const entities = dtos.map(mapDTOToEntity);
+    setData(entities);
+  };
+  
+  return { data, fetchData };
+}
+```
+
+**e) UI (Componentes)**
+```tsx
+// components/MiFeatureUI.tsx
+export function MiFeatureUI({ data, loading, onRefresh }) {
+  return (
+    <div>
+      {loading ? <Spinner /> : <DataGrid data={data} />}
+      <button onClick={onRefresh}>Refresh</button>
+    </div>
+  );
+}
+```
+
+**f) Container (Contenedor)**
+```tsx
+// MiFeatureContainer.tsx
+export function MiFeatureContainer() {
+  const { data, fetchData } = useMiFeatureUseCase();
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+  return <MiFeatureUI data={data} onRefresh={fetchData} />;
+}
+```
+
+### Checklist de Validación
+
+- [ ] Copiar carpeta `example-feature` con nuevo nombre
+- [ ] Renombrar todos los archivos y clases
+- [ ] Actualizar `domain/types.ts` con entidades específicas
+- [ ] Configurar endpoints reales en `services/`
+- [ ] Implementar mapeos en `adapters/`
+- [ ] Desarrollar lógica en `use-cases/`
+- [ ] Diseñar componentes en `components/`
+- [ ] Conectar todo en el `Container`
+- [ ] Crear página en `app/(role)/` que use el Container
+- [ ] Agregar handlers MSW en `/mocks` (opcional)
+- [ ] Probar que compila: `npm run build`
+- [ ] Probar que funciona: `npm run dev`
+
+### Antipatrones a Evitar
+
+❌ **NO hacer:** Llamar servicios directamente desde componentes UI
+```tsx
+// ❌ MAL
+function MyComponent() {
+  const data = await myService.getAll(); // NO!
+  return <div>{data}</div>;
+}
+```
+
+✅ **SÍ hacer:** Usar el caso de uso
+```tsx
+// ✅ BIEN
+function MyContainer() {
+  const { data } = useMyUseCase();
+  return <MyUI data={data} />;
+}
+```
+
+❌ **NO hacer:** Mezclar lógica de negocio en UI
+```tsx
+// ❌ MAL
+function MyUI({ item }) {
+  if (item.title.length < 3) return null; // Lógica de negocio en UI!
+}
+```
+
+✅ **SÍ hacer:** Validar en dominio/caso de uso
+```typescript
+// ✅ BIEN (en domain/types.ts)
+export const BusinessRules = {
+  isValidTitle: (title: string) => title.length >= 3
+};
+```
+
+### Recursos Adicionales
+
+- 📖 Ver `/src/features/example-feature/README.md` para detalles completos
+- 🔍 Revisar features existentes: `auth/`, `appointments/`
+- 🧪 Consultar `/mocks/handlers/` para ejemplos de MSW
+
+---
+
+**Última actualización**: 29 de octubre de 2025  
+**Versión**: 1.3 (Agregado: Guía de Features, Patrón Container)
