@@ -1,5 +1,5 @@
 import type {
-  create_doctor_dto,
+  internal_create_doctor_dto,
   update_doctor_dto,
 } from "../../../application/dto/Doctor/doctor.dto";
 import type { Pagination } from "../../../application/dto/Response/pagination.dto";
@@ -59,7 +59,9 @@ export class doctor_repository_implemented implements doctor_repository {
     return doctor as unknown as Doctor;
   }
 
-  async create_doctor(doctor_data: create_doctor_dto): Promise<Doctor> {
+  async create_doctor(
+    doctor_data: internal_create_doctor_dto
+  ): Promise<Doctor> {
     const sanitized_doctor = {
       ...doctor_data,
       education: doctor_data.education

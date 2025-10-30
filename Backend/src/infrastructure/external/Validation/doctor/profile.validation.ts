@@ -7,12 +7,12 @@ import {
   IsString,
 } from "class-validator";
 import type {
-  create_doctor_dto,
+  // create_doctor_dto,
   update_doctor_dto,
 } from "../../../../application/dto/Doctor/doctor.dto";
 import type { education_item } from "../../../../domain/entities/Doctor/education.entity";
 
-export class create_doctor_profile_validation implements create_doctor_dto {
+export class create_doctor_profile_validation {
   //   @IsNotEmpty({ message: "User id is required" })
   //   @IsString()
   //   user_id!: string;
