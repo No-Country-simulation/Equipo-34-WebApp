@@ -5,7 +5,7 @@ import type { Specialty } from "./specialty.entity";
 import type { ScheduleBlock } from "./schedule-block.entity";
 import type { Appointment } from "../Appointment/appointment.entity";
 import type { Consultation } from "../Consults/consultation.entity";
-import type { EducationItem } from "./education.entity";
+import type { education_item } from "./education.entity";
 
 export interface Doctor {
   id: string;
@@ -14,7 +14,7 @@ export interface Doctor {
   specialty_id?: string;
   bio?: string;
   experience_years?: number;
-  education?: EducationItem[];
+  education?: education_item[];
   languages: string[];
 
   // Professional details

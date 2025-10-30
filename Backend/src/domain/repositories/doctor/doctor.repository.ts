@@ -10,7 +10,11 @@ export interface doctor_repository {
     page: number,
     limit: number
   ): Promise<{ data: Doctor[]; pagination: Pagination }>;
-  find_one(user_id: string): Promise<Doctor>;
+  find_by_id(user_id: string): Promise<Doctor>;
+  find_by_email(email: string): Promise<Doctor>;
   create_doctor(doctor_data: create_doctor_dto): Promise<Doctor>;
-  update_doctor(doctor_data: update_doctor_dto): Promise<Doctor>;
+  update_doctor(
+    user_id: string,
+    doctor_data: update_doctor_dto
+  ): Promise<Doctor>;
 }

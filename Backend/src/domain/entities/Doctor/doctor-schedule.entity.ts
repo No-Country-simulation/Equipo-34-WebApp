@@ -1,7 +1,7 @@
 import type { Doctor } from "./doctor.entity";
-import type { MedicalCenter } from "../Hospital/medical-center.entity";
+import type { medical_center } from "../Hospital/medical-center.entity";
 
-export interface DoctorSchedule {
+export interface doctor_schedule {
   id: string;
   doctor_id: string;
   day_of_week: number;
@@ -17,5 +17,5 @@ export interface DoctorSchedule {
   updated_at: Date;
 
   doctor?: Doctor;
-  medical_center?: MedicalCenter;
+  medical_center?: medical_center;
 }
