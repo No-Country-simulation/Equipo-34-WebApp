@@ -1,12 +1,19 @@
 /**
  * Example Adapter
- * 
+ *
  * Mapea entre DTOs del API y entidades del dominio.
  * Responsable de transformar datos externos al formato interno del dominio.
  */
 
-import type { IExampleEntity, ExampleStatus, IPaginatedResult } from '../domain/types';
-import type { ExampleDTO, PaginatedResponseDTO } from '../services/example.service';
+import type {
+  IExampleEntity,
+  ExampleStatus,
+  IPaginatedResult,
+} from '../domain/types';
+import type {
+  ExampleDTO,
+  PaginatedResponseDTO,
+} from '../services/example.service';
 
 /**
  * Convierte un DTO del API a una entidad del dominio
@@ -25,7 +32,9 @@ export function mapDTOToEntity(dto: ExampleDTO): IExampleEntity {
 /**
  * Convierte una entidad del dominio a un DTO para el API
  */
-export function mapEntityToDTO(entity: Partial<IExampleEntity>): Partial<ExampleDTO> {
+export function mapEntityToDTO(
+  entity: Partial<IExampleEntity>
+): Partial<ExampleDTO> {
   return {
     ...(entity.id && { id: entity.id }),
     ...(entity.title && { title: entity.title }),

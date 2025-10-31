@@ -1,7 +1,7 @@
 /**
  * Componente AuthGuard
  * Protege rutas verificando autenticación y rol
- * 
+ *
  * Uso:
  * <ProtectedRoute requiredRoles={['medico', 'admin']}>
  *   <MedicoDashboard />
@@ -69,11 +69,7 @@ export function ProtectedRoute({
  * Componente para mostrar contenido solo si está autenticado
  */
 export function AuthGuard({ children }: { readonly children: ReactNode }) {
-  return (
-    <ProtectedRoute requiredRoles={undefined}>
-      {children}
-    </ProtectedRoute>
-  );
+  return <ProtectedRoute requiredRoles={undefined}>{children}</ProtectedRoute>;
 }
 
 /**
@@ -97,14 +93,14 @@ export function RoleGuard({
 
 /**
  * Hook para renderizado condicional basado en rol
- * 
+ *
  * @example
  * export function MyComponent() {
  *   const { canAccess, isLoading } = useCanAccess(['medico', 'admin']);
- *   
+ *
  *   if (isLoading) return <div>Cargando...</div>;
  *   if (!canAccess) return <div>No tienes acceso</div>;
- *   
+ *
  *   return <div>Contenido restringido</div>;
  * }
  */

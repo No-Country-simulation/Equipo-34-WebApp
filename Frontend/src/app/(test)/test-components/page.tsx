@@ -3,8 +3,7 @@ import CustomizableSelector from '@/shared/components/CustomizableSelector';
 import FluidDropdown from '@/shared/components/FluidDropdown';
 
 interface TestComponentProps {
-  component: ComponentType<ComponentProps<any>>;
-}
+  component: ComponentType<any>}
 
 const TestComponent: FC<TestComponentProps> = ({ component: Component }) => {
   return <Component />;

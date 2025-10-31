@@ -1,6 +1,6 @@
 /**
  * Example Service
- * 
+ *
  * Responsable de la comunicación con el backend.
  * En desarrollo, las llamadas son interceptadas por MSW.
  */

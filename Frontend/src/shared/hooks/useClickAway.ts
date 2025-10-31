@@ -1,21 +1,24 @@
-'use client'
-import { useEffect, type RefObject } from "react"
+'use client';
+import { useEffect, type RefObject } from 'react';
 
-export function useClickAway(ref: RefObject<HTMLElement | null>, handler: (event: MouseEvent | TouchEvent) => void) {
+export function useClickAway(
+  ref: RefObject<HTMLElement | null>,
+  handler: (event: MouseEvent | TouchEvent) => void
+) {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) {
-        return
+        return;
       }
-      handler(event)
-    }
+      handler(event);
+    };
 
-    document.addEventListener("mousedown", listener)
-    document.addEventListener("touchstart", listener)
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
 
     return () => {
-      document.removeEventListener("mousedown", listener)
-      document.removeEventListener("touchstart", listener)
-    }
-  }, [ref, handler])
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
 }

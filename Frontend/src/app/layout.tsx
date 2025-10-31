@@ -1,25 +1,26 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ReactNode } from "react";
-import { EnhancedScrollIndicator } from "@/shared/components/scroll/EnhancedScrollIndicator";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { ReactNode } from 'react';
+import { EnhancedScrollIndicator } from '@/shared/components/scroll/EnhancedScrollIndicator';
 import { ThemeScript } from '@/shared/components/ThemeScript';
 import { AppProviders } from '@/shared/core/AppProviders';
-import "../styles/globals.css";
+import '../styles/globals.css';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
   title: { default: '🏥 Clínica NC', template: '%s | 🏥 Clínica NC' },
-  description: 'Healthcare web application built with Next.js and Clean Architecture',
+  description:
+    'Healthcare web application built with Next.js and Clean Architecture',
   icons: {
     icon: [
       {
@@ -32,15 +33,16 @@ export const metadata: Metadata = {
     canonical: 'https://example.com',
     languages: {
       'en-US': 'https://example.com/en-US',
-      'de-DE': 'https://example.com/de-DE'
-    }
+      'de-DE': 'https://example.com/de-DE',
+    },
   },
   openGraph: {
     title: '🏥 Clínica NC',
-    description: 'Healthcare web application built with Next.js and Clean Architecture',
+    description:
+      'Healthcare web application built with Next.js and Clean Architecture',
     url: 'https://example.com',
     siteName: '🏥 Clínica NC',
-    images: [{ url: 'https://i.imgur.com/0ZBPKyC.png' }]
+    images: [{ url: 'https://i.imgur.com/0ZBPKyC.png' }],
   },
 };
 
@@ -55,12 +57,12 @@ export default function RootLayout({
         <ThemeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} text-gray-900 antialiased transition-colors duration-300 dark:text-gray-100`}
         suppressHydrationWarning
       >
         <AppProviders>
-          <EnhancedScrollIndicator />
           {children}
+          <EnhancedScrollIndicator />
         </AppProviders>
       </body>
     </html>

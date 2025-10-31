@@ -1,9 +1,12 @@
-'use client'
-import { MotionConfig, AnimatePresence } from 'framer-motion'
-import { Shirt, Briefcase, Smartphone, Home, Layers } from 'lucide-react'
-import { useDropdown } from '@/shared/hooks/useDropdown'
-import { DropdownItem, DropdownContent } from '@/shared/components/dropdown/DropdownContent'
-import { DropdownTrigger } from '@/shared/components/dropdown/DropdownTrigger'
+'use client';
+import { MotionConfig, AnimatePresence } from 'framer-motion';
+import { Shirt, Briefcase, Smartphone, Home, Layers } from 'lucide-react';
+import { useDropdown } from '@/shared/hooks/useDropdown';
+import {
+  DropdownItem,
+  DropdownContent,
+} from '@/shared/components/dropdown/DropdownContent';
+import { DropdownTrigger } from '@/shared/components/dropdown/DropdownTrigger';
 
 // Data Items Mock
 const itemsMock: DropdownItem[] = [
@@ -12,22 +15,24 @@ const itemsMock: DropdownItem[] = [
   { id: 2, label: 'Desk', icon: Briefcase, color: '#4ECDC4' },
   { id: 3, label: 'Tech', icon: Smartphone, color: '#45B7D1' },
   { id: 4, label: 'Home', icon: Home, color: '#F9C74F' },
-]
+];
 // Selected Item Mock
-const itemSelectedMock: DropdownItem[] = [{ id: 3, label: 'Tech', icon: Smartphone, color: '#45B7D1' }]
+const itemSelectedMock: DropdownItem[] = [
+  { id: 3, label: 'Tech', icon: Smartphone, color: '#45B7D1' },
+];
 
 const labelMock = {
   title: 'Select an item',
   subTitle: 'You have selected %s',
-}
+};
 
 interface FluidDropdownProps {
-  readonly items?: DropdownItem[]
-  readonly selected?: DropdownItem[]
+  readonly items?: DropdownItem[];
+  readonly selected?: DropdownItem[];
   readonly label?: {
-    title?: string
-    subTitle?: string
-  }
+    title?: string;
+    subTitle?: string;
+  };
 }
 
 export default function FluidDropdown({
@@ -38,7 +43,7 @@ export default function FluidDropdown({
   const labels = {
     title: customLabel?.title || labelMock.title,
     subTitle: customLabel?.subTitle || labelMock.subTitle,
-  }
+  };
 
   const {
     isOpen,
@@ -51,21 +56,33 @@ export default function FluidDropdown({
     handleKeyDown,
   } = useDropdown<DropdownItem>({
     initialValue: selected[0] || items[0],
-    onSelect: (item) => console.log('Selected:', item),
-  })
+    onSelect: item => console.log('Selected:', item),
+  });
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="w-full max-w-md mx-auto px-4">
+      <div className="flex min-h-screen items-center justify-center bg-black">
+        <div className="mx-auto w-full max-w-md px-4">
           {/* Title */}
-          <h1 className="text-white text-2xl font-semibold mb-2 text-center">{labels.title}</h1>
+          <h1 className="mb-2 text-center text-2xl font-semibold text-white">
+            {labels.title}
+          </h1>
 
           {/* Subtitle with selected item */}
-          <p className="text-zinc-400 text-sm mb-6 text-center">{labels.subTitle.replace('%s', selectedItem.label)}</p>
+          <p className="mb-6 text-center text-sm text-zinc-400">
+            {labels.subTitle.replace('%s', selectedItem.label)}
+          </p>
 
-          <div className="relative" style={{ height: '40px' }} ref={dropdownRef}>
-            <DropdownTrigger selectedItem={selectedItem} isOpen={isOpen} onToggle={toggleDropdown} />
+          <div
+            className="relative"
+            style={{ height: '40px' }}
+            ref={dropdownRef}
+          >
+            <DropdownTrigger
+              selectedItem={selectedItem}
+              isOpen={isOpen}
+              onToggle={toggleDropdown}
+            />
 
             <AnimatePresence>
               {isOpen && (
@@ -83,5 +100,5 @@ export default function FluidDropdown({
         </div>
       </div>
     </MotionConfig>
-  )
+  );
 }

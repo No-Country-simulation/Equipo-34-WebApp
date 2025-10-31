@@ -1,6 +1,6 @@
 /**
  * Example UI Component
- * 
+ *
  * Componente de presentación puro que renderiza la interfaz.
  * No contiene lógica de negocio, solo recibe datos y callbacks.
  */
@@ -35,14 +35,14 @@ export function ExampleUI({
   onPageChange,
 }: ExampleUIProps) {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto max-w-6xl px-4 py-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             📋 Feature Example Template
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
             Esta es una plantilla de ejemplo para features del proyecto
           </p>
         </div>
@@ -50,13 +50,13 @@ export function ExampleUI({
           <button
             onClick={onRefresh}
             disabled={loading}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg transition-colors"
+            className="rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 disabled:bg-gray-400"
           >
             {loading ? '⏳ Cargando...' : '🔄 Refrescar'}
           </button>
           <button
             onClick={onCreateItem}
-            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+            className="rounded-lg bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
           >
             ➕ Crear Nuevo
           </button>
@@ -65,25 +65,27 @@ export function ExampleUI({
 
       {/* Error Message */}
       {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-red-800 dark:text-red-200 font-semibold">❌ Error</p>
-          <p className="text-red-700 dark:text-red-300 text-sm mt-1">{error}</p>
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
+          <p className="font-semibold text-red-800 dark:text-red-200">
+            ❌ Error
+          </p>
+          <p className="mt-1 text-sm text-red-700 dark:text-red-300">{error}</p>
         </div>
       )}
 
       {/* Loading State */}
       {loading && !data && (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
         </div>
       )}
 
       {/* Data Grid */}
       {data && (
         <>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div className="overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
             <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
+              <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                   Listado de Ejemplos
                 </h2>
@@ -93,17 +95,17 @@ export function ExampleUI({
               </div>
 
               {data.items.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 dark:text-gray-400 text-lg">
+                <div className="py-12 text-center">
+                  <p className="text-lg text-gray-500 dark:text-gray-400">
                     📭 No hay datos disponibles
                   </p>
-                  <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+                  <p className="mt-2 text-sm text-gray-400 dark:text-gray-500">
                     Crea tu primer item para comenzar
                   </p>
                 </div>
               ) : (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {data.items.map((item) => (
+                  {data.items.map(item => (
                     <ExampleCard
                       key={item.id}
                       item={item}
@@ -120,11 +122,11 @@ export function ExampleUI({
 
           {/* Pagination */}
           {data.total > data.pageSize && (
-            <div className="mt-6 flex justify-center items-center gap-2">
+            <div className="mt-6 flex items-center justify-center gap-2">
               <button
                 onClick={() => onPageChange(data.page - 1)}
                 disabled={data.page === 1}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors"
+                className="rounded-lg bg-gray-200 px-4 py-2 transition-colors hover:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
                 ← Anterior
               </button>
@@ -134,7 +136,7 @@ export function ExampleUI({
               <button
                 onClick={() => onPageChange(data.page + 1)}
                 disabled={!data.hasMore}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors"
+                className="rounded-lg bg-gray-200 px-4 py-2 transition-colors hover:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
                 Siguiente →
               </button>
@@ -144,23 +146,57 @@ export function ExampleUI({
       )}
 
       {/* Architecture Info */}
-      <div className="mt-12 p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-3">
+      <div className="mt-12 rounded-lg border border-blue-200 bg-blue-50 p-6 dark:border-blue-800 dark:bg-blue-900/20">
+        <h3 className="mb-3 text-lg font-semibold text-blue-900 dark:text-blue-200">
           🏗️ Estructura de la Feature
         </h3>
-        <div className="grid md:grid-cols-2 gap-4 text-sm">
+        <div className="grid gap-4 text-sm md:grid-cols-2">
           <div>
-            <p className="font-semibold text-blue-800 dark:text-blue-300 mb-2">📁 Capas:</p>
+            <p className="mb-2 font-semibold text-blue-800 dark:text-blue-300">
+              📁 Capas:
+            </p>
             <ul className="space-y-1 text-blue-700 dark:text-blue-400">
-              <li>• <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">domain/</code> - Entidades y reglas de negocio</li>
-              <li>• <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">use-cases/</code> - Lógica de aplicación</li>
-              <li>• <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">adapters/</code> - Mapeo API ↔ dominio</li>
-              <li>• <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">services/</code> - Comunicación con backend</li>
-              <li>• <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">components/</code> - UI específica</li>
+              <li>
+                •{' '}
+                <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">
+                  domain/
+                </code>{' '}
+                - Entidades y reglas de negocio
+              </li>
+              <li>
+                •{' '}
+                <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">
+                  use-cases/
+                </code>{' '}
+                - Lógica de aplicación
+              </li>
+              <li>
+                •{' '}
+                <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">
+                  adapters/
+                </code>{' '}
+                - Mapeo API ↔ dominio
+              </li>
+              <li>
+                •{' '}
+                <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">
+                  services/
+                </code>{' '}
+                - Comunicación con backend
+              </li>
+              <li>
+                •{' '}
+                <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">
+                  components/
+                </code>{' '}
+                - UI específica
+              </li>
             </ul>
           </div>
           <div>
-            <p className="font-semibold text-blue-800 dark:text-blue-300 mb-2">🎯 Patrón Container:</p>
+            <p className="mb-2 font-semibold text-blue-800 dark:text-blue-300">
+              🎯 Patrón Container:
+            </p>
             <ul className="space-y-1 text-blue-700 dark:text-blue-400">
               <li>• Orquesta casos de uso</li>
               <li>• Maneja estado local</li>
@@ -185,57 +221,68 @@ interface ExampleCardProps {
   readonly onDelete: () => void;
 }
 
-function ExampleCard({ item, isSelected, onSelect, onEdit, onDelete }: ExampleCardProps) {
+function ExampleCard({
+  item,
+  isSelected,
+  onSelect,
+  onEdit,
+  onDelete,
+}: ExampleCardProps) {
   const statusColors = {
-    active: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-    inactive: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400',
-    pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+    active:
+      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+    inactive:
+      'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400',
+    pending:
+      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
     archived: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
   };
 
   return (
     <div
-      className={`p-4 border-2 rounded-lg transition-all cursor-pointer ${
+      className={`cursor-pointer rounded-lg border-2 p-4 transition-all ${
         isSelected
           ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-          : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
+          : 'border-gray-200 hover:border-blue-300 dark:border-gray-700 dark:hover:border-blue-700'
       }`}
       onClick={onSelect}
     >
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">
+      <div className="mb-3 flex items-start justify-between">
+        <h3 className="line-clamp-1 font-semibold text-gray-900 dark:text-gray-100">
           {item.title}
         </h3>
-        <span className={`px-2 py-1 text-xs rounded-full ${statusColors[item.status]}`}>
+        <span
+          className={`rounded-full px-2 py-1 text-xs ${statusColors[item.status]}`}
+        >
           {item.status}
         </span>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+      <p className="mb-4 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
         {item.description}
       </p>
 
-      <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-500 mb-3">
+      <div className="mb-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
         <span>ID: {item.id.slice(0, 8)}...</span>
         <span>{new Date(item.createdAt).toLocaleDateString()}</span>
       </div>
 
       <div className="flex gap-2">
         <button
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             onEdit();
           }}
-          className="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
+          className="flex-1 rounded bg-blue-600 px-3 py-1.5 text-sm text-white transition-colors hover:bg-blue-700"
         >
           ✏️ Editar
         </button>
         <button
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             onDelete();
           }}
-          className="flex-1 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
+          className="flex-1 rounded bg-red-600 px-3 py-1.5 text-sm text-white transition-colors hover:bg-red-700"
         >
           🗑️ Eliminar
         </button>

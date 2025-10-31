@@ -1,6 +1,7 @@
 # task(clinic-nc-project-base): Configuración de herramientas base (ESLint, Prettier, MSW, Zustand)
 
 ## 📌 Issue Relacionado
+
 - Closes #6 (Dev Tools Setup)
 
 ## 📌 Descripción
@@ -19,18 +20,23 @@ Esta PR **establece la base técnica del proyecto ClinicaNC** mediante la config
 ## 📸 Capturas de Pantalla
 
 ### 1. Configuración ESLint en VS Code
+
 ![ESLint Configuration](./screenshots/pr-base-01-eslint-config.png)
 
 ### 2. Prettier Formateando Código
+
 ![Prettier Formatting](./screenshots/pr-base-02-prettier-formatting.png)
 
 ### 3. MSW Iniciado Correctamente
+
 ![MSW Working](./screenshots/pr-base-03-msw-working.png)
 
 ### 4. Estructura de Carpetas Base
+
 ![Folder Structure](./screenshots/pr-base-04-folder-structure.png)
 
 ### 5. Resultado del Lint
+
 ![Lint Results](./screenshots/pr-base-05-lint-results.png)
 
 ---
@@ -160,6 +166,7 @@ npm run dev
 ```
 
 **Validaciones esperadas:**
+
 - ✅ Al abrir la app: mensaje "✅ MSW iniciado correctamente" en consola
 - ✅ VS Code muestra advertencias de ESLint en tiempo real
 - ✅ No hay errores en DevTools
@@ -206,6 +213,7 @@ Esta PR es el **foundation** del proyecto. Todas las features futuras dependerá
 ## 🎓 Para Nuevos Desarrolladores
 
 ### Crear un nuevo handler MSW
+
 ```typescript
 // src/mocks/handlers/example.ts
 import { http, HttpResponse } from 'msw';
@@ -218,6 +226,7 @@ export const exampleHandlers = [
 ```
 
 ### Registrar nuevo handler
+
 ```typescript
 // src/mocks/handlers/handlers.ts
 import { authHandlers } from './auth';

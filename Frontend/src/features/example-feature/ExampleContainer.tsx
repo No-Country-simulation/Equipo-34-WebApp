@@ -1,11 +1,11 @@
 /**
  * Example Container (Patrón Container)
- * 
+ *
  * Responsable de:
  * - Consumir el caso de uso (lógica de aplicación)
  * - Manejar el estado y las acciones
  * - Renderizar el componente de UI
- * 
+ *
  * Este es el PUNTO DE ENTRADA de la feature.
  */
 
@@ -63,7 +63,9 @@ export function ExampleContainer() {
     (id: string) => {
       // En una app real, esto abriría un modal o formulario
       const title = prompt('Nuevo título (dejar vacío para no cambiar):');
-      const description = prompt('Nueva descripción (dejar vacío para no cambiar):');
+      const description = prompt(
+        'Nueva descripción (dejar vacío para no cambiar):'
+      );
 
       if (title || description) {
         update(id, {

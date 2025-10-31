@@ -5,12 +5,14 @@
 ## ✨ ¿Qué se creó?
 
 ### 1. **Store Zustand** (`src/shared/store/auth.store.ts`)
+
 - Estado centralizado de autenticación
 - Persistencia automática en localStorage
 - Acciones de login/register/logout
 - Helpers para validar roles
 
 ### 2. **Hooks Personalizados** (`src/shared/hooks/useAuth.ts`)
+
 - `useAuth()` - Todo el estado y acciones
 - `useCurrentUser()` - Solo el usuario
 - `useIsAuthenticated()` - Solo autenticación
@@ -21,23 +23,27 @@
 - `useAuthStatus()` - Solo loading/error
 
 ### 3. **Provider** (`src/shared/providers/AuthProvider.tsx`)
+
 - Sincroniza la sesión al cargar la app
 - Recupera el usuario desde localStorage
 - Valida el token con el backend
 
 ### 4. **AuthGuard** (`src/shared/components/AuthGuard.tsx`)
+
 - `<ProtectedRoute>` - Protege rutas genéricamente
 - `<AuthGuard>` - Solo valida autenticación
 - `<RoleGuard>` - Valida rol específico
 - `useCanAccess()` - Hook para lógica condicional
 
 ### 5. **LoginForm** (`src/features/auth/components/LoginForm.tsx`)
+
 - Formulario funcional completo
 - Botones de prueba rápida para 3 roles
 - Validación de campos
 - Manejo de errores
 
 ### 6. **Páginas de ejemplo**
+
 - `/auth/login` - Página de login
 - `/dashboard` - Dashboard protegido
 
@@ -240,6 +246,7 @@ JSON.parse(localStorage.getItem('auth-store'))
 ```
 
 **Cuando recargas la página:**
+
 1. `AuthProvider` se monta
 2. Llama a `useSyncCurrentUser()`
 3. Lee el token de localStorage
@@ -357,15 +364,19 @@ export const appointmentHandlers = [
 ## 🐛 Troubleshooting
 
 ### "MSW no está interceptando las solicitudes"
+
 → Verifica que `MSWProvider` esté en `app/layout.tsx` y que esté **fuera** del `<html>`
 
 ### "El token no persiste después de recargar"
+
 → Revisa que `AuthProvider` esté en el layout y que `useSyncCurrentUser()` se ejecute
 
 ### "El usuario no se actualiza en los componentes"
+
 → Asegúrate de usar los hooks dentro de componentes con `'use client'`
 
 ### "ProtectedRoute no protege la ruta"
+
 → Verifica que `<ProtectedRoute>` envuelva el contenido y tenga `requiredRoles` si es necesario
 
 ---
@@ -380,9 +391,10 @@ export const appointmentHandlers = [
 
 ## 🎉 ¡Listo para usar!
 
-Ahora tienes un sistema de autenticación completo, robusto y escalable. 
+Ahora tienes un sistema de autenticación completo, robusto y escalable.
 
 Prueba:
+
 1. Abre `http://192.168.100.9:3000/auth/login`
 2. Haz clic en "Paciente", "Médico" o "Admin"
 3. ¡Verás el dashboard con tus datos!

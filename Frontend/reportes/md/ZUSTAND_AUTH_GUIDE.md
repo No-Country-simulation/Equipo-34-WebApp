@@ -26,7 +26,7 @@ src/
 ✅ **Protección de rutas** por rol  
 ✅ **Hooks personalizados** para cada caso de uso  
 ✅ **TypeScript strict** para seguridad de tipos  
-✅ **Estados de carga y error** integrados  
+✅ **Estados de carga y error** integrados
 
 ---
 
@@ -47,6 +47,7 @@ interface AuthState {
 ### Acciones
 
 #### `login(email, password)`
+
 Autentica al usuario y guarda el token
 
 ```typescript
@@ -61,6 +62,7 @@ if (result.success) {
 ```
 
 #### `register(data)`
+
 Registra un nuevo usuario
 
 ```typescript
@@ -76,6 +78,7 @@ const result = await register({
 ```
 
 #### `logout()`
+
 Cierra la sesión y limpia el estado
 
 ```typescript
@@ -84,6 +87,7 @@ await logout(); // Token y user se eliminan
 ```
 
 #### `getCurrentUser()`
+
 Sincroniza el usuario actual desde el backend
 
 ```typescript
@@ -96,6 +100,7 @@ const user = await getCurrentUser();
 ## 🎣 Hooks Personalizados
 
 ### `useAuth()`
+
 Acceso a todo el estado y acciones
 
 ```typescript
@@ -125,6 +130,7 @@ export function LoginForm() {
 ```
 
 ### `useCurrentUser()`
+
 Obtiene solo el usuario actual
 
 ```typescript
@@ -142,6 +148,7 @@ return (
 ```
 
 ### `useIsAuthenticated()`
+
 Solo para validar si está logueado
 
 ```typescript
@@ -151,6 +158,7 @@ return isAuth ? <Dashboard /> : <LoginPage />;
 ```
 
 ### `useUserRole()`
+
 Obtiene el rol del usuario
 
 ```typescript
@@ -162,6 +170,7 @@ if (role === 'medico') {
 ```
 
 ### `useHasRole(role | roles[])`
+
 Valida si tiene un rol específico (para renderizado condicional)
 
 ```typescript
@@ -175,6 +184,7 @@ return isDoctor ? <MedicoPanel /> : null;
 ```
 
 ### `useAuthActions()`
+
 Acceso a login/logout/register solamente
 
 ```typescript
@@ -182,6 +192,7 @@ const { login, logout } = useAuthActions();
 ```
 
 ### `useAuthStatus()`
+
 Solo estado de carga y error
 
 ```typescript
@@ -189,6 +200,7 @@ const { isLoading, error } = useAuthStatus();
 ```
 
 ### `useSyncCurrentUser()`
+
 Hook para sincronizar la sesión al montar
 
 ```typescript
@@ -210,6 +222,7 @@ export function MyComponent() {
 ## 🔐 Protección de Rutas
 
 ### `<ProtectedRoute>`
+
 Componente genérico para proteger rutas
 
 ```typescript
@@ -225,6 +238,7 @@ export default function Dashboard() {
 ```
 
 ### `<AuthGuard>`
+
 Solo valida autenticación (sin rol)
 
 ```typescript
@@ -240,6 +254,7 @@ export default function PrivatePage() {
 ```
 
 ### `<RoleGuard>`
+
 Valida rol específico
 
 ```typescript
@@ -255,6 +270,7 @@ export default function AdminPanel() {
 ```
 
 ### `useCanAccess(roles)`
+
 Hook para lógica condicional compleja
 
 ```typescript
@@ -366,7 +382,7 @@ El store guarda automáticamente en localStorage:
 
 ```javascript
 // En DevTools Console
-JSON.parse(localStorage.getItem('auth-store'))
+JSON.parse(localStorage.getItem('auth-store'));
 // {
 //   "state": {
 //     "token": "eyJ...",
@@ -412,7 +428,7 @@ const state = useAuthStore.getState();
 console.log(state);
 
 // Suscribirse a cambios
-const unsubscribe = useAuthStore.subscribe((state) => {
+const unsubscribe = useAuthStore.subscribe(state => {
   console.log('Auth state cambió:', state);
 });
 ```

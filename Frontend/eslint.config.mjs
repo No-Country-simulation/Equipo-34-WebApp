@@ -1,86 +1,87 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
+import js from '@eslint/js';
+import typescript from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import reactHooks from 'eslint-plugin-react-hooks';
+import react from 'eslint-plugin-react';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import storybook from 'eslint-plugin-storybook';
+import globals from 'globals';
 
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { FlatCompat } from "@eslint/eslintrc";
-import importPlugin from "eslint-plugin-import";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
+export default [
+  js.configs.recommended,
   {
     ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "dist/**",
-      "next-env.d.ts",
-      ".eslintignore",
-      "coverage/**",
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      'dist/**',
+      'next-env.d.ts',
+      'coverage/**',
+      'storybook-static/**',
     ],
   },
   {
-    files: ["src/**/*.ts", "src/**/*.tsx"],
+    files: ['**/*.{ts,tsx,js,jsx,mjs}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+      },
+    },
     plugins: {
+      '@typescript-eslint': typescript,
+      react: react,
+      'react-hooks': reactHooks,
       import: importPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
-      // TypeScript
-      "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "@typescript-eslint/no-unused-vars": [
-        "error",
+      'prettier/prettier': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      'no-unused-vars': 'off', // Desactivar la regla base de JS
+      '@typescript-eslint/no-unused-vars': [
+        'error',
         {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          ignoreRestSiblings: true, // Ignora propiedades en rest (...rest)
         },
       ],
-
-      // React Hooks
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-
-      // Import rules (Clean Architecture)
-      "import/no-cycle": "error",
-      "import/order": [
-        "warn",
-        {
-          groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
-          pathGroups: [
-            {
-              pattern: "@/**",
-              group: "internal",
-              position: "after",
-            },
-          ],
-          "newlines-between": "always",
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ],
-
-      // General
-      "no-console": [
-        "warn",
-        {
-          allow: ["warn", "error"],
-        },
-      ],
-      "prefer-const": "error",
-      "no-var": "error",
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'import/no-cycle': 'error',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prefer-const': 'error',
+      'no-var': 'error',
     },
   },
-  ...storybook.configs["flat/recommended"]
+  ...storybook.configs['flat/recommended'],
+  {
+    files: ['**/*.stories.{ts,tsx,js,jsx}'],
+    rules: {
+      'storybook/no-renderer-packages': 'off',
+    },
+  },
+  {
+    // Para archivos de tipos, no verificar variables no utilizadas en definiciones
+    files: ['**/*.d.ts', '**/*.types.ts', '**/*.store.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 ];
-
-export default eslintConfig;

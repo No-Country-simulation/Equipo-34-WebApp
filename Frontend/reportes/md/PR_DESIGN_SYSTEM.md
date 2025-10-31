@@ -121,14 +121,17 @@ Componente `src/shared/ui/alert.tsx`
 ### Colores Principales
 
 **Primary (Azul Clínico)**
+
 - Principal: 0ea5e9
 - Variantes: 50 a 950 para contraste
 
 **Secondary (Gris Suave)**
+
 - Principal: 64748b
 - Variantes: 50 a 950 neutras
 
 **Accent (Verde Salud)**
+
 - Principal: 22c55e
 - Variantes: 50 a 950 de énfasis
 

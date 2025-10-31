@@ -1,5 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from './card';
 import { Button } from './button';
 
 const meta = {
@@ -49,7 +56,7 @@ export const CardWithLongContent: Story = {
         <CardDescription>What we offer</CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className="list-disc list-inside space-y-2">
+        <ul className="list-inside list-disc space-y-2">
           <li>Feature 1</li>
           <li>Feature 2</li>
           <li>Feature 3</li>

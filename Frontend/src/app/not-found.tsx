@@ -2,10 +2,10 @@
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="max-w-md w-full space-y-6 text-center">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
+      <div className="w-full max-w-md space-y-6 text-center">
         <div className="space-y-2">
-          <h1 className="text-9xl font-bold text-primary-600 dark:text-primary-400">
+          <h1 className="text-primary-600 dark:text-primary-400 text-9xl font-bold">
             404
           </h1>
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -16,16 +16,16 @@ export default function NotFound() {
           </p>
         </div>
 
-        <div className="flex gap-3 justify-center">
+        <div className="flex justify-center gap-3">
           <a
             href="/"
-            className="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors inline-block"
+            className="bg-primary-600 hover:bg-primary-700 inline-block rounded-lg px-6 py-2 font-medium text-white transition-colors"
           >
             Ir al inicio
           </a>
           <button
             onClick={() => window.history.back()}
-            className="px-6 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
+            className="rounded-lg bg-gray-200 px-6 py-2 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
           >
             Volver atrás
           </button>

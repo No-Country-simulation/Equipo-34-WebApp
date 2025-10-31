@@ -1,8 +1,5 @@
 // Button
-export {
-  Button,
-  type ButtonProps,
-} from './button';
+export { Button, type ButtonProps } from './button';
 
 // Card
 export {
@@ -15,19 +12,13 @@ export {
 } from './card';
 
 // Input
-export {
-  Input,
-} from './input';
+export { Input } from './input';
 
 // Label
-export {
-  Label,
-} from './label';
+export { Label } from './label';
 
 // Checkbox
-export {
-  Checkbox,
-} from './checkbox';
+export { Checkbox } from './checkbox';
 
 // Select
 export {
@@ -43,8 +34,4 @@ export {
 } from './select';
 
 // Alert
-export {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-} from './alert';
+export { Alert, AlertTitle, AlertDescription } from './alert';

@@ -1,14 +1,24 @@
 /**
  * MSW Handlers para autenticación
  * Simula el comportamiento del backend para login, register y logout
- * 
+ *
  * Roles soportados: paciente, medico, admin
  * Credenciales de prueba: ver src/mocks/data/users.mock.ts
  */
 
 import { http, HttpResponse, delay } from 'msw';
-import type { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '@/shared/types/auth.types';
-import { getMockUser, validateMockCredentials, MOCK_PASSWORD, addMockUser } from '../data/users.mock';
+import type {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+} from '@/shared/types/auth.types';
+import {
+  getMockUser,
+  validateMockCredentials,
+  MOCK_PASSWORD,
+  addMockUser,
+} from '../data/users.mock';
 import { generateMockToken } from '../utils/jwt.mock';
 
 /**
@@ -19,7 +29,7 @@ export const authHandlers = [
   /**
    * POST /api/auth/login
    * Autentica un usuario y retorna un token JWT + user data
-   * 
+   *
    * Usuarios de prueba:
    * - Email: paciente@clinic.com | Rol: paciente
    * - Email: medico@clinic.com   | Rol: medico
@@ -103,7 +113,7 @@ export const authHandlers = [
   /**
    * POST /api/auth/register
    * Registra un nuevo usuario
-   * 
+   *
    * Nota: Este es un mock. El registro real dependerá del backend.
    */
   http.post('*/api/auth/register', async ({ request }) => {
@@ -142,7 +152,12 @@ export const authHandlers = [
         email: body.email,
         name: body.name,
         last_name: body.last_name || '',
-        role: body.role_id === 1 ? ('paciente' as const) : body.role_id === 2 ? ('medico' as const) : ('admin' as const),
+        role:
+          body.role_id === 1
+            ? ('paciente' as const)
+            : body.role_id === 2
+              ? ('medico' as const)
+              : ('admin' as const),
         phone: body.phone,
         created_at: new Date().toISOString(),
       };

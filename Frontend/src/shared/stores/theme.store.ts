@@ -12,7 +12,7 @@ interface ThemeState {
   // Estado
   theme: Theme;
   resolvedTheme: 'light' | 'dark'; // El tema real aplicado (después de resolver 'system')
-  
+
   // Acciones
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
@@ -44,12 +44,12 @@ export const useThemeStore = create<ThemeState>()(
     }),
     {
       name: 'theme-storage',
-      partialize: (state) => ({ theme: state.theme }),
-      onRehydrateStorage: () => (state) => {
+      partialize: state => ({ theme: state.theme }),
+      onRehydrateStorage: () => state => {
         if (state) {
           const resolved = resolveTheme(state.theme);
           state.resolvedTheme = resolved;
-          
+
           // Aplicar tema inmediatamente después de la hidratación
           if (typeof window !== 'undefined') {
             applyThemeToDOM(resolved);
@@ -65,14 +65,14 @@ export const useThemeStore = create<ThemeState>()(
  */
 function resolveTheme(theme: Theme): 'light' | 'dark' {
   if (theme !== 'system') return theme;
-  
+
   // Detectar preferencia del sistema
   if (typeof window !== 'undefined') {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
   }
-  
+
   return 'light';
 }
 
@@ -81,10 +81,10 @@ function resolveTheme(theme: Theme): 'light' | 'dark' {
  */
 function applyThemeToDOM(theme: 'light' | 'dark') {
   if (typeof window === 'undefined') return;
-  
+
   const root = window.document.documentElement;
   const body = window.document.body;
-  
+
   if (theme === 'dark') {
     root.classList.add('dark');
     body.classList.add('dark');
@@ -94,7 +94,7 @@ function applyThemeToDOM(theme: 'light' | 'dark') {
     body.classList.remove('dark');
     root.style.colorScheme = 'light';
   }
-  
+
   // Forzar repaint para asegurar que los estilos se apliquen
   void root.offsetHeight;
 }
@@ -105,49 +105,51 @@ function applyThemeToDOM(theme: 'light' | 'dark') {
  */
 export function initializeTheme() {
   if (typeof window === 'undefined') return;
-  
+
   const state = useThemeStore.getState();
-  
+
   // Verificar localStorage
   const stored = localStorage.getItem('theme-storage');
-  
+
   if (!stored) {
     // Primera vez - detectar del sistema
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemPrefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
     const systemTheme = systemPrefersDark ? 'dark' : 'light';
-    
-    useThemeStore.setState({ 
+
+    useThemeStore.setState({
       theme: 'system',
-      resolvedTheme: systemTheme
+      resolvedTheme: systemTheme,
     });
     applyThemeToDOM(systemTheme);
   } else {
     // Hay tema guardado - aplicarlo
     const resolved = resolveTheme(state.theme);
-    
-    useThemeStore.setState({ 
+
+    useThemeStore.setState({
       theme: state.theme,
-      resolvedTheme: resolved 
+      resolvedTheme: resolved,
     });
     applyThemeToDOM(resolved);
   }
-  
+
   // Escuchar cambios en la preferencia del sistema solo si tema es 'system'
   const currentTheme = useThemeStore.getState().theme;
   if (currentTheme === 'system') {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       const newResolved = e.matches ? 'dark' : 'light';
       useThemeStore.setState({ resolvedTheme: newResolved });
       applyThemeToDOM(newResolved);
     };
-    
+
     mediaQuery.addEventListener('change', handleChange);
-    
+
     return () => mediaQuery.removeEventListener('change', handleChange);
   }
-  
+
   // Observador para mantener la clase dark sincronizada
   setupThemeObserver();
 }
@@ -189,22 +191,21 @@ export function getThemeInitScript(): string {
  */
 function setupThemeObserver() {
   if (typeof window === 'undefined') return;
-  
+
   const observer = new MutationObserver(() => {
     const state = useThemeStore.getState();
     const root = document.documentElement;
     const shouldHaveDark = state.resolvedTheme === 'dark';
     const hasDark = root.classList.contains('dark');
-    
+
     // Si el estado no coincide con el DOM, corregirlo
     if (shouldHaveDark !== hasDark) {
       applyThemeToDOM(state.resolvedTheme);
     }
   });
-  
+
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['class'],
   });
 }
-

@@ -22,7 +22,7 @@ export const useAuth = () => {
  * @returns Usuario actual o null
  */
 export const useCurrentUser = () => {
-  return useAuthStore((state) => state.user);
+  return useAuthStore(state => state.user);
 };
 
 /**
@@ -30,7 +30,7 @@ export const useCurrentUser = () => {
  * @returns Token JWT actual o null
  */
 export const useAuthToken = () => {
-  return useAuthStore((state) => state.token);
+  return useAuthStore(state => state.token);
 };
 
 /**
@@ -38,7 +38,7 @@ export const useAuthToken = () => {
  * @returns true si tiene token y user, false en otro caso
  */
 export const useIsAuthenticated = () => {
-  return useAuthStore((state) => state.isAuthenticated);
+  return useAuthStore(state => state.isAuthenticated);
 };
 
 /**
@@ -46,22 +46,22 @@ export const useIsAuthenticated = () => {
  * @returns Rol del usuario (paciente | medico | admin) o null
  */
 export const useUserRole = () => {
-  return useAuthStore((state) => state.getUserRole());
+  return useAuthStore(state => state.getUserRole());
 };
 
 /**
  * Hook para validar si el usuario tiene un rol específico
  * Útil para renderizado condicional
- * 
+ *
  * @param role Rol o array de roles a validar
  * @returns true si el usuario tiene ese rol
- * 
+ *
  * @example
  * const isPaciente = useHasRole('paciente');
  * const isDoctor = useHasRole(['medico', 'admin']);
  */
 export const useHasRole = (role: UserRole | UserRole[]) => {
-  return useAuthStore((state) => state.isUserRole(role));
+  return useAuthStore(state => state.isUserRole(role));
 };
 
 /**
@@ -69,9 +69,9 @@ export const useHasRole = (role: UserRole | UserRole[]) => {
  * @returns Objeto con login, logout, register
  */
 export const useAuthActions = () => {
-  const login = useAuthStore((state) => state.login);
-  const logout = useAuthStore((state) => state.logout);
-  const register = useAuthStore((state) => state.register);
+  const login = useAuthStore(state => state.login);
+  const logout = useAuthStore(state => state.logout);
+  const register = useAuthStore(state => state.register);
 
   return { login, logout, register };
 };
@@ -81,8 +81,8 @@ export const useAuthActions = () => {
  * @returns { isLoading, error }
  */
 export const useAuthStatus = () => {
-  const isLoading = useAuthStore((state) => state.isLoading);
-  const error = useAuthStore((state) => state.error);
+  const isLoading = useAuthStore(state => state.isLoading);
+  const error = useAuthStore(state => state.error);
 
   return { isLoading, error };
 };
@@ -90,7 +90,7 @@ export const useAuthStatus = () => {
 /**
  * Hook para sincronizar el usuario actual con el backend al montar
  * Útil para recuperar sesión después de recargar la página
- * 
+ *
  * @example
  * export default function App() {
  *   useSyncCurrentUser();
@@ -116,7 +116,7 @@ export const useSyncCurrentUser = () => {
 /**
  * Hook para debugging: muestra el estado del store en tiempo real
  * Solo úsalo en desarrollo
- * 
+ *
  * @example
  * export default function DebugComponent() {
  *   const state = useAuthDebug();
@@ -125,10 +125,13 @@ export const useSyncCurrentUser = () => {
  */
 export const useAuthDebug = () => {
   const state = useAuthStore();
-  
-  if (typeof globalThis.window === 'undefined' || process.env.NODE_ENV !== 'development') {
+
+  if (
+    typeof globalThis.window === 'undefined' ||
+    process.env.NODE_ENV !== 'development'
+  ) {
     return null;
   }
-  
+
   return state;
 };

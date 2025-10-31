@@ -30,12 +30,12 @@ Este proyecto utiliza **Route Groups** de Next.js App Router para organizar las 
 
 ## 🎯 URLs resultantes
 
-| Carpeta | URL | Descripción |
-|---------|-----|-------------|
-| `(public)/page.tsx` | `/` | Redirige a `/landing` |
-| `(paciente)/page.tsx` | `/paciente` | Dashboard del paciente |
-| `(medico)/page.tsx` | `/medico` | Dashboard del médico |
-| `(admin)/page.tsx` | `/admin` | Panel de administración |
+| Carpeta               | URL         | Descripción             |
+| --------------------- | ----------- | ----------------------- |
+| `(public)/page.tsx`   | `/`         | Redirige a `/landing`   |
+| `(paciente)/page.tsx` | `/paciente` | Dashboard del paciente  |
+| `(medico)/page.tsx`   | `/medico`   | Dashboard del médico    |
+| `(admin)/page.tsx`    | `/admin`    | Panel de administración |
 
 > **Nota**: Los paréntesis `()` en los nombres de carpetas NO aparecen en la URL.
 
@@ -80,22 +80,26 @@ export default function CitasPacientePage() {
 Cada route group tiene su propio layout:
 
 ### (public) - Sin autenticación
+
 - Sin sidebar
 - Header público simple
 - Fondo con gradiente
 - Usado en: landing, login, registro
 
 ### (paciente) - Área del paciente
+
 - Sidebar con navegación del paciente
 - Header con notificaciones
 - Acceso a: citas, historial, teleconsultas
 
 ### (medico) - Área del médico
+
 - Sidebar con navegación del médico
 - Header con agenda del día
 - Acceso a: agenda, pacientes, prescripciones
 
 ### (admin) - Panel de administración
+
 - Sidebar con gestión del sistema
 - Header con estadísticas
 - Acceso a: usuarios, configuración, reportes

@@ -15,22 +15,22 @@ describe('ThemeStore', () => {
 
   it('debe cambiar el tema correctamente', () => {
     const { result } = renderHook(() => useThemeStore());
-    
+
     act(() => {
       result.current.setTheme('dark');
     });
-    
+
     expect(result.current.theme).toBe('dark');
   });
 
   it('debe toggle el tema', () => {
     const { result } = renderHook(() => useThemeStore());
     const initialTheme = result.current.theme;
-    
+
     act(() => {
       result.current.toggleTheme();
     });
-    
+
     expect(result.current.theme).not.toBe(initialTheme);
   });
 });

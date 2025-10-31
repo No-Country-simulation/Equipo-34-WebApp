@@ -1,6 +1,6 @@
 /**
  * Example Feature - Public Page
- * 
+ *
  * Página pública para probar la feature de ejemplo.
  * Usa el patrón Container como punto de entrada.
  */

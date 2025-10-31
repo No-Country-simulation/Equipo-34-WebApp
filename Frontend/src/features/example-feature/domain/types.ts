@@ -1,6 +1,6 @@
 /**
  * Domain Types - Example Feature
- * 
+ *
  * Define las interfaces y tipos del dominio.
  * Estas son las entidades y reglas de negocio puras, sin dependencias externas.
  */

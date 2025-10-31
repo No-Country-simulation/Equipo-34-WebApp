@@ -14,6 +14,7 @@ Los mocks con MSW (Mock Service Worker) permiten interceptar llamadas HTTP sin t
 ## 🔐 Usuarios de Prueba
 
 ### Paciente
+
 ```
 Email: paciente@clinic.com
 Contraseña: password123
@@ -21,6 +22,7 @@ Rol: paciente
 ```
 
 ### Médico
+
 ```
 Email: medico@clinic.com
 Contraseña: password123
@@ -28,6 +30,7 @@ Rol: medico
 ```
 
 ### Admin
+
 ```
 Email: admin@clinic.com
 Contraseña: password123
@@ -39,6 +42,7 @@ Rol: admin
 ## 📝 Endpoints Disponibles
 
 ### Login
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -64,6 +68,7 @@ Response:
 ```
 
 ### Register
+
 ```http
 POST /api/auth/register
 Content-Type: application/json
@@ -80,6 +85,7 @@ Content-Type: application/json
 ```
 
 ### Get Current User
+
 ```http
 GET /api/auth/me
 Authorization: Bearer {token}
@@ -95,6 +101,7 @@ Response:
 ```
 
 ### Logout
+
 ```http
 POST /api/auth/logout
 ```
@@ -120,6 +127,7 @@ src/mocks/
 ## 💻 Uso en Componentes
 
 ### Con Fetch
+
 ```typescript
 // src/features/auth/services/auth.service.ts
 import type { LoginRequest, LoginResponse } from '@/shared/types/auth.types';
@@ -142,6 +150,7 @@ export async function loginService(credentials: LoginRequest): Promise<LoginResp
 ```
 
 ### En Use-Case
+
 ```typescript
 // src/features/auth/use-cases/login.use-case.ts
 import { loginService } from '../services/auth.service';
@@ -149,11 +158,11 @@ import { loginService } from '../services/auth.service';
 export async function loginUseCase(email: string, password: string) {
   try {
     const response = await loginService({ email, password });
-    
+
     // Guardar token y usuario
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response.user));
-    
+
     return response.user;
   } catch (error) {
     console.error('Login failed:', error);
@@ -163,6 +172,7 @@ export async function loginUseCase(email: string, password: string) {
 ```
 
 ### En Componente
+
 ```typescript
 // src/features/auth/components/LoginForm.tsx
 'use client';
@@ -224,6 +234,7 @@ export function LoginForm() {
 ## 🧪 Testing con MSW
 
 ### Configurar MSW en test
+
 ```typescript
 // src/__tests__/setup.ts
 import { server } from '@/mocks/server';
@@ -234,6 +245,7 @@ afterAll(() => server.close());
 ```
 
 ### Test de login
+
 ```typescript
 import { loginService } from '@/features/auth/services/auth.service';
 
@@ -264,6 +276,7 @@ describe('Auth Service', () => {
 ## 🚀 Agregar Nuevos Handlers
 
 ### 1. Crear archivo de handlers
+
 ```typescript
 // src/mocks/handlers/appointments.ts
 import { http, HttpResponse, delay } from 'msw';
@@ -279,6 +292,7 @@ export const appointmentHandlers = [
 ```
 
 ### 2. Agregar al agregador
+
 ```typescript
 // src/mocks/handlers/handlers.ts
 import { authHandlers } from './auth';

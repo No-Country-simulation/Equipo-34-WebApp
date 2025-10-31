@@ -1,6 +1,6 @@
 /**
  * ThemeScript - Script de inicialización del tema
- * 
+ *
  * Se ejecuta ANTES de que React se hidrate para evitar el "flash" de tema incorrecto.
  * Debe ser un componente separado para mantener el layout limpio.
  */

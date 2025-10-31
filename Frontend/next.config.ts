@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // ============================================
@@ -30,35 +30,35 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
+            value: 'max-age=63072000; includeSubDomains; preload',
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'SAMEORIGIN',
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'
+            value: 'nosniff',
           },
           {
             key: 'X-XSS-Protection',
-            value: '1; mode=block'
+            value: '1; mode=block',
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
+            value: 'origin-when-cross-origin',
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ]
-      }
-    ]
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
   },
 
   // ============================================
@@ -66,8 +66,12 @@ const nextConfig: NextConfig = {
   // ============================================
   experimental: {
     // Optimizar imports de paquetes grandes
-    optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-select'],
-    
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-select',
+    ],
+
     // Turbopack ya está habilitado en dev script
     // turbo: {},
   },
@@ -106,14 +110,14 @@ const nextConfig: NextConfig = {
             },
             // Large libraries in separate chunks
             lib: {
-              test(module: any) {
+                test(module: { size(): number; identifier(): string }): boolean {
                 return (
                   module.size() > 160000 &&
                   /node_modules[/\\]/.test(module.identifier())
                 );
-              },
-              name(module: any) {
-                const packageNameMatch = module.identifier().match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
+                },
+              name(module: { identifier: () => string; }) {
+                const packageNameMatch = /[\\/]node_modules[\\/](.*?)([\\/]|$)/.exec(module.identifier());
                 const packageName = packageNameMatch ? packageNameMatch[1] : '';
                 return `lib.${packageName.replace('@', '')}`;
               },
@@ -133,9 +137,12 @@ const nextConfig: NextConfig = {
   // ============================================
   compiler: {
     // Remove console.log in production
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error', 'warn'],
-    } : false,
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error', 'warn'],
+          }
+        : false,
   },
 
   // ============================================
@@ -149,11 +156,10 @@ const nextConfig: NextConfig = {
   // async redirects() {
   //   return []
   // },
-  
+
   // async rewrites() {
   //   return []
   // },
 };
 
 export default nextConfig;
-

@@ -56,6 +56,7 @@ npm install msw
 ### Opción A: Desde la Console
 
 1. **Inicia tu app**:
+
    ```bash
    npm run dev
    ```
@@ -71,16 +72,16 @@ fetch('/api/auth/login', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'paciente@clinic.com',
-    password: 'password123'
+    password: 'password123',
+  }),
+})
+  .then(r => r.json())
+  .then(data => {
+    console.log('✅ Respuesta:', data);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
   })
-})
-.then(r => r.json())
-.then(data => {
-  console.log('✅ Respuesta:', data);
-  localStorage.setItem('token', data.token);
-  localStorage.setItem('user', JSON.stringify(data.user));
-})
-.catch(e => console.error('❌ Error:', e));
+  .catch(e => console.error('❌ Error:', e));
 ```
 
 4. **Verifica en Console**:
@@ -106,12 +107,12 @@ fetch('/api/auth/login', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'medico@clinic.com',
-    password: 'password123'
-  })
+    password: 'password123',
+  }),
 })
-.then(r => r.json())
-.then(console.log)
-.catch(console.error);
+  .then(r => r.json())
+  .then(console.log)
+  .catch(console.error);
 
 // Login como Admin
 fetch('/api/auth/login', {
@@ -119,12 +120,12 @@ fetch('/api/auth/login', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'admin@clinic.com',
-    password: 'password123'
-  })
+    password: 'password123',
+  }),
 })
-.then(r => r.json())
-.then(console.log)
-.catch(console.error);
+  .then(r => r.json())
+  .then(console.log)
+  .catch(console.error);
 ```
 
 ### Opción C: Probar credenciales inválidas
@@ -136,11 +137,11 @@ fetch('/api/auth/login', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'paciente@clinic.com',
-    password: 'wrongpassword'
-  })
+    password: 'wrongpassword',
+  }),
 })
-.then(r => r.json())
-.then(console.log);
+  .then(r => r.json())
+  .then(console.log);
 
 // Usuario inexistente
 fetch('/api/auth/login', {
@@ -148,11 +149,11 @@ fetch('/api/auth/login', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'noexiste@clinic.com',
-    password: 'password123'
-  })
+    password: 'password123',
+  }),
 })
-.then(r => r.json())
-.then(console.log);
+  .then(r => r.json())
+  .then(console.log);
 ```
 
 ### Opción D: Ver Network Requests
@@ -180,6 +181,7 @@ curl -X POST "http://localhost:3000/api/auth/login" `
 ```
 
 **Respuesta esperada** (status 200):
+
 ```json
 {
   "token": "eyJhbGc...",
@@ -229,6 +231,7 @@ curl -X POST "http://localhost:3000/api/auth/login" `
 ```
 
 **Respuesta esperada** (status 401):
+
 ```json
 {
   "status": 401,
@@ -249,6 +252,7 @@ curl -X POST "http://localhost:3000/api/auth/login" `
 ```
 
 **Respuesta esperada** (status 404):
+
 ```json
 {
   "status": 404,
@@ -269,11 +273,13 @@ curl -X POST "http://localhost:3000/api/auth/login" `
    - URL: `http://localhost:3000/api/auth/login`
 
 3. **Headers**:
+
    ```
    Content-Type: application/json
    ```
 
 4. **Body (raw, JSON)**:
+
    ```json
    {
      "email": "paciente@clinic.com",
@@ -437,11 +443,13 @@ export default function TestLoginPage() {
 ### ❌ MSW no se inicia
 
 **Error en Console:**
+
 ```
 ❌ Error iniciando MSW: TypeError: Could not find a mocking worker...
 ```
 
 **Solución:**
+
 1. Asegúrate de que `MSWProvider` está en `app/layout.tsx`
 2. Verifica que el archivo `mockServiceWorker.js` existe en `public/`
 3. Reinstala MSW: `npm install msw`
@@ -449,11 +457,13 @@ export default function TestLoginPage() {
 ### ❌ Las requests no se interceptan
 
 **Console muestra:**
+
 ```
 [MSW] Warning: unhandled "GET" request to...
 ```
 
 **Solución:**
+
 1. Verifica que el endpoint está en `src/mocks/handlers/auth.ts`
 2. Revisa que el agregador en `handlers.ts` incluye los handlers
 3. Reinicia el servidor: `Ctrl+C` y `npm run dev`
@@ -464,8 +474,8 @@ export default function TestLoginPage() {
 
 ```javascript
 // En Console, verifica:
-localStorage.getItem('token')
-localStorage.getItem('user')
+localStorage.getItem('token');
+localStorage.getItem('user');
 
 // Si están vacíos, el login no funcionó
 // Revisa la respuesta en Network o Console
@@ -474,6 +484,7 @@ localStorage.getItem('user')
 ### ✅ MSW está funcionando
 
 En Console verás:
+
 ```
 ✅ MSW iniciado correctamente
 ```

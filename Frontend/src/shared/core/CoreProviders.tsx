@@ -1,11 +1,11 @@
 /**
  * CoreProviders - Proveedores CORE esenciales
- * 
+ *
  * Estos proveedores son necesarios en TODOS los contextos:
  * - App principal (Next.js)
  * - Storybook
  * - Tests unitarios
- * 
+ *
  * Incluye:
  * - ThemeProvider: Sistema de temas (light/dark)
  * - LocaleProvider: Sistema de internacionalización (es/en)
@@ -29,9 +29,7 @@ interface CoreProvidersProps {
 export function CoreProviders({ children }: CoreProvidersProps) {
   return (
     <ThemeProvider>
-      <LocaleProvider>
-        {children}
-      </LocaleProvider>
+      <LocaleProvider>{children}</LocaleProvider>
     </ThemeProvider>
   );
 }

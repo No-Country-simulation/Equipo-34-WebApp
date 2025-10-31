@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { afterEach, beforeAll, afterAll, vi } from 'vitest';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 // Cleanup después de cada test
 afterEach(() => {
@@ -32,11 +32,14 @@ vi.mock('next-intl', () => ({
 // Mock de framer-motion para tests
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => React.createElement('div', props, children),
-    span: ({ children, ...props }: any) => React.createElement('span', props, children),
-    button: ({ children, ...props }: any) => React.createElement('button', props, children),
+    div: ({ children, ...props }: { readonly children: ReactNode; readonly [key: string]: unknown }) =>
+      React.createElement('div', props, children),
+    span: ({ children, ...props }: { readonly children: ReactNode; readonly [key: string]: unknown }) =>
+      React.createElement('span', props, children),
+    button: ({ children, ...props }: { readonly children: ReactNode; readonly [key: string]: unknown }) =>
+      React.createElement('button', props, children),
   },
-  AnimatePresence: ({ children }: any) => children,
+  AnimatePresence: ({ children }: { readonly children: ReactNode }) => children,
 }));
 
 // Configuración de window.matchMedia

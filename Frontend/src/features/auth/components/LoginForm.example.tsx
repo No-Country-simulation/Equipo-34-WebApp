@@ -1,6 +1,6 @@
 /**
  * EJEMPLO: Componente LoginForm con MSW Mocks
- * 
+ *
  * Este archivo muestra cómo usar los mocks en un componente real
  * Copia y adapta este código a tu proyecto
  */
@@ -91,38 +91,38 @@ export function LoginForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 border rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-6">Iniciar Sesión</h1>
+    <div className="mx-auto mt-8 max-w-md rounded-lg border p-6 shadow">
+      <h1 className="mb-6 text-2xl font-bold">Iniciar Sesión</h1>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Email</label>
+          <label className="mb-2 block text-sm font-medium">Email</label>
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
             disabled={loading}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
+            className="w-full rounded-lg border px-3 py-2 focus:ring focus:outline-none"
             placeholder="ejemplo@clinic.com"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Contraseña</label>
+          <label className="mb-2 block text-sm font-medium">Contraseña</label>
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
             disabled={loading}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring"
+            className="w-full rounded-lg border px-3 py-2 focus:ring focus:outline-none"
             placeholder="••••••••"
           />
         </div>
@@ -130,15 +130,15 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
         >
           {loading ? 'Ingresando...' : 'Ingresar'}
         </button>
       </form>
 
       {/* Usuarios de prueba para facilitar testing */}
-      <div className="mt-6 p-4 bg-gray-100 rounded text-sm">
-        <p className="font-semibold mb-2">👥 Usuarios de Prueba (MSW Mock):</p>
+      <div className="mt-6 rounded bg-gray-100 p-4 text-sm">
+        <p className="mb-2 font-semibold">👥 Usuarios de Prueba (MSW Mock):</p>
         <ul className="space-y-1">
           <li>
             <strong>Paciente:</strong> paciente@clinic.com

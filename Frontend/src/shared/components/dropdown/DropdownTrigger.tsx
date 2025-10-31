@@ -1,27 +1,31 @@
-import { ElementType } from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
-import { cn } from '@/shared/lib/utils'
-import { Button } from '@/shared/ui/button'
-import { IconWrapper } from './IconWrapper'
+import { ElementType } from 'react';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/shared/lib/utils';
+import { Button } from '@/shared/ui/button';
+import { IconWrapper } from './IconWrapper';
 
 interface DropdownItem {
-  id: number
-  label: string
-  icon: ElementType
-  color: string
+  id: number;
+  label: string;
+  icon: ElementType;
+  color: string;
 }
 
 interface DropdownTriggerProps {
-  readonly selectedItem: DropdownItem
-  readonly isOpen: boolean
-  readonly onToggle: () => void
+  readonly selectedItem: DropdownItem;
+  readonly isOpen: boolean;
+  readonly onToggle: () => void;
 }
 
 /**
  * Botón trigger del dropdown con animación de chevron
  */
-export function DropdownTrigger({ selectedItem, isOpen, onToggle }: DropdownTriggerProps) {
+export function DropdownTrigger({
+  selectedItem,
+  isOpen,
+  onToggle,
+}: DropdownTriggerProps) {
   return (
     <Button
       variant="outline"
@@ -39,7 +43,11 @@ export function DropdownTrigger({ selectedItem, isOpen, onToggle }: DropdownTrig
       aria-haspopup="true"
     >
       <span className="flex items-center">
-        <IconWrapper icon={selectedItem.icon} isHovered={false} color={selectedItem.color} />
+        <IconWrapper
+          icon={selectedItem.icon}
+          isHovered={false}
+          color={selectedItem.color}
+        />
         {selectedItem.label}
       </span>
       <motion.div
@@ -54,8 +62,8 @@ export function DropdownTrigger({ selectedItem, isOpen, onToggle }: DropdownTrig
           height: '20px',
         }}
       >
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className="h-4 w-4" />
       </motion.div>
     </Button>
-  )
+  );
 }

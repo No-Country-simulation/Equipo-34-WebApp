@@ -1,9 +1,9 @@
-import { useState, useRef, KeyboardEvent } from 'react'
-import { useClickAway } from '@/shared/hooks/useClickAway'
+import { useState, useRef, KeyboardEvent } from 'react';
+import { useClickAway } from '@/shared/hooks/useClickAway';
 
 interface UseDropdownProps<T> {
-  initialValue: T
-  onSelect?: (value: T) => void
+  initialValue: T;
+  onSelect?: (value: T) => void;
 }
 
 /**
@@ -12,39 +12,42 @@ interface UseDropdownProps<T> {
  * @param onSelect - Callback cuando se selecciona un valor
  * @returns Estado y funciones del dropdown
  */
-export function useDropdown<T>({ initialValue, onSelect }: UseDropdownProps<T>) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState<T>(initialValue)
-  const [hoveredValue, setHoveredValue] = useState<number | null>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+export function useDropdown<T>({
+  initialValue,
+  onSelect,
+}: UseDropdownProps<T>) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<T>(initialValue);
+  const [hoveredValue, setHoveredValue] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Cerrar el dropdown al hacer click fuera
-  useClickAway(dropdownRef, () => setIsOpen(false))
+  useClickAway(dropdownRef, () => setIsOpen(false));
 
   // Manejar tecla Escape para cerrar
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-  }
+  };
 
   // Alternar estado abierto/cerrado
   const toggleDropdown = () => {
-    setIsOpen((prev) => !prev)
-  }
+    setIsOpen(prev => !prev);
+  };
 
   // Seleccionar un valor y cerrar
   const handleSelect = (value: T) => {
-    setSelectedValue(value)
-    setIsOpen(false)
-    onSelect?.(value)
-  }
+    setSelectedValue(value);
+    setIsOpen(false);
+    onSelect?.(value);
+  };
 
   // Abrir dropdown
-  const open = () => setIsOpen(true)
+  const open = () => setIsOpen(true);
 
   // Cerrar dropdown
-  const close = () => setIsOpen(false)
+  const close = () => setIsOpen(false);
 
   return {
     // Estado
@@ -60,5 +63,5 @@ export function useDropdown<T>({ initialValue, onSelect }: UseDropdownProps<T>) 
     handleKeyDown,
     open,
     close,
-  }
+  };
 }

@@ -41,7 +41,7 @@ export const Required: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <div className="space-y-4 w-full max-w-sm">
+    <div className="w-full max-w-sm space-y-4">
       <div className="grid gap-2">
         <Label htmlFor="first-name">First Name</Label>
         <Input id="first-name" placeholder="John" />

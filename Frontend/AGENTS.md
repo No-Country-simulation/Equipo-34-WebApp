@@ -6,11 +6,11 @@
 
 ## 📌 Resumen Ejecutivo
 
-| Aspecto | Detalle |
-|--------|--------|
-| **Propósito** | Portal web para clínicas privadas (citas, historial clínico, teleconsultas) |
-| **Tipo** | SPA con Next.js 14 (App Router + TypeScript strict) |
-| **Arquitectura** | Clean Architecture (front-end, orgánica por funcionalidad) |
+| Aspecto               | Detalle                                                                       |
+| --------------------- | ----------------------------------------------------------------------------- |
+| **Propósito**         | Portal web para clínicas privadas (citas, historial clínico, teleconsultas)   |
+| **Tipo**              | SPA con Next.js 14 (App Router + TypeScript strict)                           |
+| **Arquitectura**      | Clean Architecture (front-end, orgánica por funcionalidad)                    |
 | **Principio central** | "La UI no debe saber cómo funciona el backend. Solo qué hacer con los datos." |
 
 ---
@@ -161,18 +161,18 @@ src/
 
 ## ⚙️ Stack Técnico
 
-| Capa | Herramienta | Propósito |
-|------|-------------|----------|
-| **Framework** | Next.js 14 (App Router) | Servidor + rendering |
-| **Lenguaje** | TypeScript (strict: `true`) | Type safety |
-| **Estilos** | Tailwind CSS | Utilidades CSS |
-| **Componentes** | shadcn/ui | UI atómica |
-| **Estado (UI)** | Zustand | State management ligero |
-| **i18n** | next-intl | Internacionalización |
-| **Temas** | next-themes | Dark/Light mode |
-| **Mock API** | MSW (Mock Service Worker) | Testing e dev |
-| **Videollamada** | WebRTC | Teleconsultas |
-| **Deploy** | Vercel | Hosting |
+| Capa             | Herramienta                 | Propósito               |
+| ---------------- | --------------------------- | ----------------------- |
+| **Framework**    | Next.js 16 (App Router)     | Servidor + rendering    |
+| **Lenguaje**     | TypeScript (strict: `true`) | Type safety             |
+| **Estilos**      | Tailwind CSS                | Utilidades CSS          |
+| **Componentes**  | shadcn/ui                   | UI atómica              |
+| **Estado (UI)**  | Zustand                     | State management ligero |
+| **i18n**         | next-intl                   | Internacionalización    |
+| **Temas**        | next-themes                 | Dark/Light mode         |
+| **Mock API**     | MSW (Mock Service Worker)   | Testing e dev           |
+| **Videollamada** | WebRTC                      | Teleconsultas           |
+| **Deploy**       | Vercel                      | Hosting                 |
 
 ---
 
@@ -265,12 +265,12 @@ export function BadForm() {
 
 ### Niveles de Protección
 
-| Nivel | Mecanismo | Ubicación |
-|-------|-----------|-----------|
-| **Token** | JWT en localStorage | `AuthProvider` |
-| **Rol** | Validado en `role.guard.ts` | `app/(role)/` layout |
-| **Dominio** | Reglas de negocio | `domain/` |
-| **Datos sensibles** | Encriptados en tránsito | Backend (HTTPS) |
+| Nivel               | Mecanismo                   | Ubicación            |
+| ------------------- | --------------------------- | -------------------- |
+| **Token**           | JWT en localStorage         | `AuthProvider`       |
+| **Rol**             | Validado en `role.guard.ts` | `app/(role)/` layout |
+| **Dominio**         | Reglas de negocio           | `domain/`            |
+| **Datos sensibles** | Encriptados en tránsito     | Backend (HTTPS)      |
 
 ### Implementación
 
@@ -308,17 +308,22 @@ export function withRoleGuard(allowedRoles: string[]) {
 **Configuración en proyecto base** ✅
 
 \\\ash
+
 # Ejecutar linter
+
 npm run lint
 
 # Formatear código
+
 npm run format
 
 # ESLint auto-fix
+
 npm run lint:fix
 \\\
 
 **Reglas principales:**
+
 - TypeScript strict mode
 - Prohibición de \ny\ (con excepciones)
 - Espacios antes de \{\
@@ -334,28 +339,28 @@ npm run lint:fix
 **Estructura base:**
 \\\
 src/mocks/
-├── browser.ts                    # Setup de MSW
+├── browser.ts # Setup de MSW
 ├── handlers/
-│   ├── index.ts                  # Agregador central
-│   ├── auth.ts                   # Handlers de autenticación
-│   ├── admin.ts                  # Handlers de admin
-│   └── [feature].ts
+│ ├── index.ts # Agregador central
+│ ├── auth.ts # Handlers de autenticación
+│ ├── admin.ts # Handlers de admin
+│ └── [feature].ts
 ├── data/
-│   └── [feature].mock.ts         # Datos simulados
+│ └── [feature].mock.ts # Datos simulados
 └── providers/
-    └── MSWProvider.tsx           # Proveedor React
+└── MSWProvider.tsx # Proveedor React
 \\\
 
 **Crear handler:**
 
-\\\	ypescript
+\\\ ypescript
 // src/mocks/handlers/example.ts
 import { http, HttpResponse } from 'msw';
 
 export const exampleHandlers = [
-  http.get('*/api/example', async () => {
-    return HttpResponse.json({ message: 'OK' }, { status: 200 });
-  }),
+http.get('*/api/example', async () => {
+return HttpResponse.json({ message: 'OK' }, { status: 200 });
+}),
 ];
 \\\
 
@@ -365,37 +370,38 @@ export const exampleHandlers = [
 
 **Crear store:**
 
-\\\	ypescript
+\\\ ypescript
 // src/shared/stores/user.store.ts
 import { create } from 'zustand';
 
 interface UserStore {
-  user: User | null;
-  setUser: (user: User) => void;
-  clearUser: () => void;
+user: User | null;
+setUser: (user: User) => void;
+clearUser: () => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  clearUser: () => set({ user: null }),
+user: null,
+setUser: (user) => set({ user }),
+clearUser: () => set({ user: null }),
 }));
 \\\
 
 **Usar en componente:**
 
-\\\	ypescript
+\\\ ypescript
 import { useUserStore } from '@/shared/stores/user.store';
 
 export function Profile() {
-  const { user, clearUser } = useUserStore();
-  
-  return (
-    <div>
-      <h1>{user?.name}</h1>
-      <button onClick={clearUser}>Logout</button>
-    </div>
-  );
+const { user, clearUser } = useUserStore();
+
+return (
+
+<div>
+<h1>{user?.name}</h1>
+<button onClick={clearUser}>Logout</button>
+</div>
+);
 }
 \\\
 
@@ -443,12 +449,14 @@ src/features/example-feature/
 ### Pasos para Crear una Feature
 
 #### 1. Copiar la plantilla
+
 ```bash
 cd src/features
 cp -r example-feature mi-nueva-feature
 ```
 
 #### 2. Renombrar archivos
+
 - `ExampleContainer.tsx` → `MiFeatureContainer.tsx`
 - `example.use-case.ts` → `mi-feature.use-case.ts`
 - `example.service.ts` → `mi-feature.service.ts`
@@ -456,6 +464,7 @@ cp -r example-feature mi-nueva-feature
 - `ExampleUI.tsx` → `MiFeatureUI.tsx`
 
 #### 3. Actualizar exports
+
 ```typescript
 // src/features/mi-feature/index.ts
 export { MiFeatureContainer } from './MiFeatureContainer';
@@ -464,6 +473,7 @@ export { useMiFeatureUseCase } from './use-cases/mi-feature.use-case';
 ```
 
 #### 4. Crear página que use la feature
+
 ```tsx
 // src/app/(role)/mi-ruta/page.tsx
 import { MiFeatureContainer } from '@/features/mi-feature';
@@ -476,6 +486,7 @@ export default function Page() {
 #### 5. Implementar las capas
 
 **a) Domain (Dominio)**
+
 ```typescript
 // domain/types.ts
 export interface IMiEntidad {
@@ -490,6 +501,7 @@ export const MiBusinessRules = {
 ```
 
 **b) Service (Servicio)**
+
 ```typescript
 // services/mi-feature.service.ts
 export class MiFeatureService {
@@ -503,6 +515,7 @@ export const miFeatureService = new MiFeatureService();
 ```
 
 **c) Adapter (Adaptador)**
+
 ```typescript
 // adapters/mi-feature.adapter.ts
 export function mapDTOToEntity(dto: MiDTO): IMiEntidad {
@@ -515,22 +528,24 @@ export function mapDTOToEntity(dto: MiDTO): IMiEntidad {
 ```
 
 **d) Use Case (Caso de Uso)**
+
 ```typescript
 // use-cases/mi-feature.use-case.ts
 export function useMiFeatureUseCase() {
   const [data, setData] = useState<IMiEntidad[]>([]);
-  
+
   const fetchData = async () => {
     const dtos = await miFeatureService.getAll();
     const entities = dtos.map(mapDTOToEntity);
     setData(entities);
   };
-  
+
   return { data, fetchData };
 }
 ```
 
 **e) UI (Componentes)**
+
 ```tsx
 // components/MiFeatureUI.tsx
 export function MiFeatureUI({ data, loading, onRefresh }) {
@@ -544,15 +559,16 @@ export function MiFeatureUI({ data, loading, onRefresh }) {
 ```
 
 **f) Container (Contenedor)**
+
 ```tsx
 // MiFeatureContainer.tsx
 export function MiFeatureContainer() {
   const { data, fetchData } = useMiFeatureUseCase();
-  
+
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   return <MiFeatureUI data={data} onRefresh={fetchData} />;
 }
 ```
@@ -575,6 +591,7 @@ export function MiFeatureContainer() {
 ### Antipatrones a Evitar
 
 ❌ **NO hacer:** Llamar servicios directamente desde componentes UI
+
 ```tsx
 // ❌ MAL
 function MyComponent() {
@@ -584,6 +601,7 @@ function MyComponent() {
 ```
 
 ✅ **SÍ hacer:** Usar el caso de uso
+
 ```tsx
 // ✅ BIEN
 function MyContainer() {
@@ -593,6 +611,7 @@ function MyContainer() {
 ```
 
 ❌ **NO hacer:** Mezclar lógica de negocio en UI
+
 ```tsx
 // ❌ MAL
 function MyUI({ item }) {
@@ -601,6 +620,7 @@ function MyUI({ item }) {
 ```
 
 ✅ **SÍ hacer:** Validar en dominio/caso de uso
+
 ```typescript
 // ✅ BIEN (en domain/types.ts)
 export const BusinessRules = {
@@ -623,11 +643,13 @@ export const BusinessRules = {
 La funcionalidad de **videollamadas seguras** para teleconsultas se implementará en una feature futura dedicada (`/src/features/video-call`).
 
 **Por ahora existe:**
+
 - 📄 Stub en `/src/shared/core/webrtc-stub.ts` como marcador arquitectónico
 - ⚠️ **NO es funcional** - solo documenta la intención y estructura futura
 - 🚫 **NO hay dependencias instaladas** (simple-peer, socket.io, etc.)
 
 **Implementación futura incluirá:**
+
 - Configuración de servidores TURN/STUN
 - Gestión de conexiones peer-to-peer con WebRTC
 - Señalización via WebSocket (socket.io)
@@ -637,11 +659,13 @@ La funcionalidad de **videollamadas seguras** para teleconsultas se implementar�
 - Grabación de sesiones (opcional)
 
 **Decisión arquitectónica:**
+
 - WebRTC es **lógica de dominio específica** → vivirá en su propia feature
 - No forma parte del proyecto base para evitar deuda técnica temprana
 - Se implementará cuando se defina el proveedor (Twilio, Agora, custom)
 
 **Archivo stub:**
+
 ```typescript
 // src/shared/core/webrtc-stub.ts
 export const initWebRTC = (): void => {

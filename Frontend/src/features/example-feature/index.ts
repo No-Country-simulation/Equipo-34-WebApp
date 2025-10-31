@@ -1,6 +1,6 @@
 /**
  * Example Feature - Index
- * 
+ *
  * Exporta el contenedor como punto de entrada principal de la feature.
  */
 

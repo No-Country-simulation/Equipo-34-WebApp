@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 /**
  * Hook personalizado para manejar la selección de elementos con límite
@@ -7,49 +7,52 @@ import { useState } from 'react'
  * @returns Objeto con los elementos seleccionados y función para toggle
  */
 interface UseItemSelectionProps {
-  readonly maxLimit: number
-  readonly initialSelected?: string[]
+  readonly maxLimit: number;
+  readonly initialSelected?: string[];
 }
 
-export function useItemSelection ({ maxLimit, initialSelected = [] }: UseItemSelectionProps) {
-  const [selected, setSelected] = useState<string[]>(initialSelected)
+export function useItemSelection({
+  maxLimit,
+  initialSelected = [],
+}: UseItemSelectionProps) {
+  const [selected, setSelected] = useState<string[]>(initialSelected);
 
   const toggleItem = (item: string) => {
-    setSelected((prevSelected) => {
+    setSelected(prevSelected => {
       // Si el item ya está seleccionado, siempre permitir deseleccionar
       if (prevSelected.includes(item)) {
-        return removeItem(prevSelected, item)
+        return removeItem(prevSelected, item);
       }
 
       // Si alcanzamos el límite, NO permitir agregar más items
       if (prevSelected.length >= maxLimit) {
-        return prevSelected // Retorna el estado actual sin cambios
+        return prevSelected; // Retorna el estado actual sin cambios
       }
 
       // Si hay espacio disponible, agregar el item
-      return addItem(prevSelected, item)
-    })
-  }
+      return addItem(prevSelected, item);
+    });
+  };
 
-  const clearSelection = () => setSelected([])
+  const clearSelection = () => setSelected([]);
 
-  const isSelected = (item: string) => selected.includes(item)
+  const isSelected = (item: string) => selected.includes(item);
 
   return {
     selected,
     toggleItem,
     clearSelection,
     isSelected,
-  }
+  };
 }
 
 // Funciones puras para la lógica de selección
 const removeItem = (items: string[], itemToRemove: string) =>
-  items.filter((item) => item !== itemToRemove)
+  items.filter(item => item !== itemToRemove);
 
 const replaceLastItem = (items: string[], newItem: string) => {
-  const withoutLast = items.slice(0, Math.max(0, items.length - 1))
-  return [...withoutLast, newItem]
-}
+  const withoutLast = items.slice(0, Math.max(0, items.length - 1));
+  return [...withoutLast, newItem];
+};
 
-const addItem = (items: string[], newItem: string) => [...items, newItem]
+const addItem = (items: string[], newItem: string) => [...items, newItem];

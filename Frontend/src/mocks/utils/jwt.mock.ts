@@ -15,7 +15,9 @@ export interface JWTPayload {
  * Genera un token JWT mock (solo para desarrollo)
  * NO es un JWT válido, pero tiene la estructura correcta
  */
-export function generateMockToken(payload: Omit<JWTPayload, 'iat' | 'exp'>): string {
+export function generateMockToken(
+  payload: Omit<JWTPayload, 'iat' | 'exp'>
+): string {
   const now = Math.floor(Date.now() / 1000);
   const expiresIn = 3600; // 1 hora
 

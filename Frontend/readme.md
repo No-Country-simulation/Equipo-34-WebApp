@@ -1,4 +1,4 @@
-# ClinicaNC 
+# ClinicaNC
 
 ## 📋 Project Overview
 
@@ -9,12 +9,14 @@
 ## 🛠️ Technical Stack
 
 ### Frontend
+
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS
 - **Package Manager**: npm
 
 ### Architecture
+
 - **Approach**: Clean Architecture (organic, frontend-focused)
 - **Reference**: [Chapter 08 - Clean Architecture Front End](https://the-amazing-gentleman-programming-book.vercel.app/es/book/Chapter08_Clean_Architecture_Front_End)
 

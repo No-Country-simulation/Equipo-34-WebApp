@@ -14,22 +14,22 @@ describe('LocaleStore', () => {
 
   it('debe cambiar el locale correctamente', () => {
     const { result } = renderHook(() => useLocaleStore());
-    
+
     act(() => {
       result.current.setLocale('en');
     });
-    
+
     expect(result.current.locale).toBe('en');
   });
 
   it('debe toggle el locale', () => {
     const { result } = renderHook(() => useLocaleStore());
-    
+
     act(() => {
       result.current.setLocale('es');
     });
     expect(result.current.locale).toBe('es');
-    
+
     act(() => {
       result.current.toggleLocale();
     });

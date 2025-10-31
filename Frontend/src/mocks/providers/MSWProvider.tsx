@@ -19,7 +19,7 @@ export function MSWProvider({ children }: { children: ReactNode }) {
       // Solo en desarrollo
       if (process.env.NODE_ENV === 'development') {
         // Importar dinámicamente para evitar problemas de bundle
-        import('@/mocks/browser').then(async (module) => {
+        import('@/mocks/browser').then(async module => {
           try {
             await module.worker.start({
               onUnhandledRequest: 'warn', // Loguea requests no mapeadas
@@ -41,9 +41,9 @@ export function MSWProvider({ children }: { children: ReactNode }) {
   // En desarrollo, esperar a que MSW esté listo
   if (process.env.NODE_ENV === 'development' && !mswReady) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
           <p className="text-gray-600">Inicializando MSW...</p>
         </div>
       </div>

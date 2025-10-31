@@ -1,0 +1,632 @@
+{
+  "javascript": {
+    "name": "JavaScript",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "color": "default"
+  },
+  "typescript": {
+    "name": "TypeScript",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    "color": "default"
+  },
+  "python": {
+    "name": "Python",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    "color": "default"
+  },
+  "java": {
+    "name": "Java",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    "color": "default"
+  },
+  "csharp": {
+    "name": "C#",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+    "color": "default"
+  },
+  "cpp": {
+    "name": "C++",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+    "color": "default"
+  },
+  "c": {
+    "name": "C",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+    "color": "default"
+  },
+  "php": {
+    "name": "PHP",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    "color": "default"
+  },
+  "go": {
+    "name": "Go",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+    "color": "default"
+  },
+  "rust": {
+    "name": "Rust",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg",
+    "color": "default"
+  },
+  "swift": {
+    "name": "Swift",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+    "color": "default"
+  },
+  "kotlin": {
+    "name": "Kotlin",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+    "color": "default"
+  },
+  "dart": {
+    "name": "Dart",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
+    "color": "default"
+  },
+  "ruby": {
+    "name": "Ruby",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg",
+    "color": "default"
+  },
+  "scala": {
+    "name": "Scala",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg",
+    "color": "default"
+  },
+  "elixir": {
+    "name": "Elixir",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elixir/elixir-original.svg",
+    "color": "default"
+  },
+  "haskell": {
+    "name": "Haskell",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg",
+    "color": "default"
+  },
+  "clojure": {
+    "name": "Clojure",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/clojure/clojure-original.svg",
+    "color": "default"
+  },
+  "react": {
+    "name": "React",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "color": "default"
+  },
+  "nextjs": {
+    "name": "Next.js",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    "color": "default"
+  },
+  "vue": {
+    "name": "Vue.js",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+    "color": "default"
+  },
+  "nuxt": {
+    "name": "Nuxt.js",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg",
+    "color": "default"
+  },
+  "angular": {
+    "name": "Angular",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    "color": "default"
+  },
+  "svelte": {
+    "name": "Svelte",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+    "color": "default"
+  },
+  "sveltekit": {
+    "name": "SvelteKit",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+    "color": "default"
+  },
+  "remix": {
+    "name": "Remix",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/remix/remix-original.svg",
+    "color": "default"
+  },
+  "gatsby": {
+    "name": "Gatsby",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-original.svg",
+    "color": "default"
+  },
+  "astro": {
+    "name": "Astro",
+    "icon": "https://astro.build/favicon.svg",
+    "color": "default"
+  },
+  "solidjs": {
+    "name": "Solid.js",
+    "icon": "https://www.solidjs.com/img/logo/without-wordmark/logo.svg",
+    "color": "default"
+  },
+  "qwik": {
+    "name": "Qwik",
+    "icon": "https://qwik.builder.io/logos/qwik-logo.svg",
+    "color": "default"
+  },
+  "nodejs": {
+    "name": "Node.js",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "color": "default"
+  },
+  "express": {
+    "name": "Express.js",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    "color": "default"
+  },
+  "fastify": {
+    "name": "Fastify",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg",
+    "color": "default"
+  },
+  "nestjs": {
+    "name": "NestJS",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
+    "color": "default"
+  },
+  "django": {
+    "name": "Django",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+    "color": "default"
+  },
+  "flask": {
+    "name": "Flask",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+    "color": "default"
+  },
+  "fastapi": {
+    "name": "FastAPI",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+    "color": "default"
+  },
+  "spring": {
+    "name": "Spring",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+    "color": "default"
+  },
+  "laravel": {
+    "name": "Laravel",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original-wordmark.svg",
+    "color": "default"
+  },
+  "rails": {
+    "name": "Ruby on Rails",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-original-wordmark.svg",
+    "color": "default"
+  },
+  "dotnet": {
+    "name": ".NET",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg",
+    "color": "default"
+  },
+  "flutter": {
+    "name": "Flutter",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+    "color": "default"
+  },
+  "reactnative": {
+    "name": "React Native",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "color": "default"
+  },
+  "ionic": {
+    "name": "Ionic",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ionic/ionic-original.svg",
+    "color": "default"
+  },
+  "xamarin": {
+    "name": "Xamarin",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xamarin/xamarin-original.svg",
+    "color": "default"
+  },
+  "html5": {
+    "name": "HTML5",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    "color": "default"
+  },
+  "css3": {
+    "name": "CSS3",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    "color": "default"
+  },
+  "tailwindcss": {
+    "name": "Tailwind CSS",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
+    "color": "default"
+  },
+  "sass": {
+    "name": "Sass",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
+    "color": "default"
+  },
+  "less": {
+    "name": "Less",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/less/less-plain-wordmark.svg",
+    "color": "default"
+  },
+  "stylus": {
+    "name": "Stylus",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/stylus/stylus-original.svg",
+    "color": "default"
+  },
+  "bootstrap": {
+    "name": "Bootstrap",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+    "color": "default"
+  },
+  "bulma": {
+    "name": "Bulma",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bulma/bulma-plain.svg",
+    "color": "default"
+  },
+  "materialui": {
+    "name": "Material-UI",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
+    "color": "default"
+  },
+  "antdesign": {
+    "name": "Ant Design",
+    "icon": "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
+    "color": "default"
+  },
+  "chakraui": {
+    "name": "Chakra UI",
+    "icon": "https://img.icons8.com/color/452/chakra-ui.png",
+    "color": "default"
+  },
+  "mongodb": {
+    "name": "MongoDB",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    "color": "default"
+  },
+  "mysql": {
+    "name": "MySQL",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    "color": "default"
+  },
+  "postgresql": {
+    "name": "PostgreSQL",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    "color": "default"
+  },
+  "sqlite": {
+    "name": "SQLite",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+    "color": "default"
+  },
+  "redis": {
+    "name": "Redis",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    "color": "default"
+  },
+  "elasticsearch": {
+    "name": "Elasticsearch",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
+    "color": "default"
+  },
+  "cassandra": {
+    "name": "Cassandra",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cassandra/cassandra-original.svg",
+    "color": "default"
+  },
+  "neo4j": {
+    "name": "Neo4j",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg",
+    "color": "default"
+  },
+  "supabase": {
+    "name": "Supabase",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+    "color": "default"
+  },
+  "firebase": {
+    "name": "Firebase",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    "color": "default"
+  },
+  "planetscale": {
+    "name": "PlanetScale",
+    "icon": "https://planetscale.com/favicon.ico",
+    "color": "default"
+  },
+  "prisma": {
+    "name": "Prisma",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+    "color": "default"
+  },
+  "drizzle": {
+    "name": "Drizzle ORM",
+    "icon": "https://orm.drizzle.team/favicon.ico",
+    "color": "default"
+  },
+  "docker": {
+    "name": "Docker",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    "color": "default"
+  },
+  "kubernetes": {
+    "name": "Kubernetes",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+    "color": "default"
+  },
+  "terraform": {
+    "name": "Terraform",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
+    "color": "default"
+  },
+  "ansible": {
+    "name": "Ansible",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg",
+    "color": "default"
+  },
+  "jenkins": {
+    "name": "Jenkins",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
+    "color": "default"
+  },
+  "githubactions": {
+    "name": "GitHub Actions",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    "color": "default"
+  },
+  "circleci": {
+    "name": "CircleCI",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/circleci/circleci-plain.svg",
+    "color": "default"
+  },
+  "travisci": {
+    "name": "Travis CI",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/travis/travis-plain.svg",
+    "color": "default"
+  },
+  "aws": {
+    "name": "AWS",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+    "color": "default"
+  },
+  "gcp": {
+    "name": "Google Cloud",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+    "color": "default"
+  },
+  "azure": {
+    "name": "Azure",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+    "color": "default"
+  },
+  "digitalocean": {
+    "name": "DigitalOcean",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg",
+    "color": "default"
+  },
+  "heroku": {
+    "name": "Heroku",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-original.svg",
+    "color": "default"
+  },
+  "vercel": {
+    "name": "Vercel",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    "color": "default"
+  },
+  "netlify": {
+    "name": "Netlify",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
+    "color": "default"
+  },
+  "cloudflare": {
+    "name": "Cloudflare",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg",
+    "color": "default"
+  },
+  "git": {
+    "name": "Git",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    "color": "default"
+  },
+  "github": {
+    "name": "GitHub",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    "color": "default"
+  },
+  "gitlab": {
+    "name": "GitLab",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+    "color": "default"
+  },
+  "bitbucket": {
+    "name": "Bitbucket",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bitbucket/bitbucket-original.svg",
+    "color": "default"
+  },
+  "figma": {
+    "name": "Figma",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    "color": "default"
+  },
+  "sketch": {
+    "name": "Sketch",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
+    "color": "default"
+  },
+  "adobe-xd": {
+    "name": "Adobe XD",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg",
+    "color": "default"
+  },
+  "invision": {
+    "name": "InVision",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/invision/invision-original.svg",
+    "color": "default"
+  },
+  "framer": {
+    "name": "Framer",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framermotion/framermotion-original.svg",
+    "color": "default"
+  },
+  "photoshop": {
+    "name": "Photoshop",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+    "color": "default"
+  },
+  "illustrator": {
+    "name": "Illustrator",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
+    "color": "default"
+  },
+  "indesign": {
+    "name": "InDesign",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/indesign/indesign-original.svg",
+    "color": "default"
+  },
+  "aftereffects": {
+    "name": "After Effects",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg",
+    "color": "default"
+  },
+  "premiere": {
+    "name": "Premiere Pro",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg",
+    "color": "default"
+  },
+  "davinci": {
+    "name": "DaVinci Resolve",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/9/90/DaVinci_Resolve_17_logo.svg",
+    "color": "default"
+  },
+  "finalcut": {
+    "name": "Final Cut Pro",
+    "icon": "https://upload.wikimedia.org/wikipedia/en/8/87/Final_Cut_Pro_Logo.png",
+    "color": "default"
+  },
+  "avid": {
+    "name": "Avid Media Composer",
+    "icon": "https://www.avid.com/favicon.ico",
+    "color": "default"
+  },
+  "blender": {
+    "name": "Blender",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg",
+    "color": "default"
+  },
+  "maya": {
+    "name": "Maya",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maya/maya-original.svg",
+    "color": "default"
+  },
+  "3dsmax": {
+    "name": "3ds Max",
+    "icon": "https://damassets.autodesk.net/content/dam/autodesk/www/products/3ds-max/overview/3ds-max-badge-75x75.png",
+    "color": "default"
+  },
+  "cinema4d": {
+    "name": "Cinema 4D",
+    "icon": "https://www.maxon.net/favicon.ico",
+    "color": "default"
+  },
+  "houdini": {
+    "name": "Houdini",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/1/15/Houdini3D_icon.png",
+    "color": "default"
+  },
+  "zbrush": {
+    "name": "ZBrush",
+    "icon": "https://pixologic.com/favicon.ico",
+    "color": "default"
+  },
+  "substance": {
+    "name": "Substance Suite",
+    "icon": "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/substance-64.svg",
+    "color": "default"
+  },
+  "unity": {
+    "name": "Unity",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg",
+    "color": "default"
+  },
+  "unreal": {
+    "name": "Unreal Engine",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg",
+    "color": "default"
+  },
+  "godot": {
+    "name": "Godot",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg",
+    "color": "default"
+  },
+  "construct": {
+    "name": "Construct 3",
+    "icon": "https://www.construct.net/favicon.ico",
+    "color": "default"
+  },
+  "gamemaker": {
+    "name": "GameMaker Studio",
+    "icon": "https://www.yoyogames.com/favicon.ico",
+    "color": "default"
+  },
+  "webpack": {
+    "name": "Webpack",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+    "color": "default"
+  },
+  "vite": {
+    "name": "Vite",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+    "color": "default"
+  },
+  "rollup": {
+    "name": "Rollup",
+    "icon": "https://rollupjs.org/favicon.png",
+    "color": "default"
+  },
+  "parcel": {
+    "name": "Parcel",
+    "icon": "https://parceljs.org/favicon.ico",
+    "color": "default"
+  },
+  "turbo": {
+    "name": "Turbo",
+    "icon": "https://turbo.build/images/favicon-dark/apple-touch-icon.png",
+    "color": "default"
+  },
+  "eslint": {
+    "name": "ESLint",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg",
+    "color": "default"
+  },
+  "prettier": {
+    "name": "Prettier",
+    "icon": "https://prettier.io/icon.png",
+    "color": "default"
+  },
+  "jest": {
+    "name": "Jest",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+    "color": "default"
+  },
+  "cypress": {
+    "name": "Cypress",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cypress/cypress-original.svg",
+    "color": "default"
+  },
+  "playwright": {
+    "name": "Playwright",
+    "icon": "https://playwright.dev/img/playwright-logo.svg",
+    "color": "default"
+  },
+  "storybook": {
+    "name": "Storybook",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/storybook/storybook-original.svg",
+    "color": "default"
+  },
+  "vitest": {
+    "name": "Vitest",
+    "icon": "https://vitest.dev/favicon.ico",
+    "color": "default"
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * Proveedor de Autenticación
  * Sincroniza el usuario al montar la aplicación y maneja la recuperación de sesión
- * 
+ *
  * Uso en app/layout.tsx:
  * <AuthProvider>
  *   {children}
@@ -10,10 +10,10 @@
 
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { useSyncCurrentUser } from '@/shared/hooks/useAuth';
 
-function AuthProviderContent({ children }: { children: ReactNode }) {
+function AuthProviderContent({ children }: { readonly children: ReactNode }) {
   const { isSyncing } = useSyncCurrentUser();
 
   // Mostrar loading mientras se sincroniza (opcional)
@@ -24,7 +24,7 @@ function AuthProviderContent({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { readonly children: ReactNode }) {
   return <AuthProviderContent>{children}</AuthProviderContent>;
 }
 

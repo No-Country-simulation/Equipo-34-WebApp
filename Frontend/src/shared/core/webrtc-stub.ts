@@ -1,19 +1,19 @@
 /**
  * STUB: WebRTC para teleasistencia
- * 
+ *
  * Este archivo es un marcador de lugar arquitectónico.
  * La implementación real se hará en la feature `video-call`,
  * con librerías como simple-peer, socket.io y TURN/STUN servers.
- * 
+ *
  * NO USAR en producción. Solo para recordar la necesidad.
- * 
+ *
  * @module webrtc-stub
  * @see /src/features/video-call (implementación futura)
  */
 
 /**
  * Función stub para inicialización de WebRTC
- * 
+ *
  * Esta función no hace nada real. Es solo un placeholder.
  * La implementación real incluirá:
  * - Configuración de TURN/STUN servers
@@ -21,7 +21,7 @@
  * - Manejo de streams de audio/video
  * - Señalización via WebSocket (socket.io)
  * - Gestión de permisos de medios
- * 
+ *
  * @returns {void}
  */
 export const initWebRTC = (): void => {
@@ -34,7 +34,7 @@ export const initWebRTC = (): void => {
 
 /**
  * Configuración stub para servidores STUN/TURN
- * 
+ *
  * En la implementación real, estos valores vendrán de variables de entorno
  * y se configurarán según el proveedor de infraestructura (Twilio, Agora, etc.)
  */

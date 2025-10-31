@@ -14,27 +14,34 @@ src/shared/core/
 ## 🎯 ¿Cuándo usar cada uno?
 
 ### CoreProviders (Básicos - Siempre)
+
 **Incluye:**
+
 - ✅ ThemeProvider (dark/light mode)
 - ✅ LocaleProvider (es/en)
 
 **Usar en:**
+
 - ✅ Storybook (`.storybook/preview.ts`)
 - ✅ Tests unitarios
 - ✅ Cuando solo necesitas tema e idioma
 
 **NO incluye:**
+
 - ❌ MSW (Mock Service Worker)
 - ❌ AuthProvider
 - ❌ Otros providers específicos de la app
 
 ### AppProviders (Completos - Solo App)
+
 **Incluye:**
+
 - ✅ CoreProviders (Tema + Idioma)
 - ✅ MSWProvider (Mocks para desarrollo)
 - ✅ AuthProvider (Estado de autenticación)
 
 **Usar en:**
+
 - ✅ `app/layout.tsx` (aplicación principal)
 - ✅ Entornos de desarrollo/producción completos
 
@@ -48,6 +55,7 @@ src/shared/core/
 ## 📝 Ejemplos de uso
 
 ### En Storybook
+
 ```typescript
 // .storybook/preview.ts
 import { CoreProviders } from '../src/shared/core/CoreProviders';
@@ -58,6 +66,7 @@ decorators: [
 ```
 
 ### En la App
+
 ```tsx
 // app/layout.tsx
 import { AppProviders } from '@/shared/core/AppProviders';
@@ -76,6 +85,7 @@ export default function RootLayout({ children }) {
 ```
 
 ### En Tests (futuro)
+
 ```tsx
 import { CoreProviders } from '@/shared/core';
 
@@ -89,6 +99,7 @@ render(<MyComponent />, { wrapper });
 ## 🔄 Orden de carga
 
 ### CoreProviders
+
 ```
 ThemeProvider
   └─ LocaleProvider
@@ -96,6 +107,7 @@ ThemeProvider
 ```
 
 ### AppProviders
+
 ```
 CoreProviders (Theme + Locale)
   └─ MSWProvider

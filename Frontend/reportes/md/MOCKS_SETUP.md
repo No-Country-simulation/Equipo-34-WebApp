@@ -3,23 +3,27 @@
 ## ✅ Qué se creó
 
 ### 1. **Tipos Compartidos** (`src/shared/types/auth.types.ts`)
+
 - ✅ `User` - Estructura de usuario con rol
 - ✅ `LoginRequest/Response` - DTO para login
 - ✅ `RegisterRequest/Response` - DTO para registro
 - ✅ `UserRole` type con 3 roles: `paciente | medico | admin`
 
 ### 2. **Datos Mock** (`src/mocks/data/users.mock.ts`)
+
 - ✅ 3 usuarios de prueba (paciente, médico, admin)
 - ✅ Funciones helper: `getMockUser`, `validateMockCredentials`
 - ✅ Contraseña común: `password123`
 
 ### 3. **Utilidades JWT** (`src/mocks/utils/jwt.mock.ts`)
+
 - ✅ `generateMockToken()` - Crea JWT mock funcional
 - ✅ `decodeMockToken()` - Decodifica tokens
 - ✅ `isMockTokenExpired()` - Valida expiración
 - ✅ Compatible con payload del backend
 
 ### 4. **Handlers MSW** (`src/mocks/handlers/auth.ts`)
+
 - ✅ `POST /api/auth/login` - Login con rol validation
 - ✅ `POST /api/auth/register` - Registro de nuevos usuarios
 - ✅ `POST /api/auth/logout` - Cierre de sesión
@@ -28,15 +32,18 @@
 - ✅ Simulación de latencia de red (delay)
 
 ### 5. **Agregador de Handlers** (`src/mocks/handlers/handlers.ts`)
+
 - ✅ Centraliza todos los handlers
 - ✅ Fácil de extender con nuevos handlers
 
 ### 6. **Proveedor MSW** (`src/mocks/providers/MSWProvider.tsx`)
+
 - ✅ Hook React para inicializar MSW
 - ✅ Solo funciona en desarrollo
 - ✅ Logging de requests
 
 ### 7. **Documentación** (`src/mocks/README.md`)
+
 - ✅ Guía de uso completa
 - ✅ Ejemplos de código
 - ✅ Testing con MSW
@@ -46,11 +53,11 @@
 
 ## 🎯 Usuarios de Prueba
 
-| Rol | Email | Contraseña |
-|-----|-------|-----------|
+| Rol         | Email                 | Contraseña    |
+| ----------- | --------------------- | ------------- |
 | 👤 Paciente | `paciente@clinic.com` | `password123` |
-| 👨‍⚕️ Médico | `medico@clinic.com` | `password123` |
-| 🔐 Admin | `admin@clinic.com` | `password123` |
+| 👨‍⚕️ Médico   | `medico@clinic.com`   | `password123` |
+| 🔐 Admin    | `admin@clinic.com`    | `password123` |
 
 ---
 
@@ -83,6 +90,7 @@ Redirige a /{role}/dashboard
 ## 📝 Próximos Pasos
 
 1. **Actualizar `app/layout.tsx`** - Añadir MSWProvider
+
    ```typescript
    import MSWProvider from '@/mocks/providers/MSWProvider';
 
@@ -100,6 +108,7 @@ Redirige a /{role}/dashboard
    ```
 
 2. **Crear LoginContainer** - Usar los handlers
+
    ```typescript
    // src/features/auth/AuthContainer.tsx
    import { LoginForm } from './components/LoginForm';
@@ -107,6 +116,7 @@ Redirige a /{role}/dashboard
    ```
 
 3. **Crear rutas dinámicas** por rol
+
    ```
    app/
    ├── (public)/login/page.tsx
@@ -124,6 +134,7 @@ Redirige a /{role}/dashboard
 ## 🧪 Testear MSW
 
 ### Con curl
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -131,6 +142,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 ```
 
 ### Con Postman
+
 ```
 POST: http://localhost:3000/api/auth/login
 Body (JSON):
@@ -141,17 +153,18 @@ Body (JSON):
 ```
 
 ### En el navegador (DevTools Console)
+
 ```javascript
 fetch('/api/auth/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'paciente@clinic.com',
-    password: 'password123'
-  })
+    password: 'password123',
+  }),
 })
-.then(r => r.json())
-.then(console.log)
+  .then(r => r.json())
+  .then(console.log);
 ```
 
 ---
@@ -205,6 +218,7 @@ src/
 Los mocks están listos para usar. Solo necesitas:
 
 1. Instalar dependencias (si las necesitas):
+
    ```bash
    npm install msw
    ```
@@ -212,4 +226,3 @@ Los mocks están listos para usar. Solo necesitas:
 2. Importar `MSWProvider` en `app/layout.tsx`
 
 3. ¡Comenzar a desarrollar! 🎉
-

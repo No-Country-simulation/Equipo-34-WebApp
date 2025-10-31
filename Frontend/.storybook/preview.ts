@@ -21,7 +21,7 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => createElement(CoreProviders, null, createElement(Story)),
+    Story => createElement(CoreProviders, null, createElement(Story)),
     withThemeByDataAttribute({
       themes: {
         light: '',

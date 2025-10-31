@@ -1,7 +1,7 @@
 /**
  * Mock data para usuarios de prueba
  * Organizado por rol para testing
- * 
+ *
  * Nota: Los usuarios registrados se guardan en memoria durante la sesión.
  * Al recargar, se pierden (esto es normal en mocks).
  */
@@ -57,7 +57,10 @@ export function getMockUser(email: string): User | null {
   return mockUsers[email] || null;
 }
 
-export function validateMockCredentials(email: string, password: string): boolean {
+export function validateMockCredentials(
+  email: string,
+  password: string
+): boolean {
   const storedPassword = mockPasswords[email];
   return storedPassword !== undefined && password === storedPassword;
 }
@@ -89,7 +92,10 @@ export function deleteMockUser(email: string): boolean {
 /**
  * Actualizar un usuario
  */
-export function updateMockUser(email: string, updates: Partial<User>): User | null {
+export function updateMockUser(
+  email: string,
+  updates: Partial<User>
+): User | null {
   const user = mockUsers[email];
   if (user) {
     mockUsers[email] = { ...user, ...updates };
@@ -101,7 +107,10 @@ export function updateMockUser(email: string, updates: Partial<User>): User | nu
 /**
  * Actualizar la contraseña de un usuario
  */
-export function updateMockUserPassword(email: string, newPassword: string): boolean {
+export function updateMockUserPassword(
+  email: string,
+  newPassword: string
+): boolean {
   if (mockPasswords[email]) {
     mockPasswords[email] = newPassword;
     return true;

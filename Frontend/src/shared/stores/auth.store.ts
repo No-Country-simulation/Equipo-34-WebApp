@@ -1,7 +1,7 @@
 /**
  * Auth Store con Zustand
  * Maneja estado global de autenticación con persistencia en localStorage
- * 
+ *
  * Flujo:
  * 1. Usuario hace login → MSW intercepta y retorna token + user
  * 2. Store guarda en estado + localStorage
@@ -28,14 +28,22 @@ interface AuthState {
   setError: (error: string | null) => void;
 
   // Acciones de negocio
-  login: (email: string, password: string) => Promise<{
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{
     success: boolean;
     message?: string;
   }>;
-  register: (email: string, password: string, name: string, phone: string) => Promise<{ success: boolean; message?: string }>;
+  register: (
+    email: string,
+    password: string,
+    name: string,
+    phone: string
+  ) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   getCurrentUser: () => Promise<User | null>;
-  
+
   // Helpers
   reset: () => void;
   getUserRole: () => UserRole | null;
@@ -57,10 +65,10 @@ export const useAuthStore = create<AuthState>()(
       error: null,
 
       // ============ Setters básicos ============
-      setUser: (user) => set({ user, isAuthenticated: !!user }),
-      setToken: (token) => set({ token }),
-      setLoading: (isLoading) => set({ isLoading }),
-      setError: (error) => set({ error }),
+      setUser: user => set({ user, isAuthenticated: !!user }),
+      setToken: token => set({ token }),
+      setLoading: isLoading => set({ isLoading }),
+      setError: error => set({ error }),
 
       // ============ Login ============
       login: async (email: string, password: string) => {
@@ -75,8 +83,7 @@ export const useAuthStore = create<AuthState>()(
 
           if (!response.ok) {
             const errorData = await response.json();
-            const errorMessage =
-              errorData.message || 'Error en el login';
+            const errorMessage = errorData.message || 'Error en el login';
             set({ error: errorMessage, isLoading: false });
             return { success: false, message: errorMessage };
           }
@@ -103,7 +110,12 @@ export const useAuthStore = create<AuthState>()(
       },
 
       // ============ Register ============
-      register: async (email: string, password: string, name: string, phone: string) => {
+      register: async (
+        email: string,
+        password: string,
+        name: string,
+        phone: string
+      ) => {
         set({ isLoading: true, error: null });
 
         try {
@@ -115,8 +127,7 @@ export const useAuthStore = create<AuthState>()(
 
           if (!response.ok) {
             const errorData = await response.json();
-            const errorMessage =
-              errorData.message || 'Error en el registro';
+            const errorMessage = errorData.message || 'Error en el registro';
             set({ error: errorMessage, isLoading: false });
             return { success: false, message: errorMessage };
           }
@@ -231,7 +242,7 @@ export const useAuthStore = create<AuthState>()(
 
     {
       name: 'auth-store', // Nombre en localStorage
-      partialize: (state) => ({
+      partialize: state => ({
         // Solo persisten token y user
         token: state.token,
         user: state.user,

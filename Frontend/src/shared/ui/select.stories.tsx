@@ -35,7 +35,7 @@ export const Default: Story = {
 
 export const WithLabel: Story = {
   render: () => (
-    <div className="grid gap-2 w-[200px]">
+    <div className="grid w-[200px] gap-2">
       <Label htmlFor="select">Choose a fruit</Label>
       <Select>
         <SelectTrigger id="select">

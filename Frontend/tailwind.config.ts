@@ -2,9 +2,7 @@ import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class', // ✅ IMPORTANTE: Habilita dark mode con clase 'dark' en <html>
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
@@ -60,7 +58,8 @@ const config: Config = {
         'muted-foreground': 'hsl(var(--muted-foreground) / <alpha-value>)',
         'accent-foreground': 'hsl(var(--accent-foreground) / <alpha-value>)',
         destructive: 'hsl(var(--destructive) / <alpha-value>)',
-        'destructive-foreground': 'hsl(var(--destructive-foreground) / <alpha-value>)',
+        'destructive-foreground':
+          'hsl(var(--destructive-foreground) / <alpha-value>)',
         border: 'hsl(var(--border) / <alpha-value>)',
         input: 'hsl(var(--input) / <alpha-value>)',
         ring: 'hsl(var(--ring) / <alpha-value>)',
@@ -87,6 +86,13 @@ const config: Config = {
       },
     },
   },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };
 
 export default config;

@@ -34,9 +34,7 @@ export function AppProviders({ children }: AppProvidersProps) {
     <CoreProviders>
       <MSWProvider>
         <AuthProvider>
-          <AnimationProvider>
-            {children}
-          </AnimationProvider>
+          <AnimationProvider>{children}</AnimationProvider>
         </AuthProvider>
       </MSWProvider>
     </CoreProviders>

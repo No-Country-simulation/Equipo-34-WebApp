@@ -54,7 +54,10 @@ export const WithLongContent: Story = {
     <Alert>
       <AlertTitle>Notice</AlertTitle>
       <AlertDescription>
-        This is a longer alert message with more information. You can include multiple sentences and even paragraphs in the alert description. This is useful for providing detailed information to the user about what happened or what action they should take.
+        This is a longer alert message with more information. You can include
+        multiple sentences and even paragraphs in the alert description. This is
+        useful for providing detailed information to the user about what
+        happened or what action they should take.
       </AlertDescription>
     </Alert>
   ),

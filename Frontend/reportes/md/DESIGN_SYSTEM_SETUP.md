@@ -3,6 +3,7 @@
 ## ✅ Completado
 
 ### 1. Configuración de Tailwind CSS v4
+
 - ✅ Instalación de `@tailwindcss/postcss` (v4) y `tailwindcss` (v4)
 - ✅ Configuración de `postcss.config.mjs` con `@tailwindcss/postcss`
 - ✅ Implementación de `@theme` en `src/styles/globals.css` para CSS variables
@@ -13,6 +14,7 @@
   - **Acento**: Verde esmeralda (#22c55e) para énfasis
 
 ### 2. Estructura de Archivos
+
 ```
 Frontend/
 ├── .storybook/
@@ -48,6 +50,7 @@ Frontend/
 ```
 
 ### 3. Storybook 9.1.13 Configurado
+
 - ✅ Framework: `@storybook/nextjs-vite` (compatible con Next.js 15 + Turbopack)
 - ✅ Addons instalados:
   - `@chromatic-com/storybook` - Pruebas visuales
@@ -64,20 +67,21 @@ Frontend/
 ### 4. CSS Variables Implementadas
 
 #### Variables de Tema (Light Mode por defecto)
+
 ```css
---color-primary: #0ea5e9      /* Azul cielo */
---color-secondary: #64748b    /* Gris pizarra */
---color-accent: #22c55e       /* Verde esmeralda */
---color-background: #ffffff   /* Fondo blanco */
---color-foreground: #09090b   /* Texto oscuro */
---color-border: #e5e7eb       /* Borde gris claro */
---color-input: #f3f4f6        /* Input gris muy claro */
---color-muted: #f5f5f5        /* Muted gris claro */
---color-destructive: #ef4444  /* Rojo para acciones destructivas */
+--color-primary: #0ea5e9 /* Azul cielo */ --color-secondary: #64748b
+  /* Gris pizarra */ --color-accent: #22c55e /* Verde esmeralda */
+  --color-background: #ffffff /* Fondo blanco */ --color-foreground: #09090b
+  /* Texto oscuro */ --color-border: #e5e7eb /* Borde gris claro */
+  --color-input: #f3f4f6 /* Input gris muy claro */ --color-muted: #f5f5f5
+  /* Muted gris claro */ --color-destructive: #ef4444
+  /* Rojo para acciones destructivas */;
 ```
 
 #### Dark Mode
+
 Simplemente agrega clase `dark` al elemento `html`:
+
 ```typescript
 document.documentElement.classList.add('dark')
 ```
@@ -87,6 +91,7 @@ Las variables se actualizarán automáticamente.
 ## 🔧 Configuración Técnica
 
 ### Tailwind v4 Diferencias Clave
+
 1. **Uso de `@theme` en lugar de `:root`**
    - Los colores en `@theme` se convierten automáticamente en utilidades Tailwind
    - Formato: `--color-nombre: valor`
@@ -104,23 +109,26 @@ Las variables se actualizarán automáticamente.
 ### archivos de Configuración
 
 **`postcss.config.mjs`**:
+
 ```javascript
 const config = {
   plugins: {
-    "@tailwindcss/postcss": {},
+    '@tailwindcss/postcss': {},
   },
 };
 export default config;
 ```
 
 **`tailwind.config.ts`**:
+
 - Define extensiones del tema (paletas de colores, animaciones)
 - Lee variables de `src/styles/globals.css` automáticamente
 - Se aplican a través de `@theme` en globals.css
 
 **`src/styles/globals.css`**:
+
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary: #0ea5e9;
@@ -136,6 +144,7 @@ export default config;
 ```
 
 **`.storybook/main.ts`**:
+
 ```typescript
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 
@@ -159,6 +168,7 @@ export default config;
 ```
 
 **`.storybook/preview.ts`**:
+
 ```typescript
 import type { Preview } from '@storybook/nextjs-vite';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
@@ -192,15 +202,15 @@ export default preview;
 
 ## 📦 Componentes Instalados (shadcn/ui)
 
-| Componente | Stories | Variantes |
-|------------|---------|-----------|
-| ✅ Button | ✅ 11 stories | default, destructive, outline, secondary, ghost, link, sizes (sm, lg, icon), disabled |
-| ✅ Card | ✅ 3 stories | default, simple, with long content |
-| ✅ Input | ✅ 7 stories | text, email, password, search, number, disabled, with value |
-| ✅ Label | ✅ 4 stories | default, with input, required, multiple |
-| ✅ Checkbox | ✅ 5 stories | default, checked, disabled, disabled+checked, multiple |
-| ✅ Select | ✅ 5 stories | default, with label, default value, disabled, many options |
-| ✅ Alert | ✅ 6 stories | default, destructive, success, long content, simple, warning |
+| Componente  | Stories       | Variantes                                                                             |
+| ----------- | ------------- | ------------------------------------------------------------------------------------- |
+| ✅ Button   | ✅ 11 stories | default, destructive, outline, secondary, ghost, link, sizes (sm, lg, icon), disabled |
+| ✅ Card     | ✅ 3 stories  | default, simple, with long content                                                    |
+| ✅ Input    | ✅ 7 stories  | text, email, password, search, number, disabled, with value                           |
+| ✅ Label    | ✅ 4 stories  | default, with input, required, multiple                                               |
+| ✅ Checkbox | ✅ 5 stories  | default, checked, disabled, disabled+checked, multiple                                |
+| ✅ Select   | ✅ 5 stories  | default, with label, default value, disabled, many options                            |
+| ✅ Alert    | ✅ 6 stories  | default, destructive, success, long content, simple, warning                          |
 
 **Total**: 7 componentes con 41 stories documentadas en Storybook 🎨
 
@@ -209,10 +219,13 @@ Todos están optimizados para Tailwind v4 y utilizan las CSS variables del siste
 ## 🎨 Cómo Usar
 
 ### Ver Componentes en Storybook
+
 ```bash
 npm run storybook
 ```
+
 Abre http://localhost:6006/ para ver todos los componentes documentados con:
+
 - 📖 Documentación automática (Autodocs)
 - 🎛️ Controles interactivos para props
 - 🌙 Switcher de dark mode en toolbar
@@ -220,6 +233,7 @@ Abre http://localhost:6006/ para ver todos los componentes documentados con:
 - 📱 Viewport responsive testing
 
 ### Aplicar Colores Primarios
+
 ```tsx
 <button className="bg-primary text-white">Acción Principal</button>
 <input className="border-input focus:border-primary" />
@@ -227,6 +241,7 @@ Abre http://localhost:6006/ para ver todos los componentes documentados con:
 ```
 
 ### Cambiar a Dark Mode
+
 ```tsx
 export default function ThemeToggle() {
   const toggleDarkMode = () => {
@@ -238,7 +253,9 @@ export default function ThemeToggle() {
 ```
 
 ### Extender el Sistema de Diseño
+
 En `tailwind.config.ts`:
+
 ```typescript
 theme: {
   extend: {
@@ -250,6 +267,7 @@ theme: {
 ```
 
 En `src/styles/globals.css`:
+
 ```css
 @theme {
   --color-custom: #your-color;
@@ -257,6 +275,7 @@ En `src/styles/globals.css`:
 ```
 
 ### Crear Stories para Nuevos Componentes
+
 ```tsx
 // src/shared/ui/my-component.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
@@ -297,12 +316,14 @@ export const Default: Story = {
 ## 📝 Notas Importantes
 
 ### Tailwind CSS v4
+
 - **Tailwind v4 no es compatible con `@apply` dentro de `@layer`** en el mismo contexto
 - **Usa CSS directo** en `src/styles/globals.css` para estilos globales
 - **Los componentes shadcn/ui** generan las clases automáticamente
 - **Las CSS variables** deben tener prefijo consistente: `--color-*`
 
 ### Storybook
+
 - **No necesita addon de Tailwind** porque `@storybook/nextjs-vite` maneja PostCSS automáticamente
 - **Usa `withThemeByDataAttribute`** para el switcher de dark mode
 - **Stories se auto-descubren** en `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
@@ -310,6 +331,7 @@ export const Default: Story = {
 - **Tests de accesibilidad** se ejecutan automáticamente en cada story
 
 ### Comandos Útiles
+
 ```bash
 # Desarrollo
 npm run dev              # Next.js en http://localhost:3001
@@ -324,6 +346,7 @@ npx vitest               # Ejecutar tests con Vitest
 ```
 
 ## 🔗 Referencias
+
 - [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
 - [Tailwind CSS Theme Customization](https://tailwindcss.com/docs/theme)
 - [Dark Mode Support](https://tailwindcss.com/docs/dark-mode)

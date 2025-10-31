@@ -1,7 +1,7 @@
 /**
  * RegisterForm - Componente funcional de registro
  * Integrado con Zustand auth store y MSW mocks
- * 
+ *
  * Flujo:
  * 1. Usuario ingresa datos (nombre, email, password)
  * 2. Llama a store.register() (que llama a /api/auth/register - interceptado por MSW)
@@ -80,7 +80,12 @@ export default function RegisterForm() {
       return;
     }
 
-    const result = await register(formData.email, formData.password, formData.name, formData.phone);
+    const result = await register(
+      formData.email,
+      formData.password,
+      formData.name,
+      formData.phone
+    );
 
     if (result.success) {
       // Registro exitoso, redirigir al dashboard
@@ -90,11 +95,11 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 transition-colors">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 transition-colors dark:bg-gray-900">
       {/* Botón de regreso a landing */}
       <button
         onClick={() => router.push('/')}
-        className="absolute top-4 left-4 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"
+        className="absolute top-4 left-4 rounded-full p-2 text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
         title={t('auth.register.backToHome')}
       >
         ← {t('common.back')}
@@ -106,7 +111,7 @@ export default function RegisterForm() {
         <LanguageSwitcher />
       </div>
 
-      <div className="w-full max-w-md rounded-lg bg-white dark:bg-gray-800 p-8 shadow-md transition-colors">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md transition-colors dark:bg-gray-800">
         <h1 className="mb-6 text-center text-2xl font-bold dark:text-white">
           {t('common.appName')} - {t('auth.register.title')}
         </h1>
@@ -114,79 +119,103 @@ export default function RegisterForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nombre */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               {t('auth.register.name')}
             </label>
             <input
               id="name"
               type="text"
               value={formData.name}
-              onChange={(e) => {
+              onChange={e => {
                 setFormData({ ...formData, name: e.target.value });
                 if (validationErrors.name) {
                   setValidationErrors({ ...validationErrors, name: undefined });
                 }
               }}
               placeholder={t('auth.register.namePlaceholder')}
-              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               disabled={isLoading}
             />
             {validationErrors.name && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.name}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                {validationErrors.name}
+              </p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               {t('auth.register.email')}
             </label>
             <input
               id="email"
               type="email"
               value={formData.email}
-              onChange={(e) => {
+              onChange={e => {
                 setFormData({ ...formData, email: e.target.value });
                 if (validationErrors.email) {
-                  setValidationErrors({ ...validationErrors, email: undefined });
+                  setValidationErrors({
+                    ...validationErrors,
+                    email: undefined,
+                  });
                 }
               }}
               placeholder={t('auth.register.emailPlaceholder')}
-              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               disabled={isLoading}
             />
             {validationErrors.email && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.email}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                {validationErrors.email}
+              </p>
             )}
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               {t('auth.register.phone')}
             </label>
             <input
               id="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => {
+              onChange={e => {
                 setFormData({ ...formData, phone: e.target.value });
                 if (validationErrors.phone) {
-                  setValidationErrors({ ...validationErrors, phone: undefined });
+                  setValidationErrors({
+                    ...validationErrors,
+                    phone: undefined,
+                  });
                 }
               }}
               placeholder={t('auth.register.phonePlaceholder')}
-              className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               disabled={isLoading}
             />
             {validationErrors.phone && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.phone}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                {validationErrors.phone}
+              </p>
             )}
           </div>
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               {t('auth.register.password')}
             </label>
             <div className="relative">
@@ -194,33 +223,41 @@ export default function RegisterForm() {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={formData.password}
-                onChange={(e) => {
+                onChange={e => {
                   setFormData({ ...formData, password: e.target.value });
                   if (validationErrors.password) {
-                    setValidationErrors({ ...validationErrors, password: undefined });
+                    setValidationErrors({
+                      ...validationErrors,
+                      password: undefined,
+                    });
                   }
                 }}
                 placeholder={t('auth.register.passwordPlaceholder')}
-                className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 disabled={isLoading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 title={showPassword ? 'Ocultar' : 'Ver'}
               >
                 {showPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {validationErrors.password && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.password}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                {validationErrors.password}
+              </p>
             )}
           </div>
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               {t('auth.register.confirmPassword')}
             </label>
             <div className="relative">
@@ -228,34 +265,41 @@ export default function RegisterForm() {
                 id="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={formData.confirmPassword}
-                onChange={(e) => {
+                onChange={e => {
                   setFormData({ ...formData, confirmPassword: e.target.value });
                   if (validationErrors.confirmPassword) {
-                    setValidationErrors({ ...validationErrors, confirmPassword: undefined });
+                    setValidationErrors({
+                      ...validationErrors,
+                      confirmPassword: undefined,
+                    });
                   }
                 }}
                 placeholder={t('auth.register.confirmPasswordPlaceholder')}
-                className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 disabled={isLoading}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 title={showConfirmPassword ? 'Ocultar' : 'Ver'}
               >
                 {showConfirmPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {validationErrors.confirmPassword && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">{validationErrors.confirmPassword}</p>
+              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                {validationErrors.confirmPassword}
+              </p>
             )}
           </div>
 
           {/* Error General */}
           {error && (
-            <div className="rounded-md bg-red-50 dark:bg-red-900/30 p-3">
-              <p className="text-sm text-red-800 dark:text-red-200">❌ {error}</p>
+            <div className="rounded-md bg-red-50 p-3 dark:bg-red-900/30">
+              <p className="text-sm text-red-800 dark:text-red-200">
+                ❌ {error}
+              </p>
             </div>
           )}
 
@@ -263,14 +307,16 @@ export default function RegisterForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-md bg-indigo-600 dark:bg-indigo-500 px-4 py-2 text-white font-medium hover:bg-indigo-700 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="w-full rounded-md bg-indigo-600 px-4 py-2 font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-500 dark:hover:bg-indigo-600"
           >
-            {isLoading ? t('auth.register.submitting') : t('auth.register.submit')}
+            {isLoading
+              ? t('auth.register.submitting')
+              : t('auth.register.submit')}
           </button>
         </form>
 
         {/* Info Box */}
-        <div className="mt-6 rounded-md bg-indigo-50 dark:bg-indigo-900/30 p-3">
+        <div className="mt-6 rounded-md bg-indigo-50 p-3 dark:bg-indigo-900/30">
           <p className="text-xs font-semibold text-indigo-900 dark:text-indigo-200">
             ℹ️ {t('auth.register.info')}
           </p>
@@ -282,7 +328,7 @@ export default function RegisterForm() {
             {t('auth.register.hasAccount')}{' '}
             <button
               onClick={() => router.push('/login')}
-              className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition"
+              className="font-semibold text-indigo-600 transition hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               {t('auth.register.loginHere')}
             </button>
@@ -291,7 +337,7 @@ export default function RegisterForm() {
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             <button
               onClick={() => router.push('/')}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium transition"
+              className="font-medium text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
               ← {t('auth.register.backToHome')}
             </button>

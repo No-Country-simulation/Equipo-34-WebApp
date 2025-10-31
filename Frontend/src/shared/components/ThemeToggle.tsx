@@ -25,7 +25,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+        className="rounded-md p-2 transition hover:bg-gray-200 dark:hover:bg-gray-700"
         aria-label="Toggle theme"
       >
         🌓
@@ -36,7 +36,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={handleToggle}
-      className="rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      className="rounded-md p-2 transition hover:bg-gray-200 dark:hover:bg-gray-700"
       aria-label="Toggle theme"
       title={`Cambiar a modo ${resolvedTheme === 'dark' ? 'claro' : 'oscuro'}`}
     >

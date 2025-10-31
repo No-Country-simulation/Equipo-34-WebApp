@@ -1,6 +1,6 @@
 /**
  * Next.js Middleware
- * 
+ *
  * Maneja:
  * 1. Internacionalización (i18n) con next-intl
  * 2. Autenticación y protección de rutas
@@ -17,15 +17,15 @@ import { locales } from './src/shared/config/i18n';
 const i18nMiddleware = createMiddleware({
   // Lista de todos los locales soportados
   locales,
-  
+
   // Locale por defecto
   defaultLocale: 'es',
-  
+
   // Estrategia de prefijo de locale
   // 'as-needed': solo agrega prefijo si no es el locale por defecto
   // 'always': siempre agrega el prefijo
   localePrefix: 'as-needed',
-  
+
   // Detectar locale del navegador automáticamente
   localeDetection: true,
 });
@@ -46,7 +46,7 @@ const publicRoutes = [
 // ============================================
 // Rutas protegidas por rol
 // ============================================
-const roleBasedRoutes = {
+const _roleBasedRoutes = {
   admin: ['/admin', 'administrator'],
   doctor: ['/medico', '/doctor'],
   patient: ['/paciente', '/patient'],
@@ -78,7 +78,9 @@ function shouldSkipMiddleware(pathname: string): boolean {
 function isPublicRoute(pathname: string): boolean {
   // Remover locale prefix si existe
   const cleanPath = pathname.replace(/^\/(es|en)/, '') || '/';
-  return publicRoutes.some(route => cleanPath === route || cleanPath.startsWith(route));
+  return publicRoutes.some(
+    route => cleanPath === route || cleanPath.startsWith(route)
+  );
 }
 
 /**

@@ -23,12 +23,14 @@ Esta carpeta contiene una **feature de ejemplo** que sirve como **plantilla arqu
 ## 📦 Responsabilidades de cada capa
 
 ### 1. **Domain** (Dominio)
+
 - ✅ Define entidades e interfaces puras
 - ✅ Contiene reglas de negocio (validaciones, lógica de dominio)
 - ❌ NO debe depender de servicios externos
 - ❌ NO debe contener lógica de UI
 
 **Ejemplo:**
+
 ```typescript
 export interface IExampleEntity {
   readonly id: string;
@@ -42,12 +44,14 @@ export const ExampleBusinessRules = {
 ```
 
 ### 2. **Services** (Servicios)
+
 - ✅ Maneja comunicación con el backend
 - ✅ Define DTOs (Data Transfer Objects)
 - ✅ Retorna datos en formato API (no dominio)
 - ❌ NO debe contener lógica de negocio
 
 **Ejemplo:**
+
 ```typescript
 export class ExampleService {
   async getAll(): Promise<PaginatedResponseDTO<ExampleDTO>> {
@@ -58,12 +62,14 @@ export class ExampleService {
 ```
 
 ### 3. **Adapters** (Adaptadores)
+
 - ✅ Mapea DTOs del API a entidades del dominio
 - ✅ Transforma datos de dominio a DTOs para el API
 - ❌ NO debe contener lógica de negocio
 - ❌ NO debe llamar directamente a servicios
 
 **Ejemplo:**
+
 ```typescript
 export function mapDTOToEntity(dto: ExampleDTO): IExampleEntity {
   return {
@@ -76,6 +82,7 @@ export function mapDTOToEntity(dto: ExampleDTO): IExampleEntity {
 ```
 
 ### 4. **Use Cases** (Casos de Uso)
+
 - ✅ Orquesta servicios, adapters y reglas de negocio
 - ✅ Maneja estado de la aplicación
 - ✅ Retorna datos del dominio (no DTOs)
@@ -83,21 +90,23 @@ export function mapDTOToEntity(dto: ExampleDTO): IExampleEntity {
 - ❌ NO debe acceder directamente al backend
 
 **Ejemplo:**
+
 ```typescript
 export function useExampleUseCase() {
   const [state, setState] = useState({...});
-  
+
   const fetchData = async () => {
     const response = await exampleService.getAll();
     const entities = ExampleAdapter.toDomain.paginated(response);
     setState({ data: entities });
   };
-  
+
   return { data: state.data, fetchData };
 }
 ```
 
 ### 5. **Components** (Componentes UI)
+
 - ✅ Componentes de presentación puros
 - ✅ Reciben datos via props
 - ✅ Emiten eventos via callbacks
@@ -105,6 +114,7 @@ export function useExampleUseCase() {
 - ❌ NO deben llamar directamente a servicios
 
 **Ejemplo:**
+
 ```tsx
 export function ExampleUI({ data, loading, onRefresh }) {
   return (
@@ -117,6 +127,7 @@ export function ExampleUI({ data, loading, onRefresh }) {
 ```
 
 ### 6. **Container** (Contenedor)
+
 - ✅ Punto de entrada de la feature
 - ✅ Conecta casos de uso con componentes UI
 - ✅ Maneja handlers y callbacks
@@ -124,15 +135,16 @@ export function ExampleUI({ data, loading, onRefresh }) {
 - ❌ NO debe contener JSX complejo (delegar a componentes)
 
 **Ejemplo:**
+
 ```tsx
 export function ExampleContainer() {
   const { data, loading, fetchData } = useExampleUseCase();
-  
+
   return (
-    <ExampleUI 
-      data={data} 
-      loading={loading} 
-      onRefresh={fetchData} 
+    <ExampleUI
+      data={data}
+      loading={loading}
+      onRefresh={fetchData}
     />
   );
 }
@@ -157,12 +169,14 @@ export function ExampleContainer() {
 ## 🎯 Cómo usar esta plantilla
 
 ### Opción 1: Copiar la carpeta completa
+
 ```bash
 cd src/features
 cp -r example-feature mi-nueva-feature
 ```
 
 ### Opción 2: Crear desde cero siguiendo la estructura
+
 ```bash
 mkdir -p src/features/mi-feature/{domain,use-cases,adapters,services,components}
 ```
@@ -170,6 +184,7 @@ mkdir -p src/features/mi-feature/{domain,use-cases,adapters,services,components}
 ### Paso a paso:
 
 1. **Copiar la carpeta**
+
    ```bash
    cp -r src/features/example-feature src/features/mi-feature
    ```
@@ -182,6 +197,7 @@ mkdir -p src/features/mi-feature/{domain,use-cases,adapters,services,components}
    - `ExampleUI.tsx` → `MiFeatureUI.tsx`
 
 3. **Actualizar importaciones y exports**
+
    ```typescript
    // En index.ts
    export { MiFeatureContainer } from './MiFeatureContainer';
@@ -189,10 +205,11 @@ mkdir -p src/features/mi-feature/{domain,use-cases,adapters,services,components}
    ```
 
 4. **Crear la página que usa la feature**
+
    ```tsx
    // src/app/(role)/mi-ruta/page.tsx
    import { MiFeatureContainer } from '@/features/mi-feature';
-   
+
    export default function Page() {
      return <MiFeatureContainer />;
    }
@@ -223,6 +240,7 @@ mkdir -p src/features/mi-feature/{domain,use-cases,adapters,services,components}
 ## 🚫 Antipatrones a evitar
 
 ❌ **NO hacer:** Llamar servicios directamente desde componentes UI
+
 ```tsx
 // ❌ MAL
 function MyComponent() {
@@ -232,6 +250,7 @@ function MyComponent() {
 ```
 
 ✅ **SÍ hacer:** Usar el caso de uso
+
 ```tsx
 // ✅ BIEN
 function MyContainer() {
@@ -241,6 +260,7 @@ function MyContainer() {
 ```
 
 ❌ **NO hacer:** Mezclar lógica de negocio en UI
+
 ```tsx
 // ❌ MAL
 function MyUI({ item }) {
@@ -249,6 +269,7 @@ function MyUI({ item }) {
 ```
 
 ✅ **SÍ hacer:** Validar en dominio/caso de uso
+
 ```typescript
 // ✅ BIEN (en domain/types.ts)
 export const BusinessRules = {

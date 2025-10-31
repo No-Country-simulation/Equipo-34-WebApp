@@ -11,7 +11,7 @@ export type Locale = 'es' | 'en';
 interface LocaleState {
   // Estado
   locale: Locale;
-  
+
   // Acciones
   setLocale: (locale: Locale) => void;
   toggleLocale: () => void;
@@ -37,7 +37,7 @@ export const useLocaleStore = create<LocaleState>()(
         console.log('🌍 toggleLocale - current:', current);
         const newLocale: Locale = current === 'es' ? 'en' : 'es';
         console.log('🌍 toggleLocale - new:', newLocale);
-        
+
         set({ locale: newLocale });
       },
     }),
@@ -51,13 +51,13 @@ export const useLocaleStore = create<LocaleState>()(
  * Detectar el idioma del navegador
  */
 export function getBrowserLocale(): Locale {
-  if (typeof window === 'undefined') return 'es';
-  
+  if (globalThis.window === undefined) return 'es';
+
   const browserLang = navigator.language.toLowerCase();
-  
+
   // Si el navegador está en inglés, usar 'en', sino 'es'
   if (browserLang.startsWith('en')) return 'en';
-  
+
   return 'es';
 }
 
@@ -66,13 +66,13 @@ export function getBrowserLocale(): Locale {
  * Si no hay locale guardado, detectar del navegador
  */
 export function initializeLocale() {
-  if (typeof window === 'undefined') return;
-  
+  if (globalThis.window === undefined) return;
+
   const state = useLocaleStore.getState();
-  
+
   // Verificar si hay algo guardado en localStorage
   const stored = localStorage.getItem('locale-storage');
-  
+
   if (!stored) {
     // Si no hay nada guardado, detectar del navegador
     const browserLocale = getBrowserLocale();

@@ -34,34 +34,35 @@ export type TranslationKey = NestedKeys<typeof es>;
  */
 export function useTranslations() {
   const { locale } = useLocaleStore();
-  
+
   const t = (key: string, vars?: Record<string, string | number>): string => {
     const keys = key.split('.');
-    let value: any = translations[locale];
-    
+    let value: unknown = translations[locale];
+
     for (const k of keys) {
       if (value && typeof value === 'object') {
-        value = value[k];
+        value = (value as Record<string, unknown>)[k];
       } else {
         return key; // Si no existe la clave, devolver la clave
       }
     }
-    
+
     if (typeof value !== 'string') {
       return key;
     }
-    
+
     // Reemplazar variables {var} en el texto
     if (vars) {
       return Object.entries(vars).reduce(
-        (text, [varKey, varValue]) => text.replace(`{${varKey}}`, String(varValue)),
+        (text, [varKey, varValue]) =>
+          text.replace(`{${varKey}}`, String(varValue)),
         value
       );
     }
-    
+
     return value;
   };
-  
+
   return t;
 }
 

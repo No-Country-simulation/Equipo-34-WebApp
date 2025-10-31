@@ -3,7 +3,13 @@
  */
 
 import { http, HttpResponse } from 'msw';
-import { getAllMockUsers, deleteMockUser, updateMockUser, updateMockUserPassword, getMockUserPassword } from '../data/users.mock';
+import {
+  getAllMockUsers,
+  deleteMockUser,
+  updateMockUser,
+  updateMockUserPassword,
+  getMockUserPassword,
+} from '../data/users.mock';
 
 export const adminHandlers = [
   /**
@@ -81,7 +87,7 @@ export const adminHandlers = [
   http.put('*/api/admin/users/:email', async ({ params, request }) => {
     try {
       const { email } = params;
-      const body = await request.json() as any;
+      const body = (await request.json()) as any;
 
       const updated = updateMockUser(email as string, body);
 
@@ -159,51 +165,57 @@ export const adminHandlers = [
    * POST /api/admin/users/:email/password
    * Actualiza la contraseña de un usuario
    */
-  http.post('*/api/admin/users/:email/password', async ({ params, request }) => {
-    try {
-      const { email } = params;
-      const body = await request.json() as any;
+  http.post(
+    '*/api/admin/users/:email/password',
+    async ({ params, request }) => {
+      try {
+        const { email } = params;
+        const body = (await request.json()) as any;
 
-      if (!body.newPassword) {
+        if (!body.newPassword) {
+          return HttpResponse.json(
+            {
+              status: 400,
+              message: 'Nueva contraseña es requerida',
+              code: 'MISSING_PASSWORD',
+            },
+            { status: 400 }
+          );
+        }
+
+        const updated = updateMockUserPassword(
+          email as string,
+          body.newPassword
+        );
+
+        if (!updated) {
+          return HttpResponse.json(
+            {
+              status: 404,
+              message: 'Usuario no encontrado',
+              code: 'USER_NOT_FOUND',
+            },
+            { status: 404 }
+          );
+        }
+
         return HttpResponse.json(
           {
-            status: 400,
-            message: 'Nueva contraseña es requerida',
-            code: 'MISSING_PASSWORD',
+            message: 'Contraseña actualizada correctamente',
           },
-          { status: 400 }
+          { status: 200 }
         );
-      }
-
-      const updated = updateMockUserPassword(email as string, body.newPassword);
-
-      if (!updated) {
+      } catch (error) {
+        console.error('[MSW] Update password error:', error);
         return HttpResponse.json(
           {
-            status: 404,
-            message: 'Usuario no encontrado',
-            code: 'USER_NOT_FOUND',
+            status: 500,
+            message: 'Error al actualizar contraseña',
+            code: 'UPDATE_PASSWORD_ERROR',
           },
-          { status: 404 }
+          { status: 500 }
         );
       }
-
-      return HttpResponse.json(
-        {
-          message: 'Contraseña actualizada correctamente',
-        },
-        { status: 200 }
-      );
-    } catch (error) {
-      console.error('[MSW] Update password error:', error);
-      return HttpResponse.json(
-        {
-          status: 500,
-          message: 'Error al actualizar contraseña',
-          code: 'UPDATE_PASSWORD_ERROR',
-        },
-        { status: 500 }
-      );
     }
-  }),
+  ),
 ];

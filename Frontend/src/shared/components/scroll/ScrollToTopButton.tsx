@@ -1,60 +1,63 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { ChevronUp } from "lucide-react"
-import { Button } from "@/shared/ui/button"
-import { cn } from "@/shared/lib/utils"
+import { useState, useEffect } from 'react';
+import { ChevronUp } from 'lucide-react';
+import { Button } from '@/shared/ui/button';
+import { cn } from '@/shared/lib/utils';
 
 export function ScrollToTopButton() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   // Show button when page is scrolled down
   const toggleVisibility = () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollTop > 100) {
-      setIsVisible(true)
+      setIsVisible(true);
     } else {
-      setIsVisible(false)
+      setIsVisible(false);
     }
-  }
+  };
 
   // Set up scroll event listener
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility, { passive: true })
-    document.addEventListener("scroll", toggleVisibility, { passive: true })
-    
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    document.addEventListener('scroll', toggleVisibility, { passive: true });
+
     // Initial check
-    toggleVisibility()
-    
+    toggleVisibility();
+
     return () => {
-      window.removeEventListener("scroll", toggleVisibility)
-      document.removeEventListener("scroll", toggleVisibility)
-    }
-  }, [])
+      window.removeEventListener('scroll', toggleVisibility);
+      document.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
 
   // Scroll to top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
-    })
+      behavior: 'smooth',
+    });
     // Fallback for better compatibility
     document.documentElement.scrollTo({
       top: 0,
-      behavior: "smooth",
-    })
-  }
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <Button
       onClick={scrollToTop}
       className={cn(
-        "fixed bottom-6 right-6 z-50 rounded-full w-12 h-12 p-0 bg-linear-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-lg transition-all duration-300 flex items-center justify-center",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
+        'fixed right-6 bottom-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-cyan-500 to-blue-500 p-0 shadow-lg transition-all duration-300 hover:from-cyan-600 hover:to-blue-600',
+        isVisible
+          ? 'translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-10 opacity-0'
       )}
       aria-label="Scroll to top"
     >
       <ChevronUp className="h-5 w-5" />
     </Button>
-  )
+  );
 }

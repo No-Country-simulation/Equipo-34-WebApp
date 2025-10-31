@@ -1,6 +1,6 @@
 /**
  * Example Use Case
- * 
+ *
  * Contiene la lógica de aplicación para la feature de ejemplo.
  * Orquesta servicios, adapters y reglas de negocio.
  */
@@ -48,7 +48,7 @@ export function useExampleUseCase() {
    * Obtiene la lista de ejemplos con filtros y paginación
    */
   const fetchData = useCallback(async () => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+    setState(prev => ({ ...prev, loading: true, error: null }));
 
     try {
       const response = await exampleService.getAll({
@@ -60,13 +60,13 @@ export function useExampleUseCase() {
 
       const result = ExampleAdapter.toDomain.paginated(response);
 
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         data: result,
         loading: false,
       }));
     } catch (error) {
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to fetch data',
         loading: false,
@@ -78,13 +78,13 @@ export function useExampleUseCase() {
    * Obtiene un ejemplo por ID
    */
   const fetchById = useCallback(async (id: string) => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+    setState(prev => ({ ...prev, loading: true, error: null }));
 
     try {
       const dto = await exampleService.getById(id);
       const entity = ExampleAdapter.toDomain.single(dto);
 
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         selectedItem: entity,
         loading: false,
@@ -92,7 +92,7 @@ export function useExampleUseCase() {
 
       return entity;
     } catch (error) {
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to fetch item',
         loading: false,
@@ -108,7 +108,7 @@ export function useExampleUseCase() {
     async (title: string, description: string, status?: ExampleStatus) => {
       // Validaciones de negocio
       if (!ExampleBusinessRules.isValidTitle(title)) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           error: 'El título debe tener entre 3 y 100 caracteres',
         }));
@@ -116,14 +116,14 @@ export function useExampleUseCase() {
       }
 
       if (!ExampleBusinessRules.isValidDescription(description)) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           error: 'La descripción debe tener entre 10 y 500 caracteres',
         }));
         return null;
       }
 
-      setState((prev) => ({ ...prev, loading: true, error: null }));
+      setState(prev => ({ ...prev, loading: true, error: null }));
 
       try {
         const dto = await exampleService.create({
@@ -137,13 +137,14 @@ export function useExampleUseCase() {
         // Refrescar la lista
         await fetchData();
 
-        setState((prev) => ({ ...prev, loading: false }));
+        setState(prev => ({ ...prev, loading: false }));
 
         return entity;
       } catch (error) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
-          error: error instanceof Error ? error.message : 'Failed to create item',
+          error:
+            error instanceof Error ? error.message : 'Failed to create item',
           loading: false,
         }));
         return null;
@@ -156,25 +157,31 @@ export function useExampleUseCase() {
    * Actualiza un ejemplo existente
    */
   const update = useCallback(
-    async (id: string, updates: { title?: string; description?: string; status?: ExampleStatus }) => {
+    async (
+      id: string,
+      updates: { title?: string; description?: string; status?: ExampleStatus }
+    ) => {
       // Validaciones de negocio
       if (updates.title && !ExampleBusinessRules.isValidTitle(updates.title)) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           error: 'El título debe tener entre 3 y 100 caracteres',
         }));
         return null;
       }
 
-      if (updates.description && !ExampleBusinessRules.isValidDescription(updates.description)) {
-        setState((prev) => ({
+      if (
+        updates.description &&
+        !ExampleBusinessRules.isValidDescription(updates.description)
+      ) {
+        setState(prev => ({
           ...prev,
           error: 'La descripción debe tener entre 10 y 500 caracteres',
         }));
         return null;
       }
 
-      setState((prev) => ({ ...prev, loading: true, error: null }));
+      setState(prev => ({ ...prev, loading: true, error: null }));
 
       try {
         const dto = await exampleService.update(id, updates);
@@ -183,13 +190,14 @@ export function useExampleUseCase() {
         // Refrescar la lista
         await fetchData();
 
-        setState((prev) => ({ ...prev, loading: false }));
+        setState(prev => ({ ...prev, loading: false }));
 
         return entity;
       } catch (error) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
-          error: error instanceof Error ? error.message : 'Failed to update item',
+          error:
+            error instanceof Error ? error.message : 'Failed to update item',
           loading: false,
         }));
         return null;
@@ -203,7 +211,7 @@ export function useExampleUseCase() {
    */
   const deleteItem = useCallback(
     async (id: string) => {
-      setState((prev) => ({ ...prev, loading: true, error: null }));
+      setState(prev => ({ ...prev, loading: true, error: null }));
 
       try {
         await exampleService.delete(id);
@@ -211,13 +219,14 @@ export function useExampleUseCase() {
         // Refrescar la lista
         await fetchData();
 
-        setState((prev) => ({ ...prev, loading: false }));
+        setState(prev => ({ ...prev, loading: false }));
 
         return true;
       } catch (error) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
-          error: error instanceof Error ? error.message : 'Failed to delete item',
+          error:
+            error instanceof Error ? error.message : 'Failed to delete item',
           loading: false,
         }));
         return false;
@@ -232,7 +241,7 @@ export function useExampleUseCase() {
   const archive = useCallback(
     async (entity: IExampleEntity) => {
       if (!ExampleBusinessRules.canBeArchived(entity)) {
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           error: 'Solo se pueden archivar elementos inactivos',
         }));
@@ -248,7 +257,7 @@ export function useExampleUseCase() {
    * Actualiza los filtros
    */
   const setFilters = useCallback((filters: IExampleFilters) => {
-    setState((prev) => ({
+    setState(prev => ({
       ...prev,
       filters,
       pagination: { ...prev.pagination, page: 1 }, // Reset a página 1
@@ -259,14 +268,14 @@ export function useExampleUseCase() {
    * Actualiza la paginación
    */
   const setPagination = useCallback((pagination: IPaginationParams) => {
-    setState((prev) => ({ ...prev, pagination }));
+    setState(prev => ({ ...prev, pagination }));
   }, []);
 
   /**
    * Limpia el error
    */
   const clearError = useCallback(() => {
-    setState((prev) => ({ ...prev, error: null }));
+    setState(prev => ({ ...prev, error: null }));
   }, []);
 
   return {

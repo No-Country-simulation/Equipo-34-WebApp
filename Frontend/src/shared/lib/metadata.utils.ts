@@ -12,7 +12,7 @@ export function getPageNameFromPathname(pathname: string): string {
   // Obtener el último segmento de la ruta
   const segments = pathname.split('/').filter(Boolean);
   const lastSegment = segments[segments.length - 1] || 'Home';
-  
+
   // Capitalizar la primera letra y reemplazar guiones con espacios
   return lastSegment
     .split('-')
