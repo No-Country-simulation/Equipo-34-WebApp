@@ -39,8 +39,8 @@ medical_center_router.get(
   }
 );
 
-medical_center_router.post(
-  "/",
+medical_center_router.get(
+  "/search",
   async (req: Request, res: Response, next: NextFunction) => {
     const page = req.params.page ? Number(req.params.page) : 1;
     const limit = req.params.limit ? Number(req.params.limit) : 10;
