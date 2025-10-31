@@ -39,3 +39,4 @@ package-lock.json
 
 #Prisma
 src/infrastructure/external/DataBases/generated/prisma
+.vercel
